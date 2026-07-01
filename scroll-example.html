@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>F1 Ebikes — scroll reveal (example)</title>
+  <title>F1 Ebikes - scroll reveal (example)</title>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
     *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --accent: #d7ff00;
       --ease: cubic-bezier(0.22, 1, 0.36, 1);
-      /* one shared hero background — the bike sits on this, never on white */
+      /* one shared hero background - the bike sits on this, never on white */
       --hero-bg: linear-gradient(180deg, #272b31 0%, #424851 55%, #555c65 100%);
     }
     body { font-family: "Archivo", system-ui, sans-serif; background: #0a0a0a; color: #fff; overflow-x: hidden; }
@@ -81,7 +81,7 @@
 <body>
   <section class="intro-spacer">
     <div>
-      <p>F1 — EXR</p>
+      <p>F1 - EXR</p>
       <h1>Scroll to reveal</h1>
       <div class="scroll-hint">↓ scroll ↓</div>
     </div>
@@ -93,9 +93,9 @@
       <canvas class="reveal-canvas" id="canvas"></canvas>
       <div class="reveal-scrim"></div>
       <div class="reveal-copy" id="copy">
-        <div class="eyebrow">The F1 — EXR</div>
+        <div class="eyebrow">The F1 - EXR</div>
         <h2>A new era of riding.</h2>
-        <p>Scroll to orbit the bike — it holds on the dark studio, never a white panel.</p>
+        <p>Scroll to orbit the bike - it holds on the dark studio, never a white panel.</p>
       </div>
       <div class="reveal-label">Engineered to the last detail</div>
       <div class="reveal-counter" id="counter">01 / 20</div>
@@ -109,7 +109,7 @@
   <script>
     (function () {
       // Use ONLY the dark-background frames (1..20). The source turns white after ~frame 20,
-      // so we deliberately stop the scrub at the 3/4 view and hold — no white ever appears.
+      // so we deliberately stop the scrub at the 3/4 view and hold - no white ever appears.
       var FIRST = 1, LAST = 20;
       var COUNT = LAST - FIRST + 1;
       var HOLD = 0.18;            // last 18% of the track holds the final frame (no white, no loop)
@@ -147,13 +147,13 @@
         var img = images[idx];
         if (!img || !img.naturalWidth) return;
 
-        // object-fit: COVER — fill the whole stage, no letterbox, no box, no visible edges
+        // object-fit: COVER - fill the whole stage, no letterbox, no box, no visible edges
         var scale = Math.max(cw / img.naturalWidth, ch / img.naturalHeight);
         // tiny dolly: pull back ~6% across the scrub so it breathes (camera height stays locked)
         scale *= (1.06 - 0.06 * fp);
         var w = img.naturalWidth * scale, h = img.naturalHeight * scale;
         var dx = (cw - w) * 0.58;   // bias right so the bike clears the left copy
-        var dy = (ch - h) * 0.5;    // vertically centred — camera height never shifts
+        var dy = (ch - h) * 0.5;    // vertically centred - camera height never shifts
         ctx.drawImage(img, dx, dy, w, h);
 
         counter.textContent = String(idx + 1).padStart(2, "0") + " / " + String(COUNT).padStart(2, "0");

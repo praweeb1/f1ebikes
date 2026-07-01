@@ -1,5 +1,5 @@
 /* ============================================================
-   F1 Ebikes — client-side cart (no backend, no dependencies)
+   F1 Ebikes - client-side cart (no backend, no dependencies)
    Self-contained: injects a slide-out drawer, wires the nav cart icons, and
    intercepts the ".prod__add" (Add to cart) buttons on every product page.
    State lives in localStorage so the cart follows the visitor across pages.
@@ -26,6 +26,16 @@
     if (el) { var m = el.textContent.replace(/[^0-9.]/g, ""); if (m) return parseFloat(m); }
     return 0;
   }
+  // Core add: {id, name, price, img, url, qty?}. Increments an existing line by qty (default 1).
+  function addItem(o) {
+    if (!o || o.id == null) return;
+    var q = (o.qty && o.qty > 0) ? o.qty : 1;
+    var existing = null;
+    for (var i = 0; i < items.length; i++) if (items[i].id === o.id) { existing = items[i]; break; }
+    if (existing) existing.qty += q;
+    else items.push({ id: o.id, name: o.name || "Item", price: +o.price || 0, img: o.img || "", url: o.url || STORE, qty: q });
+    write(); render(); open();
+  }
   function addFromCard(prod) {
     var nameEl = prod.querySelector(".prod__name");
     var linkEl = prod.querySelector(".prod__link, .prod__name, .prod__add");
@@ -34,12 +44,7 @@
     var url = linkEl ? (linkEl.getAttribute("href") || STORE) : STORE;
     var id = (url && url.indexOf("http") === 0) ? url : name;
     var img = imgEl ? imgEl.getAttribute("src") : "";
-    var price = parsePrice(prod);
-    var existing = null;
-    for (var i = 0; i < items.length; i++) if (items[i].id === id) { existing = items[i]; break; }
-    if (existing) existing.qty += 1;
-    else items.push({ id: id, name: name, price: price, img: img, url: url, qty: 1 });
-    write(); render(); open();
+    addItem({ id: id, name: name, price: parsePrice(prod), img: img, url: url });
   }
   function find(id) { for (var i = 0; i < items.length; i++) if (items[i].id === id) return items[i]; return null; }
   function setQty(id, delta) {
@@ -156,7 +161,7 @@
     Array.prototype.forEach.call(adds, function (btn) {
       btn.addEventListener("click", function (e) {
         var prod = btn.closest(".prod");
-        if (!prod) return;                 // not a product card — leave default behaviour
+        if (!prod) return;                 // not a product card - leave default behaviour
         e.preventDefault();
         addFromCard(prod);
       });
@@ -165,6 +170,9 @@
 
   // keep multiple open tabs in sync
   window.addEventListener("storage", function (e) { if (e.key === KEY) { items = read(); render(); } });
+
+  // Public API for configured products (e.g. the kit pages): F1Cart.add({id,name,price,img,url,qty})
+  window.F1Cart = { add: addItem, open: function () { render(); open(); } };
 
   function init() { buildDOM(); wire(); render(); }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);

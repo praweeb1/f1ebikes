@@ -1,5 +1,5 @@
 /* ============================================================
-   F1 Ebikes — battery intro loader
+   F1 Ebikes - battery intro loader
    A small, centred battery that charges red -> orange -> yellow -> green while the hero's 360-frame
    scrub sequence decodes (progress read from window.F1_FRAMES, set by hero-bg-sync.js). Scroll is
    locked until the frames are ready, so the opening scrub is silky from the first wheel-tick; then
@@ -34,7 +34,7 @@
 
   // lock the page while the hero loads
   root.classList.add("batt-locked");
-  // absolute failsafe — if anything stalls, never trap the user behind the loader
+  // absolute failsafe - if anything stalls, never trap the user behind the loader
   var FAILSAFE = setTimeout(function () { if (!done) { done = true; reveal(); } }, 16000);
 
   if (reduce) {

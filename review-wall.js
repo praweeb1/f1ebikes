@@ -1,5 +1,5 @@
 /* ============================================================
-   F1 Ebikes — Reviews scroll portrait wall (shared)
+   F1 Ebikes - Reviews scroll portrait wall (shared)
    Vanilla port of the GSAP ScrollTrigger "ScrollPortraitWall". Customer build photos scatter across
    a grid; each scrubs scale 0 -> 1 -> 0 as it passes the viewport, behind a sticky mix-blend title.
    Page-agnostic: finds any `.spw` section. Captions toggled with data-captions; b&w via .spw--bw.
@@ -7,6 +7,9 @@
 (function () {
   if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return;
   gsap.registerPlugin(ScrollTrigger);
+  // Mobile browsers resize the viewport when the address bar shows/hides on scroll. Left alone,
+  // ScrollTrigger re-measures mid-scroll and the portraits jump out of position. Ignore it.
+  ScrollTrigger.config({ ignoreMobileResize: true });
 
   var root = document.querySelector(".spw");
   if (!root) return;
@@ -113,8 +116,12 @@
   window.addEventListener("load", function () { ScrollTrigger.refresh(); });
   setTimeout(function () { ScrollTrigger.refresh(); }, 600);
 
-  var rt;
+  // Only react to real WIDTH changes (orientation / breakpoint). A height-only change is the
+  // mobile URL bar and must not trigger a re-layout, or the portraits shift while scrolling.
+  var rt, lastW = window.innerWidth;
   window.addEventListener("resize", function () {
+    if (window.innerWidth === lastW) return;
+    lastW = window.innerWidth;
     clearTimeout(rt);
     rt = setTimeout(function () { render(); ScrollTrigger.refresh(); }, 150);
   });

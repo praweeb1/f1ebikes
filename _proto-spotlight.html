@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>F1 Ebikes — spotlight loader (prototype)</title>
+  <title>F1 Ebikes - spotlight loader (prototype)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -94,7 +94,7 @@
     function clamp01(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
     function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
 
-    // spotlight pool: transparent up to (r-feather), opaque dark beyond — plus a warm core glow.
+    // spotlight pool: transparent up to (r-feather), opaque dark beyond - plus a warm core glow.
     function paint(r, warm) {
       var inner = Math.max(0, r - 90).toFixed(0);
       var outer = (r + 18).toFixed(0);
@@ -147,7 +147,7 @@
       cone.style.transition = "opacity .7s ease";
       cone.style.opacity = "0";
       pctEl.textContent = "100";
-      label.textContent = "Ready — scroll to begin";
+      label.textContent = "Ready - scroll to begin";
       label.style.color = "#f2f2f2";
     }
 

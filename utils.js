@@ -1,9 +1,9 @@
 /* ============================================================
-   F1 Ebikes — shared micro-utilities (window.F1)
+   F1 Ebikes - shared micro-utilities (window.F1)
    Dependency-free and side-effect-free beyond attaching window.F1.
    These were previously duplicated across hero-bg-sync.js, hero-loader.js,
    tune-panel.js, review-wall.js, collection.js and lenis-init.js.
-   MUST load before any script that references F1.* — it is placed as the
+   MUST load before any script that references F1.* - it is placed as the
    first local <script> on every page.
    ============================================================ */
 (function (w) {

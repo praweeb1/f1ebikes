@@ -1,12 +1,12 @@
 /* ============================================================
-   F1 Ebikes — hero bike-sequence scrub (CANVAS image sequence) + dock + bg sync
-   The 60-frame studio sequence (assets/bike-seq/frame-001..060.jpg — front-on charcoal to
+   F1 Ebikes - hero bike-sequence scrub (CANVAS image sequence) + dock + bg sync
+   The 60-frame studio sequence (assets/bike-seq/frame-001..060.jpg - front-on charcoal to
    side-profile white) is scrubbed on a <canvas> by scroll. Drawing pre-decoded frames is
    instant (no video-seek latency), so the scrub is immediate and smooth.
 
    The bike sequence is mapped to the FIRST ~10% of total page scroll: the .videosec track is
    sized so its pinned scroll == 10% of the document's scrollable height. Once the sequence
-   completes it docks to the bottom-right and the section releases — the rest of the page then
+   completes it docks to the bottom-right and the section releases - the rest of the page then
    scrolls normally, no longer driving the bike. Mobile/iOS skip the scrub (light Eb1ke clip).
 
    Performance: pre-decoded frames, render driven by Lenis's frame-synced scroll callback (no
@@ -34,7 +34,7 @@
   var clamp01 = F1.clamp01;
   var smoother = F1.smootherstep;   // smootherstep (silky)
   var lerp = F1.lerp;
-  function easeOutSnap(t) { return 1 - Math.pow(1 - t, 3); }   // easeOutCubic — quick spring-back, smooth settle
+  function easeOutSnap(t) { return 1 - Math.pow(1 - t, 3); }   // easeOutCubic - quick spring-back, smooth settle
 
   // ---- Mobile / iOS fallback ----
   // Canvas scrub is desktop-only here; phones get the lightweight autoplay Eb1ke clip (and the
@@ -45,7 +45,7 @@
   var FORCE_LITE = false;
   if (FORCE_LITE || smallOrIOS) {
     document.documentElement.classList.add("is-lite");
-    window.F1_HERO_MODE = "lite";   // no 360-frame scrub on phones — the loader won't gate on frames
+    window.F1_HERO_MODE = "lite";   // no 360-frame scrub on phones - the loader won't gate on frames
     if (mainVideo) {
       var msrc = mainVideo.querySelector("source");
       if (msrc && smallOrIOS) { msrc.setAttribute("src", "assets/eb1ke-mobile.mp4"); }
@@ -71,7 +71,7 @@
   }
 
   // ============================================================
-  // DESKTOP — canvas image-sequence scrub
+  // DESKTOP - canvas image-sequence scrub
   // Within the section's 0..1 progress:
   //   pa (scrub) 0..1 over [0, HANDOFF]      -> draws frames front -> side
   //   pb (dock)  0..1 over [HANDOFF, DOCK_END] -> shrinks to the bottom-right corner
@@ -80,7 +80,7 @@
   var HANDOFF_BASE  = 0.67;  // scrub completes / commits here (share of the *animated* track)
   var DOCK_END_BASE = 0.9;   // bike fully docked + "Socials" overlay shown here (higher = slower 16:9->9:16 dock)
   var HOLD_VH = 0.6125;      // extra screens of pure "nothing" scroll AFTER the dock, before the kits
-  var HANDOFF  = HANDOFF_BASE;   // live values — recomputed in fitTrack() once the hold is appended
+  var HANDOFF  = HANDOFF_BASE;   // live values - recomputed in fitTrack() once the hold is appended
   var DOCK_END = DOCK_END_BASE;
   var kVal = 1;                  // page-scale (baseScroll/newScroll), set in fitTrack(); maps gp -> base fraction
 
@@ -116,7 +116,7 @@
   function drawFrame(idx) {
     if (idx === lastFrame) return;             // gate: skip redundant draws
     var img = images[idx];
-    if (!img || !img.naturalWidth) return;     // not decoded yet — keep the previous frame
+    if (!img || !img.naturalWidth) return;     // not decoded yet - keep the previous frame
     lastFrame = idx;
     var W = canvas.width, H = canvas.height;
     var s = Math.max(W / img.naturalWidth, H / img.naturalHeight);   // object-fit: cover
@@ -210,7 +210,7 @@
   }
 
   // Size the bike sequence as a share of total page scroll: the pinned track == rest/1.5, so
-  // pin / (pin + rest) = 40% — lots of room for the scrub + a long Eb1ke hold. (rest = everything else.)
+  // pin / (pin + rest) = 40% - lots of room for the scrub + a long Eb1ke hold. (rest = everything else.)
   function fitTrack() {
     var winH = window.innerHeight;
     var rest = document.documentElement.scrollHeight - section.offsetHeight;
@@ -231,9 +231,9 @@
     COMMIT    = tnum("commit", 0.44) * k;   // pass-over threshold (gp >= COMMIT -> dock; else back to 0)
   }
 
-  // ---- render straight from the (Lenis-eased) scroll position — NO second smoothing ----
+  // ---- render straight from the (Lenis-eased) scroll position - NO second smoothing ----
   // Driven inside Lenis's own scroll callback, so it's frame-synced with the momentum (this is
-  // what kills the slow/short-scroll jitter — the old separate rAF easing sampled scroll
+  // what kills the slow/short-scroll jitter - the old separate rAF easing sampled scroll
   // between Lenis's updates). Falls back to an rAF-throttled native scroll listener with no
   // Lenis (reduced motion). Draws are gated, so a render call is cheap when nothing changed.
   function render() {
@@ -258,7 +258,7 @@
   window.F1_TUNE_APPLY = function () { fitTrack(); render(); };
 
   // Scope the scroll feel to the hero. In the hero: the tuned long glide (lerp ~0.035). Past the
-  // hero: a normal, comfortable everyday smooth-scroll (lerp ~0.1) — NOT instant (that felt snappy/
+  // hero: a normal, comfortable everyday smooth-scroll (lerp ~0.1) - NOT instant (that felt snappy/
   // glitchy) and NOT lenis.stop() (that adds `lenis-stopped` -> overflow:hidden -> blank screen).
   // We also RAMP the lerp value frame-to-frame so the transition at the seam is seamless.
   var PAST_HERO_LERP = 0.14;   // past the hero: just a hint of glide, mostly tight/responsive
@@ -338,7 +338,7 @@
       });
       return;
     }
-    var dur = Math.min(600, Math.max(360, Math.abs(distY) * 0.44));   // ms — scaled by distance (~0.4-0.6s burst, 20% faster)
+    var dur = Math.min(600, Math.max(360, Math.abs(distY) * 0.44));   // ms - scaled by distance (~0.4-0.6s burst, 20% faster)
     var t0 = null;
     if (snapRAF) cancelAnimationFrame(snapRAF);
     function step(now) {
@@ -351,19 +351,19 @@
     }
     snapRAF = requestAnimationFrame(step);
   }
-  // Settle to the nearest end based on the commit threshold — SYMMETRIC, so the same slingshot
+  // Settle to the nearest end based on the commit threshold - SYMMETRIC, so the same slingshot
   // fires whether you're scrolling DOWN into the sequence or back UP out of it:
   //   gp >= COMMIT -> spring forward to docked;  gp < COMMIT -> spring back to the start.
   // Instead of waiting for the glide to fully STOP, we watch the momentum and fire the spring the
   // instant it decays to a gentle drift (|velocity| <= SETTLE_VEL, i.e. it's *about* to stop). The
-  // easeOut spring takes over from there, so the scroll never actually comes to rest — the dying
+  // easeOut spring takes over from there, so the scroll never actually comes to rest - the dying
   // glide flows straight into the spring-back. A short input gate keeps it from taking over while
   // you're still actively scrolling.
   var settleTimer = null;
   function clearSettle() { if (settleTimer) { clearTimeout(settleTimer); settleTimer = null; } }
   // Back-spring "start" target (gp): a % through the bike scrub (0 = front-on, 100 = side profile at
   // HANDOFF). This doubles as the FLOOR of the slingshot: anywhere from the actual top down to here
-  // is free scroll — no spring. The slingshot only acts between this point and the dock.
+  // is free scroll - no spring. The slingshot only acts between this point and the dock.
   function backTarget() {
     var sp = tnum("startPct", 39);
     return (sp < 0 ? 0 : sp > 100 ? 100 : sp) / 100 * HANDOFF;
@@ -391,13 +391,13 @@
     if (gp <= Math.max(backTarget(), 0.004) || gp >= SETTLE_TO) { clearSettle(); return; }   // free below the start point, parked at the dock
     var v = window.lenis ? Math.abs(window.lenis.velocity || 0) : 0;
     if (v > peakVel) peakVel = v;                                    // track this gesture's peak speed (scroll intensity)
-    if (v > tnum("settleVel", 0.4)) { clearSettle(); return; }       // still gliding — not about to stop yet
+    if (v > tnum("settleVel", 0.4)) { clearSettle(); return; }       // still gliding - not about to stop yet
     if (settleTimer == null) settleTimer = setTimeout(doSnap, Math.max(0, tnum("inputGate", 20)));
   }
   function onInput() { clearSettle(); if (snapping) cancelSnap(); }
   window.addEventListener("scroll", function () {
     if (snapping) return;
-    maybeSettle();                                                   // every scroll frame — watches for the drift to fade
+    maybeSettle();                                                   // every scroll frame - watches for the drift to fade
     if (idleTimer) clearTimeout(idleTimer);
     idleTimer = setTimeout(maybeSettle, 180);                       // backstop if the glide ends between scroll events
   }, { passive: true });

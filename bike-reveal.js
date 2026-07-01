@@ -1,10 +1,10 @@
 /* ============================================================
-   F1 Ebikes — scroll-controlled bike reveal (transparent sequence)
+   F1 Ebikes - scroll-controlled bike reveal (transparent sequence)
    One pinned section. A 60-frame TRANSPARENT PNG sequence of the
    bike (assets/bike-seq/frame-001..060.png) rotates from a head-on
    FRONT close-up to the full right-side PROFILE as you scroll, with
    a zoom pull-back layered on top. The background is a SEPARATE
-   scroll-driven gradient painted behind the cut-out bike — dim
+   scroll-driven gradient painted behind the cut-out bike - dim
    dark-graphite when zoomed in, brightening to a lighter grey as
    the full side shot lands. Scroll-driven via GSAP ScrollTrigger.
    ============================================================ */
@@ -134,7 +134,7 @@
     invalidateOnRefresh: true,
   });
 
-  // SINGLE timeline — maps scroll progress (0 -> 1) over SCRUB_VH only.
+  // SINGLE timeline - maps scroll progress (0 -> 1) over SCRUB_VH only.
   const tl = gsap.timeline({
     defaults: { ease: "none" },
     scrollTrigger: {

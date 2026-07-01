@@ -6,7 +6,7 @@
 :root {
   --black: #0a0a0a;
   --white: #ffffff;
-  --accent: #e02b1e;        /* brand red — the brand pop */
+  --accent: #e02b1e;        /* brand red - the brand pop */
   --muted: rgba(255, 255, 255, 0.7);
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -81,7 +81,7 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* ============ NAVBAR ============ */
-/* Header is transparent at all times — never a solid bar. Individual nav items
+/* Header is transparent at all times - never a solid bar. Individual nav items
    get a curved pill-shaped accent background on hover. */
 .nav {
   position: fixed;
@@ -119,7 +119,7 @@ a { text-decoration: none; color: inherit; }
     -webkit-backdrop-filter 0.4s var(--ease), border-color 0.4s var(--ease),
     box-shadow 0.4s var(--ease), padding 0.4s var(--ease), margin 0.4s var(--ease);
 }
-/* Filled state — dark translucent glass over the (dark) hero/page. */
+/* Filled state - dark translucent glass over the (dark) hero/page. */
 .nav--scrolled .nav__inner {
   padding: 0.7rem 1.6rem;
   background: rgba(14, 14, 16, 0.55);
@@ -146,11 +146,11 @@ a { text-decoration: none; color: inherit; }
 }
 /* "F" + red lightning bolt (the stylised "1") sit tight together as one mark */
 .nav__logo-mark { display: inline-flex; align-items: center; gap: 0; }
-.nav__bolt { width: 0.82em; height: 1.32em; color: var(--accent); flex: none; margin-left: -0.16em; }
+.nav__bolt { width: 0.82em; height: 1.32em; color: var(--accent); flex: none; margin-left: -0.34em; }
 /* shopping-cart icon replacing the "Cart" text */
 .cart-icon { width: 19px; height: 19px; display: block; }
 .nav__links a { text-shadow: 0 1px 12px rgba(0, 0, 0, 0.5); }
-/* once over a light section the text is black — drop the dark shadow */
+/* once over a light section the text is black - drop the dark shadow */
 .nav--dark .nav__logo,
 .nav--dark .nav__links a { text-shadow: none; }
 .nav__logo span { font-weight: 700; }   /* F + EBIKES follow the logo colour (white; black over light) */
@@ -354,7 +354,7 @@ a { text-decoration: none; color: inherit; }
 :root {
   --studio: #2b2d31;   /* dark graphite studio (Radian-style) */
   /* one shared hero background, used by the stage and as the video's matching backdrop
-     so the bike always sits on the same charcoal/slate — never a white panel */
+     so the bike always sits on the same charcoal/slate - never a white panel */
   --hero-bg: linear-gradient(180deg, #272b31 0%, #424851 55%, #555c65 100%);
 }
 .reveal {
@@ -384,7 +384,7 @@ a { text-decoration: none; color: inherit; }
   background: linear-gradient(to bottom, var(--black) 0%, rgba(10, 10, 10, 0.5) 22%, rgba(10, 10, 10, 0) 100%);
 }
 /* Full-bleed looping bike video. object-fit: cover guarantees it always fills the
-   stage — no letterbox, no borders, no visible video edges, never a boxed rectangle. */
+   stage - no letterbox, no borders, no visible video edges, never a boxed rectangle. */
 .reveal__media {
   position: absolute;
   inset: 0;
@@ -520,7 +520,7 @@ a { text-decoration: none; color: inherit; }
      edge-to-edge with no rectangular box. */
   background: var(--hero-background, rgb(65, 65, 65));
 }
-/* Eb1ke full-screen layer — fades in as the main page once the studio bike docks. */
+/* Eb1ke full-screen layer - fades in as the main page once the studio bike docks. */
 .videosec__main {
   position: absolute;
   inset: 0;
@@ -531,7 +531,7 @@ a { text-decoration: none; color: inherit; }
   display: block;
   opacity: 0;            /* driven by hero-bg-sync.js (the dock phase) */
 }
-/* 90% black scrim over the Eb1ke video — fades in with it (driven by hero-bg-sync.js). */
+/* 90% black scrim over the Eb1ke video - fades in with it (driven by hero-bg-sync.js). */
 .videosec__dim {
   position: absolute;
   inset: 0;
@@ -540,7 +540,7 @@ a { text-decoration: none; color: inherit; }
   background: #000;
   opacity: 0;
 }
-/* studio scrub video — full-screen during the scrub, then sized/positioned by
+/* studio scrub video - full-screen during the scrub, then sized/positioned by
    hero-bg-sync.js into the bottom-right 16:9 overlay. */
 .videosec__media {
   position: absolute;
@@ -569,7 +569,7 @@ a { text-decoration: none; color: inherit; }
     linear-gradient(90deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.25) 45%, rgba(0,0,0,0.05) 100%),
     linear-gradient(0deg, rgba(0,0,0,0.4), rgba(0,0,0,0.15));
 }
-/* Socials clip (9:16) — tracks the same corner rect as the docking studio overlay and
+/* Socials clip (9:16) - tracks the same corner rect as the docking studio overlay and
    cross-fades in at the halfway point. Sized/positioned by hero-bg-sync.js. */
 .videosec__socials {
   position: absolute;
@@ -675,10 +675,10 @@ a { text-decoration: none; color: inherit; }
   flex: none;
 }
 .collection__sub { margin-top: 0.55rem; font-size: 0.86rem; color: #6a6a6e; }
-/* delivery-truck icon + ETA — kept on one line, truck in the brand accent */
+/* delivery-truck icon + ETA - kept on one line, truck in the brand accent */
 .ship-eta { white-space: nowrap; }
 .ship-icon { width: 1.15em; height: 1.15em; vertical-align: -0.2em; margin-right: 0.34em; color: var(--accent); }
-/* "View all" — inline link in the head + a centred pill button below the 4-up preview.
+/* "View all" - inline link in the head + a centred pill button below the 4-up preview.
    Both link to the full shop page (shop.html). */
 .collection__viewall {
   display: inline-flex;
@@ -724,7 +724,7 @@ a { text-decoration: none; color: inherit; }
 .shophero__sub { margin-top: 0.9rem; max-width: 56ch; color: rgba(255, 255, 255, 0.65); font-size: clamp(0.95rem, 1.3vw, 1.1rem); }
 .collection--page { padding-top: clamp(2.5rem, 6vh, 4rem); }
 
-/* ============ PRODUCT PAGE (battery configurator) — light theme ============ */
+/* ============ PRODUCT PAGE (battery configurator) - light theme ============ */
 .product {
   background: #f4f4f3;
   color: #0f0f10;
@@ -788,7 +788,7 @@ a { text-decoration: none; color: inherit; }
 .product__cta {
   display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
   margin-top: 1.6rem; width: 100%; max-width: 440px;
-  padding: 1.1rem 2rem; border-radius: 100px;
+  padding: 1.1rem 2rem; border-radius: 12px;
   background: var(--accent); color: #ffffff; font-weight: 800; font-size: 1rem;
   border: none; cursor: pointer;
   transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
@@ -802,7 +802,7 @@ a { text-decoration: none; color: inherit; }
   .product__gallery { position: static; }
 }
 
-/* ============ SOCIALS (TikTok feature — plays on every device incl. iPhone) ============ */
+/* ============ SOCIALS (TikTok feature - plays on every device incl. iPhone) ============ */
 .socials-sec {
   background: radial-gradient(120% 90% at 80% 0%, #16181c, #0a0a0a);
   color: #fff;
@@ -1010,7 +1010,7 @@ a { text-decoration: none; color: inherit; }
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;        /* whole product always visible — never cropped */
+  object-fit: contain;        /* whole product always visible - never cropped */
   object-position: center;    /* directly centered in the square frame */
   padding: 9%;
   transition: transform 0.45s var(--ease);
@@ -1018,7 +1018,7 @@ a { text-decoration: none; color: inherit; }
 .prod:hover .prod__media { transform: translateY(-5px); box-shadow: 0 22px 46px rgba(0, 0, 0, 0.14); }
 .prod:hover .prod__media img { transform: scale(1.05); }
 
-/* Conversion kits are annotated diagrams — give them a double-width card (2 per row) and trim the
+/* Conversion kits are annotated diagrams - give them a double-width card (2 per row) and trim the
    padding so every label renders large enough to read. */
 .prod[data-cat="kits"] { grid-column: span 2; width: min(480px, 100%); justify-self: center; }
 .prod[data-cat="kits"] .prod__media img { padding: 3%; }
@@ -1046,16 +1046,24 @@ a { text-decoration: none; color: inherit; }
 .prod__badge--popular { display: inline-flex; align-items: center; gap: 0.3rem; color: #fff; background: #15151a; }
 .prod__badge--popular svg { width: 11px; height: 11px; color: var(--accent); }
 /* "Best Seller" label that sits ABOVE the product image */
+/* Overlay pill (out of flow) so the Best Seller card's image stays aligned with its neighbours */
 .prod__best {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 4;
+  margin: 0;
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  margin: 0 0 0.55rem;
-  font-size: 0.66rem;
+  background: #15151a;
+  color: #fff;
+  font-size: 0.62rem;
   font-weight: 800;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--accent);
+  padding: 0.28rem 0.55rem;
+  border-radius: 5px;
 }
 .prod__best::before {
   content: "";
@@ -1064,6 +1072,8 @@ a { text-decoration: none; color: inherit; }
   border-radius: 50%;
   background: var(--accent);
 }
+/* When a card is both Best Seller and on Sale, drop the Sale badge below the pill */
+.prod:has(.prod__best) .prod__badge--sale { top: 44px; }
 .prod__wish {
   position: absolute;
   top: 9px;
@@ -1127,7 +1137,7 @@ a { text-decoration: none; color: inherit; }
   transition: color 0.2s var(--ease);
 }
 .prod__name:hover { color: var(--accent); }
-/* Availability badge — green dot + "In stock" (injected by collection.js) */
+/* Availability badge - green dot + "In stock" (injected by collection.js) */
 .prod__stock {
   display: inline-flex;
   align-items: center;
@@ -1145,7 +1155,7 @@ a { text-decoration: none; color: inherit; }
   box-shadow: 0 0 0 3px rgba(37, 193, 96, 0.18);
   flex: none;
 }
-/* Low-stock variant — red dot + red text (e.g. the 2000W kit: "Only 3 left") */
+/* Low-stock variant - red dot + red text (e.g. the 2000W kit: "Only 3 left") */
 .prod__stock--low { color: #d12626; }
 .prod__stock--low .prod__stock-dot { background: #e23030; box-shadow: 0 0 0 3px rgba(226, 48, 48, 0.18); }
 .prod__price {
@@ -1171,7 +1181,7 @@ a { text-decoration: none; color: inherit; }
   .prod:hover .prod__media, .prod:hover .prod__media img { transform: none; }
 }
 
-/* ===== "open into collection" reveal — the section opens in as the hero scrub ends.
+/* ===== "open into collection" reveal - the section opens in as the hero scrub ends.
    collection.js adds .js-reveal (so without JS everything is visible), then .is-open
    when the section scrolls into view, cascading the header, filters and cards in. ===== */
 .collection.js-reveal .collection__head,
@@ -1198,7 +1208,7 @@ a { text-decoration: none; color: inherit; }
 .collection.js-reveal.is-open .prod:nth-child(8) { transition-delay: 0.49s; }
 .collection.js-reveal.is-open .prod:nth-child(9) { transition-delay: 0.54s; }
 
-/* ===== Most Popular (featured best-seller — glass panel) ===== */
+/* ===== Most Popular (featured best-seller - glass panel) ===== */
 .popular {
   position: relative;
   overflow: hidden;
@@ -1230,7 +1240,7 @@ a { text-decoration: none; color: inherit; }
   max-width: 1180px;
   margin: 0 auto;
 }
-/* product image — shown whole (it's a labelled studio shot) */
+/* product image - shown whole (it's a labelled studio shot) */
 .popular__media {
   position: relative;
   margin: 0;
@@ -1640,7 +1650,7 @@ html.is-lite .videosec__takeover { opacity: 1; align-items: flex-end; justify-co
 @media (prefers-reduced-motion: reduce) {
   .reveal-up { opacity: 1 !important; transform: none !important; transition: none !important; }
 }
-/* Hero video gets a transform from the parallax script — let it animate smoothly. */
+/* Hero video gets a transform from the parallax script - let it animate smoothly. */
 .videosec__main { transition: transform 0.15s linear; }
 
 /* ===== Scroll cue (bottom of the hero) ===== */
@@ -1839,7 +1849,7 @@ html.is-lite .videosec__takeover { opacity: 1; align-items: flex-end; justify-co
   .rev-strip { -webkit-mask-image: none; mask-image: none; }
 }
 
-/* ----- Infinite auto-scrolling photo gallery (image-auto-slider) — reviews section ----- */
+/* ----- Infinite auto-scrolling photo gallery (image-auto-slider) - reviews section ----- */
 .rev-slider {
   position: relative;
   width: 100%;
@@ -1879,7 +1889,7 @@ html.is-lite .videosec__takeover { opacity: 1; align-items: flex-end; justify-co
   .rev-slider { -webkit-mask-image: none; mask-image: none; }
 }
 
-/* ----- Scroll portrait wall (GSAP ScrollTrigger) — reviews section ----- */
+/* ----- Scroll portrait wall (GSAP ScrollTrigger) - reviews section ----- */
 .spw { position: relative; width: 100%; background: #0a0a0a; color: #fff; }
 /* Homepage only: the sticky "Riders." title bleeds up (translateY(-50%)) above its section.
    Nudge the wall down so the word only half-overlaps the collection's "VIEW ALL" pill above
@@ -1901,7 +1911,7 @@ html.is-lite .videosec__takeover { opacity: 1; align-items: flex-end; justify-co
   position: sticky; top: 50%; z-index: 20; transform: translateY(-50%);
   text-align: center; color: #fff; mix-blend-mode: exclusion; pointer-events: none;
 }
-.spw__title h2 { margin: 0; font-weight: 800; letter-spacing: -0.04em; line-height: 0.9; font-size: clamp(3.2rem, 13vw, 10rem); }
+.spw__title h2 { margin: 0; font-weight: 800; letter-spacing: -0.04em; line-height: 0.9; font-size: clamp(2.72rem, 11.05vw, 8.5rem); }
 .spw__title p { margin: 0.6rem 0 0; font-size: clamp(0.72rem, 1.4vw, 0.95rem); text-transform: uppercase; letter-spacing: 0.14em; color: rgba(255, 255, 255, 0.65); }
 .spw__grid { position: relative; z-index: 0; margin: 50vh 0; }
 .spw__row { display: flex; width: 100%; }
@@ -1920,7 +1930,7 @@ html.is-lite .videosec__takeover { opacity: 1; align-items: flex-end; justify-co
 .spw--bw .spw-item:hover img { filter: grayscale(0) contrast(1.05); }
 
 /* ============================================================
-   BATTERY INTRO LOADER — small centred battery, charges red->green while the hero
+   BATTERY INTRO LOADER - small centred battery, charges red->green while the hero
    frames decode, then dissolves into the hero. Driver: hero-loader.js
    ============================================================ */
 html.batt-locked, html.batt-locked body { overflow: hidden; height: 100%; }
@@ -2038,3 +2048,118 @@ html.batt-locked, html.batt-locked body { overflow: hidden; height: 100%; }
 .cart-drawer__cont { display: block; width: 100%; margin-top: 10px; background: none; border: 0; color: var(--muted); font-size: 0.8rem; cursor: pointer; text-decoration: underline; font-family: inherit; }
 .cart-drawer__cont:hover { color: var(--white); }
 .cart-badge { position: absolute; top: -4px; right: -4px; background: var(--accent); color: #fff; font-size: 0.62rem; font-weight: 800; min-width: 16px; height: 16px; border-radius: 10px; display: flex; align-items: center; justify-content: center; padding: 0 4px; line-height: 1; pointer-events: none; font-family: "Archivo", sans-serif; }
+
+/* ============================================================
+   Kit detail - CYC-style product layout (kit-*.html)
+   Left: gallery (main + thumbnails) with open content sections below.
+   Right: sticky buy panel with dropdown options. Light theme (matches .product).
+   ============================================================ */
+.kp__wrap { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 400px); gap: clamp(1.5rem, 4vw, 3.5rem); align-items: start; }
+.kp__left { min-width: 0; }
+
+/* gallery: main image + thumbnail strip */
+.kp__main { background: #fff; border: 1px solid #e6e6e4; border-radius: 16px; padding: 1.5rem; display: flex; align-items: center; justify-content: center; aspect-ratio: 4 / 3; }
+.kp__main img { width: 100%; height: 100%; object-fit: contain; }
+.kp__thumbs { display: flex; gap: 0.6rem; margin-top: 0.85rem; flex-wrap: wrap; }
+.kp__thumb { width: 74px; height: 74px; border: 1px solid #dcdcda; border-radius: 10px; background: #fff; padding: 5px; cursor: pointer; overflow: hidden; transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease); }
+.kp__thumb img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.kp__thumb.is-active { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(224, 43, 30, 0.22); }
+.kp__thumb:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* sticky buy panel */
+.kp__panel { position: sticky; top: 96px; }
+/* Reference-style header: large title, price at the same size, small red off-line, plain CTA */
+.kp__panel .product__title { font-size: clamp(1.85rem, 3.8vw, 2.8rem); line-height: 1.05; }
+.kp__panel .product__price { margin-top: 1rem; font-family: "Cordia New", "Cordia UPC", "Leelawadee UI", Tahoma, sans-serif; font-size: clamp(1.85rem, 3.8vw, 2.8rem); line-height: 1.05; color: #000; }
+.kp__panel .product__off { margin-top: 0.5rem; color: var(--accent); font-weight: 400; font-size: 0.95rem; letter-spacing: 0.01em; }
+.kp__panel .product__cta { font-weight: 500; }
+
+/* dropdown option fields */
+.kp-field { margin-top: 1.4rem; }
+.kp-field label { display: block; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #000; margin-bottom: 0.5rem; }
+.kp-select { width: 100%; appearance: none; -webkit-appearance: none; background-color: #fff; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%230f0f10' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.95rem center; border: 1px solid #cfcfcd; border-radius: 0; padding: 0.85rem 2.4rem 0.85rem 1rem; font: 600 0.95rem/1.2 "Archivo", sans-serif; color: #0f0f10; cursor: pointer; }
+.kp-select:hover { border-color: #9a9a98; }
+.kp-select:focus-visible { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(224, 43, 30, 0.15); }
+
+/* open content sections (below the gallery) */
+.kp__content { margin-top: clamp(2rem, 5vw, 3.5rem); display: grid; gap: clamp(1.8rem, 3.5vw, 2.6rem); }
+.kp__block { border-top: 1px solid #e2e2e0; padding-top: clamp(1.4rem, 3vw, 2rem); }
+.kp__block:first-child { border-top: 0; padding-top: 0; }
+.kp__block h2 { font-size: clamp(1.15rem, 2.4vw, 1.55rem); font-weight: 700; letter-spacing: -0.01em; margin: 0 0 0.9rem; color: #000; }
+.kp__block > p { color: #000; line-height: 1.75; margin: 0 0 0.8rem; max-width: 70ch; font-weight: 300; }
+.kp__block > p:last-child { margin-bottom: 0; }
+.kp-note { font-size: 0.82rem; color: #000 !important; font-weight: 300; font-style: italic; }
+
+/* simple bullet lists (reference style): black text, thin weight */
+.kp-bullets { list-style: disc; margin: 0; padding-left: 1.3rem; display: grid; gap: 0.4rem; }
+.kp-bullets li { color: #000; font-weight: 300; font-size: 0.98rem; line-height: 1.6; }
+.kp-bullets li::marker { color: #000; }
+.kp-bullets strong { font-weight: 600; }
+.kp-bullets a { color: #000; font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+.kp-bullets a:hover { color: var(--accent); }
+
+.kp-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.65rem 1.4rem; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.kp-list li { display: flex; gap: 0.6rem; align-items: flex-start; color: #2a2a2e; font-size: 0.94rem; line-height: 1.45; }
+.kp-list li svg { width: 18px; height: 18px; color: var(--accent); flex: none; margin-top: 2px; }
+
+.kp-specs { width: 100%; border-collapse: collapse; }
+.kp-specs tr { border-bottom: 1px solid #e2e2e0; }
+.kp-specs tr:last-child { border-bottom: 0; }
+.kp-specs th { text-align: left; padding: 0.8rem 1rem 0.8rem 0; color: #6a6a6e; font-weight: 600; font-size: 0.9rem; width: 42%; vertical-align: top; }
+.kp-specs td { padding: 0.8rem 0; font-weight: 700; font-size: 0.94rem; color: #0f0f10; }
+
+.kp-extras { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.kp-extra { background: #fff; border: 1px solid #e2e2e0; border-radius: 14px; padding: 1.3rem; display: flex; flex-direction: column; gap: 0.5rem; }
+.kp-extra__badge { align-self: flex-start; font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 800; color: var(--accent); border: 1px solid rgba(224, 43, 30, 0.35); border-radius: 999px; padding: 0.2rem 0.62rem; }
+.kp-extra h3 { margin: 0; font-size: 1.02rem; font-weight: 800; color: #0f0f10; }
+.kp-extra p { margin: 0; color: #5a5a5e; font-size: 0.87rem; line-height: 1.5; }
+.kp-extra a { margin-top: auto; color: #0f0f10; font-weight: 700; font-size: 0.85rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem; }
+.kp-extra a:hover { color: var(--accent); }
+.kp-extra a span { transition: transform 0.2s var(--ease); }
+.kp-extra a:hover span { transform: translateX(3px); }
+
+@media (max-width: 860px) {
+  .kp__wrap { grid-template-columns: 1fr; }
+  .kp__panel { position: static; }
+}
+
+/* ============================================================
+   Contact / enquiry + FAQ pages
+   ============================================================ */
+.page-hero { background: #0a0a0a; color: var(--white); padding: clamp(7rem, 16vh, 10rem) 7vw clamp(2rem, 5vh, 3rem); text-align: center; }
+.page-hero__eyebrow { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin: 0 0 0.8rem; }
+.page-hero h1 { margin: 0; font-size: clamp(2.2rem, 6vw, 3.6rem); font-weight: 800; letter-spacing: -0.03em; }
+.page-hero p { margin: 0.9rem auto 0; max-width: 56ch; color: var(--muted); line-height: 1.7; }
+
+.enquiry { background: #0a0a0a; color: var(--white); padding: 0 7vw clamp(4rem, 9vh, 7rem); }
+.enquiry__wrap { max-width: 640px; margin: 0 auto; }
+.enquiry__form { display: grid; gap: 1.1rem; }
+.field { display: grid; gap: 0.45rem; }
+.field label { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255, 255, 255, 0.7); }
+.field input, .field select, .field textarea {
+  width: 100%; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.16); border-radius: 10px;
+  padding: 0.85rem 1rem; font: 400 0.98rem/1.4 "Archivo", sans-serif; color: var(--white); appearance: none;
+}
+.field textarea { resize: vertical; min-height: 140px; }
+.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(224, 43, 30, 0.18); }
+.field select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.6rem; }
+.enquiry__submit { margin-top: 0.4rem; background: var(--accent); color: #fff; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; border: 0; border-radius: 10px; padding: 1rem; font-family: inherit; font-size: 0.95rem; cursor: pointer; transition: filter 0.2s, transform 0.2s; }
+.enquiry__submit:hover { filter: brightness(1.1); transform: translateY(-1px); }
+.enquiry__note { margin-top: 1.1rem; font-size: 0.82rem; color: rgba(255, 255, 255, 0.55); text-align: center; }
+.enquiry__note a { color: var(--white); text-decoration: underline; }
+.enquiry__direct { margin-top: 2rem; text-align: center; color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; }
+.enquiry__direct a { color: var(--accent); font-weight: 700; text-decoration: none; }
+.enquiry__ok { display: none; background: rgba(70, 209, 122, 0.12); border: 1px solid rgba(70, 209, 122, 0.4); color: #8ef0b2; border-radius: 10px; padding: 1rem 1.2rem; font-size: 0.9rem; margin-bottom: 1.2rem; }
+.enquiry__ok.is-shown { display: block; }
+
+.faq { background: #0a0a0a; color: var(--white); padding: 0 7vw clamp(4rem, 9vh, 7rem); }
+.faq__wrap { max-width: 780px; margin: 0 auto; }
+.faq__item { border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
+.faq__item summary { list-style: none; cursor: pointer; padding: 1.35rem 2.5rem 1.35rem 0; position: relative; font-size: clamp(1rem, 2.2vw, 1.2rem); font-weight: 700; letter-spacing: -0.01em; }
+.faq__item summary::-webkit-details-marker { display: none; }
+.faq__item summary::after { content: "+"; position: absolute; right: 0.25rem; top: 50%; transform: translateY(-50%); font-size: 1.5rem; font-weight: 400; color: var(--accent); transition: transform 0.2s var(--ease); }
+.faq__item[open] summary::after { content: "\2212"; }
+.faq__item summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+.faq__item p { margin: 0 0 1.35rem; color: var(--muted); line-height: 1.75; max-width: 68ch; }
+.faq__item p a { color: var(--accent); font-weight: 600; text-decoration: none; }
+.faq__item p a:hover { text-decoration: underline; }

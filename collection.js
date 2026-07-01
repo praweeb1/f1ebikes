@@ -1,5 +1,5 @@
 /* ============================================================
-   F1 Ebikes — collection shop controls
+   F1 Ebikes - collection shop controls
    Client-side category filter + price sort + wishlist toggle for the
    product grid. Pure DOM, no dependencies. Respects the original
    ("Featured") order and keeps the visible product count in sync.
@@ -11,7 +11,7 @@
   var cards   = [].slice.call(grid.querySelectorAll(".prod"));
   var order   = cards.slice();                       // original "Featured" order
 
-  // Availability badge on every card (covers both pages). The 2000W kit is low stock —
+  // Availability badge on every card (covers both pages). The 2000W kit is low stock -
   // red dot + "Only 3 left"; everything else gets a green dot + "In stock".
   cards.forEach(function (card) {
     var body = card.querySelector(".prod__body");
@@ -81,7 +81,7 @@
 
   apply();
 
-  // "open into collection" — cascade the section in when it scrolls up as the hero ends.
+  // "open into collection" - cascade the section in when it scrolls up as the hero ends.
   var section = document.getElementById("collection");
   if (section && "IntersectionObserver" in window &&
       !F1.reducedMotion()) {

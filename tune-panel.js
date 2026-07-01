@@ -1,7 +1,7 @@
 /* ============================================================
-   F1 Ebikes — TEMPORARY scroll/spring tuning panel
+   F1 Ebikes - TEMPORARY scroll/spring tuning panel
    A small floating control to dial in the hero scroll feel live. Tweak the sliders, find what
-   you like, then tell Claude the values shown in "Copy values" — and this whole file (plus the
+   you like, then tell Claude the values shown in "Copy values" - and this whole file (plus the
    window.F1_TUNE hooks in hero-bg-sync.js / lenis-init.js) gets removed.
    To delete: remove this <script>, the F1_TUNE/tnum hooks, and F1_TUNE_APPLY.
    ============================================================ */
@@ -127,7 +127,7 @@
 
     applyLerp();
 
-    // Live meter: current scroll speed + the peak of your last scroll — use it to pick "Scroll
+    // Live meter: current scroll speed + the peak of your last scroll - use it to pick "Scroll
     // intensity" (set it between a gentle scroll's peak and a hard scroll's peak).
     var meter = box.querySelector("#f1-meter");
     (function tick() {
@@ -230,7 +230,7 @@
   }
 
   // Type "jason" anywhere to toggle the bike-progress graph. The slider panel (#f1-tune)
-  // stays DISABLED — jason never shows it; only the graph comes and goes.
+  // stays DISABLED - jason never shows it; only the graph comes and goes.
   function setupHotkey() {
     var buf = "", hidden = true;
     function apply() {

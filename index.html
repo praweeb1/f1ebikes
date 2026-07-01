@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>F1 Ebikes — A new era of riding</title>
+  <title>F1 Ebikes - A new era of riding</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- ===== BATTERY INTRO LOADER — charges while the hero frames decode, then dissolves into the hero. Driver: hero-loader.js ===== -->
+  <!-- ===== BATTERY INTRO LOADER - charges while the hero frames decode, then dissolves into the hero. Driver: hero-loader.js ===== -->
   <div class="batt-loader" id="batt-loader" role="status" aria-live="polite" aria-label="Loading F1 Ebikes">
     <div class="batt-loader__inner">
       <div class="batt-loader__brand"><span>F</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 2 L8.5 4 L11.5 6 L11.5 10 L8 11.2 L12.5 12.6 L11.5 13.4 L11.5 22 L15 22 L15 13.4 L17.5 12.6 L13 11.2 L15 10 Z"/></svg><span>EBIKES</span></div>
@@ -47,7 +47,7 @@
       </button>
     </div>
 
-    <!-- mobile navigation sheet — drops from the top, toggled by the burger -->
+    <!-- mobile navigation sheet - drops from the top, toggled by the burger -->
     <nav class="nav__mobile" id="mobile-menu" aria-label="Mobile">
       <a href="controllers.html" class="nav__mobile-link">Controllers</a>
       <a href="accessories.html" class="nav__mobile-link">Accessories</a>
@@ -71,7 +71,7 @@
       <!-- 90% black scrim over the Eb1ke video (fades in with it) -->
       <div class="videosec__dim" aria-hidden="true"></div>
 
-      <!-- studio scrub: a 60-frame canvas image sequence (assets/bike-seq) scrubbed by scroll —
+      <!-- studio scrub: a 60-frame canvas image sequence (assets/bike-seq) scrubbed by scroll -
            pre-decoded frames draw instantly (no video-seek lag). Its final side-view frame
            shrinks into the 16:9 corner overlay while Eb1ke takes over the screen behind it. -->
       <canvas class="videosec__media" id="hero-canvas" aria-hidden="true"></canvas>
@@ -109,7 +109,7 @@
     </div>
   </section>
 
-  <!-- ===== THE COLLECTION (ecommerce product grid — f1ebikes.com/collections/our-products) ===== -->
+  <!-- ===== THE COLLECTION (ecommerce product grid - f1ebikes.com/collections/our-products) ===== -->
   <section class="collection" id="collection" aria-label="Shop the collection">
     <div class="collection__head">
       <div class="collection__intro">
@@ -123,15 +123,15 @@
       <!-- card template repeats; data-cat / data-price drive filter + sort -->
       <article class="prod" data-cat="kits" data-price="410.00">
         <div class="prod__media">
-          <a class="prod__link" href="https://f1ebikes.com/products/1500w-ebike-kit-52v-20ah-combo" target="_blank" rel="noopener" aria-label="1500W eBike Kit">
+          <a class="prod__link" href="kit-1500w.html" aria-label="1500W eBike Kit">
             <img src="https://f1ebikes.com/cdn/shop/files/IMG-7067.png?v=1781532533&width=600" alt="1500W eBike kit + 52V 20Ah combo" loading="lazy" />
           </a>
           <button class="prod__wish" type="button" aria-label="Save to wishlist" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M12 20.5S3.5 15 3.5 9.2A4.2 4.2 0 0 1 12 6a4.2 4.2 0 0 1 8.5 3.2C20.5 15 12 20.5 12 20.5z"/></svg></button>
-          <a class="prod__add" href="https://f1ebikes.com/products/1500w-ebike-kit-52v-20ah-combo" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M6 6h15l-1.6 9H7.5z"/><path d="M6 6 5 3H2"/><circle cx="9.5" cy="20" r="1.3"/><circle cx="17.5" cy="20" r="1.3"/></svg> Add to cart</a>
+          <a class="prod__add" href="kit-1500w.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M6 6h15l-1.6 9H7.5z"/><path d="M6 6 5 3H2"/><circle cx="9.5" cy="20" r="1.3"/><circle cx="17.5" cy="20" r="1.3"/></svg> Add to cart</a>
         </div>
         <div class="prod__body">
           <div class="prod__rating" aria-label="Rated 4.8 from 24 reviews"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.3 6.9.6-5.2 4.6 1.6 6.9L12 17l-6.3 3 1.6-6.9L2 8.9l6.9-.6z"/></svg><span class="prod__rate">4.8</span><span class="prod__reviews">(24)</span></div>
-          <a class="prod__name" href="https://f1ebikes.com/products/1500w-ebike-kit-52v-20ah-combo" target="_blank" rel="noopener">1500W eBike Kit</a>
+          <a class="prod__name" href="kit-1500w.html">1500W eBike Kit</a>
           <p class="prod__price"><span class="prod__now">From $410.00</span> <span class="prod__cur">AUD</span></p>
         </div>
       </article>
@@ -140,30 +140,30 @@
         <span class="prod__best">Best Seller</span>
         <div class="prod__media">
           <span class="prod__badge prod__badge--sale">Sale</span>
-          <a class="prod__link" href="https://f1ebikes.com/products/2000w-ebike-kit-with-battery" target="_blank" rel="noopener" aria-label="2000W eBike Kit">
+          <a class="prod__link" href="kit-2000w.html" aria-label="2000W eBike Kit">
             <img src="https://f1ebikes.com/cdn/shop/files/IMG-7067.png?v=1781532533&width=600" alt="2000W eBike kit + 52V 20Ah combo" loading="lazy" />
           </a>
           <button class="prod__wish" type="button" aria-label="Save to wishlist" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M12 20.5S3.5 15 3.5 9.2A4.2 4.2 0 0 1 12 6a4.2 4.2 0 0 1 8.5 3.2C20.5 15 12 20.5 12 20.5z"/></svg></button>
-          <a class="prod__add" href="https://f1ebikes.com/products/2000w-ebike-kit-with-battery" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M6 6h15l-1.6 9H7.5z"/><path d="M6 6 5 3H2"/><circle cx="9.5" cy="20" r="1.3"/><circle cx="17.5" cy="20" r="1.3"/></svg> Add to cart</a>
+          <a class="prod__add" href="kit-2000w.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M6 6h15l-1.6 9H7.5z"/><path d="M6 6 5 3H2"/><circle cx="9.5" cy="20" r="1.3"/><circle cx="17.5" cy="20" r="1.3"/></svg> Add to cart</a>
         </div>
         <div class="prod__body">
           <div class="prod__rating" aria-label="Rated 4.9 from 63 reviews"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.3 6.9.6-5.2 4.6 1.6 6.9L12 17l-6.3 3 1.6-6.9L2 8.9l6.9-.6z"/></svg><span class="prod__rate">4.9</span><span class="prod__reviews">(63)</span></div>
-          <a class="prod__name" href="https://f1ebikes.com/products/2000w-ebike-kit-with-battery" target="_blank" rel="noopener">2000W eBike Kit</a>
+          <a class="prod__name" href="kit-2000w.html">2000W eBike Kit</a>
           <p class="prod__price"><span class="prod__now">From $450.00</span> <span class="prod__was">$510.00</span></p>
         </div>
       </article>
 
       <article class="prod" data-cat="kits" data-price="870.00">
         <div class="prod__media">
-          <a class="prod__link" href="https://f1ebikes.com/products/3000w-ebike-kit-with-battery" target="_blank" rel="noopener" aria-label="3000W eBike Kit">
+          <a class="prod__link" href="kit-3000w.html" aria-label="3000W eBike Kit">
             <img src="https://f1ebikes.com/cdn/shop/files/IMG-7067.png?v=1781532533&width=600" alt="3000W eBike kit + 72V 20Ah combo" loading="lazy" />
           </a>
           <button class="prod__wish" type="button" aria-label="Save to wishlist" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M12 20.5S3.5 15 3.5 9.2A4.2 4.2 0 0 1 12 6a4.2 4.2 0 0 1 8.5 3.2C20.5 15 12 20.5 12 20.5z"/></svg></button>
-          <a class="prod__add" href="https://f1ebikes.com/products/3000w-ebike-kit-with-battery" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M6 6h15l-1.6 9H7.5z"/><path d="M6 6 5 3H2"/><circle cx="9.5" cy="20" r="1.3"/><circle cx="17.5" cy="20" r="1.3"/></svg> Add to cart</a>
+          <a class="prod__add" href="kit-3000w.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M6 6h15l-1.6 9H7.5z"/><path d="M6 6 5 3H2"/><circle cx="9.5" cy="20" r="1.3"/><circle cx="17.5" cy="20" r="1.3"/></svg> Add to cart</a>
         </div>
         <div class="prod__body">
           <div class="prod__rating" aria-label="Rated 4.7 from 18 reviews"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.3 6.9.6-5.2 4.6 1.6 6.9L12 17l-6.3 3 1.6-6.9L2 8.9l6.9-.6z"/></svg><span class="prod__rate">4.7</span><span class="prod__reviews">(18)</span></div>
-          <a class="prod__name" href="https://f1ebikes.com/products/3000w-ebike-kit-with-battery" target="_blank" rel="noopener">3000W eBike Kit</a>
+          <a class="prod__name" href="kit-3000w.html">3000W eBike Kit</a>
           <p class="prod__price"><span class="prod__now">From $870.00</span> <span class="prod__cur">AUD</span></p>
         </div>
       </article>
@@ -171,15 +171,15 @@
       <article class="prod" data-cat="kits" data-price="860.00">
         <div class="prod__media">
           <span class="prod__badge prod__badge--sale">Sale</span>
-          <a class="prod__link" href="https://f1ebikes.com/products/5000w-ebike-kit-with-battery" target="_blank" rel="noopener" aria-label="5000W eBike Kit">
+          <a class="prod__link" href="kit-5000w.html" aria-label="5000W eBike Kit">
             <img src="https://f1ebikes.com/cdn/shop/files/IMG-7067.png?v=1781532533&width=600" alt="5000W eBike kit + 72V 30Ah combo" loading="lazy" />
           </a>
           <button class="prod__wish" type="button" aria-label="Save to wishlist" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M12 20.5S3.5 15 3.5 9.2A4.2 4.2 0 0 1 12 6a4.2 4.2 0 0 1 8.5 3.2C20.5 15 12 20.5 12 20.5z"/></svg></button>
-          <a class="prod__add" href="https://f1ebikes.com/products/5000w-ebike-kit-with-battery" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M6 6h15l-1.6 9H7.5z"/><path d="M6 6 5 3H2"/><circle cx="9.5" cy="20" r="1.3"/><circle cx="17.5" cy="20" r="1.3"/></svg> Add to cart</a>
+          <a class="prod__add" href="kit-5000w.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M6 6h15l-1.6 9H7.5z"/><path d="M6 6 5 3H2"/><circle cx="9.5" cy="20" r="1.3"/><circle cx="17.5" cy="20" r="1.3"/></svg> Add to cart</a>
         </div>
         <div class="prod__body">
           <div class="prod__rating" aria-label="Rated 4.9 from 31 reviews"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.3 6.9.6-5.2 4.6 1.6 6.9L12 17l-6.3 3 1.6-6.9L2 8.9l6.9-.6z"/></svg><span class="prod__rate">4.9</span><span class="prod__reviews">(31)</span></div>
-          <a class="prod__name" href="https://f1ebikes.com/products/5000w-ebike-kit-with-battery" target="_blank" rel="noopener">5000W eBike Kit</a>
+          <a class="prod__name" href="kit-5000w.html">5000W eBike Kit</a>
           <p class="prod__price"><span class="prod__now">From $860.00</span> <span class="prod__was">$910.00</span></p>
         </div>
       </article>
@@ -191,8 +191,8 @@
     </div>
   </section>
 
-  <!-- ===== REVIEWS (social proof — verified-buyer testimonials) ===== -->
-  <!-- ===== REVIEWS — scroll portrait wall (GSAP ScrollTrigger; see review-wall.js).
+  <!-- ===== REVIEWS (social proof - verified-buyer testimonials) ===== -->
+  <!-- ===== REVIEWS - scroll portrait wall (GSAP ScrollTrigger; see review-wall.js).
        Coloured customer-build photos, no captions. Written testimonials follow below. ===== -->
   <section class="spw" id="reviews" data-captions="false" aria-label="Customer reviews">
     <div class="spw__title">
@@ -203,7 +203,7 @@
     <div class="spw__grid"><!-- portraits injected by review-wall.js --></div>
   </section>
 
-  <!-- ===== SOCIALS (TikTok clip — plays on every device incl. iPhone) ===== -->
+  <!-- ===== SOCIALS (TikTok clip - plays on every device incl. iPhone) ===== -->
   <section class="socials-sec" id="socials" aria-label="Follow F1 Ebikes">
     <div class="socials-sec__inner">
       <div class="socials-sec__phone">
@@ -214,7 +214,7 @@
       <div class="socials-sec__copy">
         <span class="socials-sec__eyebrow"><span class="socials-sec__dot" aria-hidden="true"></span>Socials</span>
         <h2 class="socials-sec__title">Follow the build.</h2>
-        <p class="socials-sec__lead">Drops, dyno runs and real-world rides — see the kits in action and tag your build.</p>
+        <p class="socials-sec__lead">Drops, dyno runs and real-world rides - see the kits in action and tag your build.</p>
         <div class="socials-sec__links">
           <a href="https://www.tiktok.com/@f1ebikes" target="_blank" rel="noopener" class="socials-sec__btn">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.3 0 .59.05.88.13V9.4a6.84 6.84 0 0 0-1-.07A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
@@ -243,6 +243,8 @@
       </div>
       <p class="site-footer__copy">© 2026 F1 Ebikes · Free Australia-wide shipping</p>
       <nav class="site-footer__links" aria-label="Legal">
+        <a href="contact.html">Contact us</a>
+        <a href="faq.html">FAQ</a>
         <a href="privacy-policy.html">Privacy Policy</a>
         <a href="terms-of-service.html">Terms of Service</a>
         <a href="refund-policy.html">Refund Policy</a>
@@ -251,7 +253,7 @@
   </footer>
 
   <!-- The whole page is dark now (black hero/video + graphite studio), so the nav text
-       stays light throughout — no light-section flip needed. -->
+       stays light throughout - no light-section flip needed. -->
   <script>
     (function () {
       var nav = document.getElementById("nav");
@@ -371,7 +373,7 @@
   </script>
 
   <!-- Live scroll/spring tuning + bike-progress graph overlays (defines window.F1_TUNE before the
-       scripts below read it). Both overlays start hidden — type "jason" anywhere to toggle them on. -->
+       scripts below read it). Both overlays start hidden - type "jason" anywhere to toggle them on. -->
   <script src="utils.js"></script>
   <script src="tune-panel.js"></script>
 
@@ -383,7 +385,7 @@
   <script src="hero-bg-sync.js"></script>
   <script src="collection.js"></script>
 
-  <!-- Battery intro loader — reads window.F1_FRAMES decode progress, gates scroll, reveals the hero. -->
+  <!-- Battery intro loader - reads window.F1_FRAMES decode progress, gates scroll, reveals the hero. -->
   <script src="hero-loader.js"></script>
 
   <!-- Reviews scroll portrait wall (GSAP ScrollTrigger via CDN). -->

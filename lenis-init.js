@@ -1,9 +1,9 @@
 /* ============================================================
-   F1 Ebikes — smooth momentum scrolling (Lenis)
+   F1 Ebikes - smooth momentum scrolling (Lenis)
    Eases the NATIVE scroll, so scroll-driven animations (the hero canvas scrub) keep reading
    window.scrollY normally and position:sticky still works. The hero slingshot routes its
    springs through window.lenis.scrollTo so they share this momentum easing. Disabled when the
-   user prefers reduced motion, and only enabled for fine pointers (desktop) — touch devices
+   user prefers reduced motion, and only enabled for fine pointers (desktop) - touch devices
    already have native momentum.
    ============================================================ */
 (function () {
