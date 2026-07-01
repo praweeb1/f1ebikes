@@ -2054,8 +2054,10 @@ html.batt-locked, html.batt-locked body { overflow: hidden; height: 100%; }
    Left: gallery (main + thumbnails) with open content sections below.
    Right: sticky buy panel with dropdown options. Light theme (matches .product).
    ============================================================ */
-.kp__wrap { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 400px); gap: clamp(1.5rem, 4vw, 3.5rem); align-items: start; }
-.kp__left { min-width: 0; }
+.kp__wrap { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 400px); gap: clamp(1.5rem, 4vw, 3.5rem); align-items: start; grid-template-areas: "gallery right" "content right"; }
+.kp__gallery { grid-area: gallery; min-width: 0; }
+.kp__content { grid-area: content; }
+.kp__right { grid-area: right; position: sticky; top: 96px; }
 
 /* gallery: main image + thumbnail strip */
 .kp__main { background: #fff; border: 1px solid #e6e6e4; border-radius: 16px; padding: 1.5rem; display: flex; align-items: center; justify-content: center; aspect-ratio: 4 / 3; }
@@ -2066,13 +2068,13 @@ html.batt-locked, html.batt-locked body { overflow: hidden; height: 100%; }
 .kp__thumb.is-active { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(224, 43, 30, 0.22); }
 .kp__thumb:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-/* sticky buy panel */
-.kp__panel { position: sticky; top: 96px; }
-/* Reference-style header: large title, price at the same size, small red off-line, plain CTA */
-.kp__panel .product__title { font-size: clamp(1.85rem, 3.8vw, 2.8rem); line-height: 1.05; }
-.kp__panel .product__price { margin-top: 1rem; font-family: "Cordia New", "Cordia UPC", "Leelawadee UI", Tahoma, sans-serif; font-size: clamp(1.85rem, 3.8vw, 2.8rem); line-height: 1.05; color: #000; }
-.kp__panel .product__off { margin-top: 0.5rem; color: var(--accent); font-weight: 400; font-size: 0.95rem; letter-spacing: 0.01em; }
-.kp__panel .product__cta { font-weight: 500; }
+/* Header block (crumbs/rating/title) sits atop the buy block inside .kp__right */
+.kp__head { margin-bottom: 1.2rem; }
+/* Reference-style header: large title, 3x price, small red off-line, plain CTA */
+.kp__right .product__title { font-size: clamp(1.85rem, 3.8vw, 2.8rem); line-height: 1.05; }
+.kp__right .product__price { margin-top: 0.6rem; font-family: "Cordia New", "Cordia UPC", "Leelawadee UI", Tahoma, sans-serif; font-size: clamp(5.5rem, 14vw, 6rem); line-height: 1; color: #000; }
+.kp__right .product__off { margin-top: 0.2rem; color: var(--accent); font-weight: 400; font-size: 0.95rem; letter-spacing: 0.01em; }
+.kp__right .product__cta { font-weight: 500; }
 
 /* dropdown option fields */
 .kp-field { margin-top: 1.4rem; }
@@ -2082,7 +2084,7 @@ html.batt-locked, html.batt-locked body { overflow: hidden; height: 100%; }
 .kp-select:focus-visible { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(224, 43, 30, 0.15); }
 
 /* open content sections (below the gallery) */
-.kp__content { margin-top: clamp(2rem, 5vw, 3.5rem); display: grid; gap: clamp(1.8rem, 3.5vw, 2.6rem); }
+.kp__content { display: grid; gap: clamp(1.8rem, 3.5vw, 2.6rem); }
 .kp__block { border-top: 1px solid #e2e2e0; padding-top: clamp(1.4rem, 3vw, 2rem); }
 .kp__block:first-child { border-top: 0; padding-top: 0; }
 .kp__block h2 { font-size: clamp(1.15rem, 2.4vw, 1.55rem); font-weight: 700; letter-spacing: -0.01em; margin: 0 0 0.9rem; color: #000; }
@@ -2118,10 +2120,38 @@ html.batt-locked, html.batt-locked body { overflow: hidden; height: 100%; }
 .kp-extra a span { transition: transform 0.2s var(--ease); }
 .kp-extra a:hover span { transform: translateX(3px); }
 
+/* Mobile-collapsible content sections: open headings on desktop, dropdowns on mobile */
+.kp-macc { border-top: 1px solid #e2e2e0; padding-top: clamp(1.4rem, 3vw, 2rem); }
+.kp-macc__head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; width: 100%; background: none; border: 0; padding: 0; margin: 0; font-family: inherit; text-align: left; cursor: default; color: #000; }
+.kp-macc__head span { font-size: clamp(1.15rem, 2.4vw, 1.55rem); font-weight: 700; letter-spacing: -0.01em; }
+.kp-macc__head:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.kp-macc__chev { display: none; width: 20px; height: 20px; flex: none; color: var(--accent); transition: transform 0.25s var(--ease); }
+.kp-macc__head[aria-expanded="true"] .kp-macc__chev { transform: rotate(180deg); }
+.kp-macc__panel { display: block; }
+.kp-macc__inner { padding-top: 0.9rem; }
+
 @media (max-width: 860px) {
-  .kp__wrap { grid-template-columns: 1fr; }
-  .kp__panel { position: static; }
+  /* single column; title + review jump to the very top, then gallery, buy panel, details */
+  .kp__wrap { display: flex; flex-direction: column; gap: clamp(1.6rem, 5vw, 2.4rem); }
+  .kp__right { display: contents; }
+  .kp__head { order: 1; margin-bottom: 0; }
+  .kp__gallery { order: 2; }
+  .kp__buy { order: 3; }
+  .kp__content { order: 4; }
+
+  /* the three named sections collapse into tap-to-open dropdowns on mobile */
+  .kp-macc { padding-top: 0; }
+  .kp-macc__head { cursor: pointer; padding: 1.15rem 0; }
+  .kp-macc__chev { display: block; }
+  .kp-macc__panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.28s var(--ease); }
+  .kp-macc__head[aria-expanded="true"] + .kp-macc__panel { grid-template-rows: 1fr; }
+  .kp-macc__inner { overflow: hidden; visibility: hidden; padding-top: 0; transition: visibility 0.28s; }
+  .kp-macc__head[aria-expanded="true"] + .kp-macc__panel .kp-macc__inner { visibility: visible; padding-bottom: 0.6rem; }
 }
+@media (prefers-reduced-motion: reduce) { .kp-macc__panel, .kp-macc__chev, .kp-macc__inner { transition: none; } }
+
+/* Riders scroll wall: keep portraits from touching side-by-side on small screens */
+@media (max-width: 860px) { .spw__row { gap: 12px; } }
 
 /* ============================================================
    Contact / enquiry + FAQ pages

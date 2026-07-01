@@ -46,23 +46,82 @@
   <section class="product" aria-label="1500W eBike Kit">
     <div class="kp__wrap">
 
-      <div class="kp__left">
-        <!-- gallery -->
-        <div class="kp__gallery">
-          <div class="kp__main"><img id="kp-main" src="Images/Thumbnail/Conversion%20Kit%20with%20UKC1.png" alt="1500W eBike Kit, conversion kit fitted with the UKC1 colour display" /></div>
-          <div class="kp__thumbs" id="kp-thumbs" role="group" aria-label="Product images"></div>
+      <!-- gallery -->
+      <div class="kp__gallery">
+        <div class="kp__main"><img id="kp-main" src="Images/Thumbnail/Conversion%20Kit%20with%20UKC1.png" alt="1500W eBike Kit, conversion kit fitted with the UKC1 colour display" /></div>
+        <div class="kp__thumbs" id="kp-thumbs" role="group" aria-label="Product images"></div>
+      </div>
+
+      <!-- right column: header (title + review) above the buy panel. On mobile the header
+           jumps to the top of the page and the buy panel drops below the gallery. -->
+      <div class="kp__right">
+        <div class="kp__head">
+          <nav class="product__crumbs" aria-label="Breadcrumb">
+            <a href="index.html">Home</a> <span aria-hidden="true">/</span>
+            <a href="shop.html">Conversion Kits</a> <span aria-hidden="true">/</span> <span>1500W eBike Kit</span>
+          </nav>
+          <div class="product__rating" aria-label="Rated 4.8 from 24 reviews">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.3 6.9.6-5.2 4.6 1.6 6.9L12 17l-6.3 3 1.6-6.9L2 8.9l6.9-.6z"/></svg>
+            <span><strong>4.8</strong> · 24 reviews</span>
+          </div>
+          <h1 class="product__title">1500W eBike Kit</h1>
         </div>
 
-        <!-- content sections -->
-        <div class="kp__content">
-          <div class="kp__block">
-            <p>The 1500W eBike Kit is a complete rear-wheel conversion: a geared hub motor laced into the wheel size you choose, paired with a matched controller, display, throttle and pedal-assist sensor. Everything talks to each other out of the box, so you just supply a bike and a battery.</p>
-            <p>It is built for riders who want real electric assistance for commuting and weekend rides without the price or weight of a mid-drive. Fit it to a hardtail, a commuter, or a fat bike and you have a 40 km/h-capable e-bike in an afternoon.</p>
+        <aside class="kp__buy">
+          <p class="product__price"><span>$410.00</span></p>
+          <p class="product__off">$100 Off! Australia-Wide</p>
+
+          <div class="kp-field">
+            <label for="kp-wheel">Wheel size</label>
+            <select class="kp-select" id="kp-wheel">
+              <option value="" selected>Select</option>
+              <option value="26">26&Prime; Standard</option>
+              <option value="27.5">27.5&Prime; Trail</option>
+              <option value="29">29&Prime; Touring</option>
+            </select>
           </div>
 
-          <div class="kp__block">
-            <h2>What the kit includes</h2>
-            <ul class="kp-bullets">
+          <div class="kp-field">
+            <label for="kp-display">Display</label>
+            <select class="kp-select" id="kp-display">
+              <option value="" selected>Select</option>
+              <option value="SW900">SW900</option>
+              <option value="UKC1">UKC1</option>
+            </select>
+          </div>
+
+          <p class="product__stock" style="margin-top:1.5rem;"><span class="prod__stock-dot" aria-hidden="true"></span>In stock</p>
+          <p class="product__ship">
+            <svg class="ship-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 5.5h13v10H1z"/><path d="M14 8.5h3.8l3.2 3.2v3.8H14z"/><circle cx="5.8" cy="18" r="1.7"/><circle cx="17.2" cy="18" r="1.7"/></svg>
+            Free Australia-wide shipping · 7 to 14 business days
+          </p>
+
+          <button class="product__cta" id="kit-add" type="button">Add to cart</button>
+
+          <p class="product__trust">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>12-month warranty</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Fits 26 / 27.5 / 29 inch</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Torque arms included</span>
+          </p>
+        </aside>
+      </div>
+
+      <!-- content: description + NOT INCLUDED stay open; the three named sections
+           collapse into tap-to-open dropdowns on mobile only -->
+      <div class="kp__content">
+        <div class="kp__block">
+            <p>The 1500W eBike Kit is a complete rear-wheel conversion: a geared hub motor laced into the wheel size you choose, paired with a matched controller, display, throttle and pedal-assist sensor. Everything talks to each other out of the box, so you just supply a bike and a battery.</p>
+            <p>It is built for riders who want real electric assistance for commuting and weekend rides without the price or weight of a mid-drive. Fit it to a hardtail, a commuter, or a fat bike and you have a 40 km/h-capable e-bike in an afternoon.</p>
+        </div>
+
+        <div class="kp-macc">
+          <button class="kp-macc__head" type="button" aria-expanded="false" aria-controls="macc-includes" id="macc-includes-h">
+            <span>What the kit includes</span>
+            <svg class="kp-macc__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="kp-macc__panel" id="macc-includes" role="region" aria-labelledby="macc-includes-h">
+            <div class="kp-macc__inner">
+              <ul class="kp-bullets">
               <li>Rear hub motor laced into your chosen wheel (26, 27.5 or 29 inch)</li>
               <li>Matched sine-wave motor controller</li>
               <li>Handlebar display (SW900 or UKC1, your choice)</li>
@@ -72,12 +131,19 @@
               <li>Pair of torque arms</li>
               <li>Full wiring harness with waterproof connectors</li>
               <li>Mounting brackets, spacers and fixings</li>
-            </ul>
+              </ul>
+            </div>
           </div>
+        </div>
 
-          <div class="kp__block">
-            <h2>Specifications</h2>
-            <ul class="kp-bullets">
+        <div class="kp-macc">
+          <button class="kp-macc__head" type="button" aria-expanded="false" aria-controls="macc-specs" id="macc-specs-h">
+            <span>Specifications</span>
+            <svg class="kp-macc__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="kp-macc__panel" id="macc-specs" role="region" aria-labelledby="macc-specs-h">
+            <div class="kp-macc__inner">
+              <ul class="kp-bullets">
               <li>1500W rear hub motor</li>
               <li>48V to 52V compatible</li>
               <li>30A sine-wave controller</li>
@@ -86,74 +152,32 @@
               <li>Fits 26, 27.5 and 29 inch wheels</li>
               <li>SW900 or UKC1 display</li>
               <li>Recommended battery: 52V lithium pack, 20Ah or larger</li>
-            </ul>
-            <p class="kp-note" style="margin-top:1rem;">Figures are indicative and vary with rider weight, battery, tyre and terrain. Assisted speeds may exceed road-legal limits, so check your local e-bike laws before riding.</p>
+              </ul>
+              <p class="kp-note" style="margin-top:1rem;">Figures are indicative and vary with rider weight, battery, tyre and terrain. Assisted speeds may exceed road-legal limits, so check your local e-bike laws before riding.</p>
+            </div>
           </div>
+        </div>
 
-          <div class="kp__block">
-            <h2>Warranty</h2>
-            <p>Every kit is covered by a 12-month warranty on the motor and controller against manufacturing defects. Wearing parts, crash damage, water ingress from unsealed connectors and damage from over-volting are not covered. Keep your order number and we will sort it out.</p>
+        <div class="kp-macc">
+          <button class="kp-macc__head" type="button" aria-expanded="false" aria-controls="macc-warranty" id="macc-warranty-h">
+            <span>Warranty</span>
+            <svg class="kp-macc__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="kp-macc__panel" id="macc-warranty" role="region" aria-labelledby="macc-warranty-h">
+            <div class="kp-macc__inner">
+              <p>Every kit is covered by a 12-month warranty on the motor and controller against manufacturing defects. Wearing parts, crash damage, water ingress from unsealed connectors and damage from over-volting are not covered. Keep your order number and we will sort it out.</p>
+            </div>
           </div>
+        </div>
 
-          <div class="kp__block">
-            <h2>NOT INCLUDED</h2>
-            <ul class="kp-bullets">
-              <li><strong>Battery.</strong> Needs a compatible 52V lithium pack, 20Ah or larger. <a href="battery.html">Shop batteries</a></li>
-              <li><strong>Install tools.</strong> Metric spanners, Allen keys, screwdrivers, tyre levers and cable ties</li>
-            </ul>
-          </div>
+        <div class="kp__block">
+          <h2>NOT INCLUDED</h2>
+          <ul class="kp-bullets">
+            <li><strong>Battery.</strong> Needs a compatible 52V lithium pack, 20Ah or larger. <a href="battery.html">Shop batteries</a></li>
+            <li><strong>Install tools.</strong> Metric spanners, Allen keys, screwdrivers, tyre levers and cable ties</li>
+          </ul>
         </div>
       </div>
-
-      <!-- sticky buy panel -->
-      <aside class="kp__panel product__panel">
-        <nav class="product__crumbs" aria-label="Breadcrumb">
-          <a href="index.html">Home</a> <span aria-hidden="true">/</span>
-          <a href="shop.html">Conversion Kits</a> <span aria-hidden="true">/</span> <span>1500W eBike Kit</span>
-        </nav>
-
-        <div class="product__rating" aria-label="Rated 4.8 from 24 reviews">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.3 6.9.6-5.2 4.6 1.6 6.9L12 17l-6.3 3 1.6-6.9L2 8.9l6.9-.6z"/></svg>
-          <span><strong>4.8</strong> · 24 reviews</span>
-        </div>
-
-        <h1 class="product__title">1500W eBike Kit</h1>
-        <p class="product__price"><span>$410.00</span></p>
-        <p class="product__off">$100 Off! Australia-Wide</p>
-
-        <div class="kp-field">
-          <label for="kp-wheel">Wheel size</label>
-          <select class="kp-select" id="kp-wheel">
-            <option value="" selected>Select</option>
-            <option value="26">26&Prime; Standard</option>
-            <option value="27.5">27.5&Prime; Trail</option>
-            <option value="29">29&Prime; Touring</option>
-          </select>
-        </div>
-
-        <div class="kp-field">
-          <label for="kp-display">Display</label>
-          <select class="kp-select" id="kp-display">
-            <option value="" selected>Select</option>
-            <option value="SW900">SW900</option>
-            <option value="UKC1">UKC1</option>
-          </select>
-        </div>
-
-        <p class="product__stock" style="margin-top:1.5rem;"><span class="prod__stock-dot" aria-hidden="true"></span>In stock</p>
-        <p class="product__ship">
-          <svg class="ship-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 5.5h13v10H1z"/><path d="M14 8.5h3.8l3.2 3.2v3.8H14z"/><circle cx="5.8" cy="18" r="1.7"/><circle cx="17.2" cy="18" r="1.7"/></svg>
-          Free Australia-wide shipping · 7 to 14 business days
-        </p>
-
-        <button class="product__cta" id="kit-add" type="button">Add to cart</button>
-
-        <p class="product__trust">
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>12-month warranty</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Fits 26 / 27.5 / 29 inch</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Torque arms included</span>
-        </p>
-      </aside>
 
     </div>
   </section>
@@ -241,6 +265,14 @@
         };
         if (window.F1Cart && window.F1Cart.add) window.F1Cart.add(item);
         else window.location.href = "https://f1ebikes.com/products/" + HANDLE;
+      });
+
+      // Mobile only: the includes / specifications / warranty sections are dropdowns.
+      // CSS keeps them open on desktop regardless of this state.
+      [].forEach.call(document.querySelectorAll(".kp-macc__head"), function (head) {
+        head.addEventListener("click", function () {
+          head.setAttribute("aria-expanded", head.getAttribute("aria-expanded") === "true" ? "false" : "true");
+        });
       });
     })();
   </script>
