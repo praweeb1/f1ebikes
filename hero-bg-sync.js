@@ -31,9 +31,9 @@
   var TUNE = (window.F1_TUNE = window.F1_TUNE || {});
   function tnum(key, dflt) { var v = TUNE[key]; return (typeof v === "number" && !isNaN(v)) ? v : dflt; }
 
-  function clamp01(x) { return x < 0 ? 0 : (x > 1 ? 1 : x); }
-  function smoother(t) { return t * t * t * (t * (t * 6 - 15) + 10); }   // smootherstep (silky)
-  function lerp(a, b, t) { return a + (b - a) * t; }
+  var clamp01 = F1.clamp01;
+  var smoother = F1.smootherstep;   // smootherstep (silky)
+  var lerp = F1.lerp;
   function easeOutSnap(t) { return 1 - Math.pow(1 - t, 3); }   // easeOutCubic — quick spring-back, smooth settle
 
   // ---- Mobile / iOS fallback ----

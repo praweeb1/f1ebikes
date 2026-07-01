@@ -84,7 +84,7 @@
     grid.innerHTML = html;
 
     var items = grid.querySelectorAll(".spw-item");
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (F1.reducedMotion()) {
       items.forEach(function (el) { el.style.transform = "scale(1)"; });
       return;
     }

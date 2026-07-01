@@ -8,7 +8,7 @@
    ============================================================ */
 (function () {
   if (typeof Lenis === "undefined") return;
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (F1.reducedMotion()) return;
 
   var lenis = new Lenis({
     // On the homepage the hero tuning sets F1_TUNE.lerp (a long cinematic glide) and the hero

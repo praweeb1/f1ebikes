@@ -164,7 +164,7 @@
     document.body.appendChild(box);
     var canvas = box.querySelector("#f1-gcanvas");
 
-    function sstep(t) { return t * t * t * (t * (t * 6 - 15) + 10); }   // smootherstep (matches the dock easing)
+    var sstep = F1.smootherstep;   // smootherstep (matches the dock easing)
     function num(v, d) { return (typeof v === "number" && !isNaN(v)) ? v : d; }
 
     function draw() {
@@ -229,14 +229,15 @@
     })();
   }
 
-  // Both overlays start HIDDEN. Type "jason" anywhere to show them; type it again to hide.
+  // Type "jason" anywhere to toggle the bike-progress graph. The slider panel (#f1-tune)
+  // stays DISABLED — jason never shows it; only the graph comes and goes.
   function setupHotkey() {
     var buf = "", hidden = true;
     function apply() {
-      ["f1-tune", "f1-graph"].forEach(function (id) {
-        var el = document.getElementById(id);
-        if (el) el.style.display = hidden ? "none" : "";
-      });
+      var tune = document.getElementById("f1-tune");
+      if (tune) tune.style.display = "none";             // slider overlay disabled for the hotkey
+      var graph = document.getElementById("f1-graph");
+      if (graph) graph.style.display = hidden ? "none" : "";
     }
     apply();                                               // hidden from the start
     document.addEventListener("keydown", function (e) {

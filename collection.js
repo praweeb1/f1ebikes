@@ -84,7 +84,7 @@
   // "open into collection" — cascade the section in when it scrolls up as the hero ends.
   var section = document.getElementById("collection");
   if (section && "IntersectionObserver" in window &&
-      !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      !F1.reducedMotion()) {
     section.classList.add("js-reveal");
     var io = new IntersectionObserver(function (entries) {
       if (entries[0].isIntersecting) { section.classList.add("is-open"); io.disconnect(); }

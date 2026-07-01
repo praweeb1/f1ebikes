@@ -15,7 +15,7 @@
   var labelT = document.getElementById("btl-label");
   var root   = document.documentElement;
 
-  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var reduce = F1.reducedMotion();
   var done = false;
 
   function hide() {
@@ -44,7 +44,7 @@
     return;
   }
 
-  function clamp01(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+  var clamp01 = F1.clamp01;
 
   // red -> orange -> yellow -> green, switching each quarter
   function stage(p) {
