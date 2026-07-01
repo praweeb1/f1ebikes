@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>F1 Ebikes — spotlight loader (prototype)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; background: #070707; font-family: "Archivo", system-ui, sans-serif; }
+
+    .scene { position: fixed; inset: 0; overflow: hidden; background: #070707; }
+
+    /* the real hero front-view frame, scaled to fill */
+    .scene__bike {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; object-position: 50% 48%;
+      filter: brightness(0.16) contrast(1.02);
+      will-change: filter;
+    }
+
+    /* stage spotlight beam dropping from the top */
+    .scene__cone {
+      position: absolute; top: -4%; left: 0; width: 100%; height: 82%;
+      background: linear-gradient(to bottom, rgba(255,247,224,0.22), rgba(255,247,224,0.05) 58%, rgba(255,247,224,0));
+      clip-path: polygon(46% 0, 54% 0, 78% 100%, 22% 100%);
+      opacity: 0; will-change: opacity; pointer-events: none;
+    }
+
+    /* the dark mask with a growing transparent "pool" that reveals the bike */
+    .scene__mask { position: absolute; inset: 0; pointer-events: none; will-change: background; }
+
+    .hud {
+      position: absolute; left: 0; right: 0; bottom: 8%; z-index: 5; text-align: center;
+      color: #ededed; pointer-events: none;
+    }
+    .hud__num { font-size: clamp(1.6rem, 5vw, 2.2rem); font-weight: 500; font-variant-numeric: tabular-nums; }
+    .hud__num span { font-size: 0.5em; color: #8a8a8a; margin-left: 4px; }
+    .hud__label { margin-top: 0.5rem; font-size: 0.72rem; letter-spacing: 0.24em; text-transform: uppercase; color: #818181; }
+
+    .replay {
+      position: absolute; right: 16px; bottom: 16px; z-index: 6;
+      background: transparent; border: 0.5px solid #2f2f2f; color: #b5b5b5;
+      border-radius: 8px; padding: 7px 13px; font: inherit; font-size: 12px; cursor: pointer;
+    }
+    .replay:hover { border-color: #555; color: #fff; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .scene__bike { filter: brightness(1) contrast(1.02); }
+      .scene__mask, .scene__cone { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="scene" id="scene">
+    <img class="scene__bike" id="bike" src="assets/bike-seq-360/frame-001.jpg" alt="F1 e-bike, front view" />
+    <div class="scene__cone" id="cone"></div>
+    <div class="scene__mask" id="mask"></div>
+
+    <div class="hud">
+      <div class="hud__num"><span id="pct">0</span><span>%</span></div>
+      <div class="hud__label" id="label">Loading</div>
+    </div>
+
+    <button class="replay" id="replay" type="button">Replay</button>
+  </div>
+
+  <script>
+  (function () {
+    var bike   = document.getElementById("bike");
+    var cone   = document.getElementById("cone");
+    var mask   = document.getElementById("mask");
+    var pctEl  = document.getElementById("pct");
+    var label  = document.getElementById("label");
+    var replay = document.getElementById("replay");
+
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // ---- real load gate: decode the hero frame sequence; progress = decoded / total ----
+    var FRAME_COUNT = 360;
+    var frameURL = function (n) { return "assets/bike-seq-360/frame-" + String(n).padStart(3, "0") + ".jpg"; };
+    var decoded = 0, realStarted = false;
+    function preloadFrames() {
+      if (realStarted) return; realStarted = true;
+      for (var i = 0; i < FRAME_COUNT; i++) {
+        var im = new Image();
+        im.onload = im.onerror = function () { decoded++; };
+        im.src = frameURL(i + 1);
+      }
+    }
+
+    function clamp01(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+    function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+
+    // spotlight pool: transparent up to (r-feather), opaque dark beyond — plus a warm core glow.
+    function paint(r, warm) {
+      var inner = Math.max(0, r - 90).toFixed(0);
+      var outer = (r + 18).toFixed(0);
+      mask.style.background =
+        "radial-gradient(circle at 50% 48%, rgba(7,7,7,0) " + inner + "px, rgba(7,7,7,0.985) " + outer + "px)," +
+        "radial-gradient(circle at 50% 48%, rgba(255,244,214," + (warm * 0.16).toFixed(3) + ") 0%, rgba(255,244,214,0) " + r.toFixed(0) + "px)";
+    }
+
+    var MIN_MS = 1300;          // never flash by faster than this
+    var start = 0, raf = 0, shown = 0, done = false;
+
+    function loop(now) {
+      if (!start) start = now;
+      var elapsed = now - start;
+
+      // target progress = blend of the real decode ratio and a gentle time floor so the bar
+      // always advances even before frames arrive; it can't finish until decode is genuinely done.
+      var real = decoded / FRAME_COUNT;
+      var floor = clamp01(elapsed / 4200) * 0.9;          // eases toward 90% over ~4.2s
+      var target = Math.max(real, floor);
+      if (real < 0.999) target = Math.min(target, 0.95);  // hold at 95% until truly loaded
+
+      shown += (target - shown) * 0.08;                   // smooth the needle
+      var ready = real >= 0.999 && elapsed >= MIN_MS;
+      if (ready) shown += (1 - shown) * 0.12;
+
+      var pmax = Math.max(0, window.innerWidth, window.innerHeight) * 0.9 + 240;
+      var r = 60 + easeOut(shown) * pmax;
+      var bright = 0.16 + easeOut(shown) * 0.84;
+
+      bike.style.filter = "brightness(" + bright.toFixed(3) + ") contrast(1.02)";
+      paint(r, clamp01(shown + 0.12));
+
+      // the spotlight "strikes" on with a couple of flickers in the first beat
+      if (shown < 0.12) { cone.style.opacity = (Math.random() < 0.4 ? 0.5 : 0.1).toFixed(2); }
+      else { cone.style.opacity = (0.45 + easeOut(clamp01((shown - 0.12) / 0.88)) * 0.5).toFixed(2); }
+
+      pctEl.textContent = Math.round(clamp01(shown) * 100);
+
+      if (ready && shown > 0.992) { finish(); return; }
+      raf = requestAnimationFrame(loop);
+    }
+
+    function finish() {
+      done = true;
+      bike.style.transition = "filter .6s ease";
+      bike.style.filter = "brightness(1) contrast(1.02)";
+      mask.style.transition = "opacity .7s ease";
+      mask.style.opacity = "0";
+      cone.style.transition = "opacity .7s ease";
+      cone.style.opacity = "0";
+      pctEl.textContent = "100";
+      label.textContent = "Ready — scroll to begin";
+      label.style.color = "#f2f2f2";
+    }
+
+    function run() {
+      cancelAnimationFrame(raf);
+      start = 0; shown = 0; done = false;
+      label.textContent = "Loading"; label.style.color = "#818181";
+      bike.style.transition = "none"; mask.style.transition = "none"; cone.style.transition = "opacity .12s";
+      mask.style.opacity = "1"; mask.style.background = "rgba(7,7,7,0.985)";
+      bike.style.filter = "brightness(0.16) contrast(1.02)";
+      cone.style.opacity = "0"; pctEl.textContent = "0";
+      if (reduce) { decoded = FRAME_COUNT; finish(); return; }
+      preloadFrames();
+      raf = requestAnimationFrame(loop);
+    }
+
+    replay.addEventListener("click", run);
+    run();
+  })();
+  </script>
+</body>
+</html>

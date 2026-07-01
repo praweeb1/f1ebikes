@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>F1 Ebikes — Conversion Kits</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="Images/F2.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- ============ NAVBAR ============ -->
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo"><span class="nav__logo-mark">F<svg class="nav__bolt" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15 2 L8.5 4 L11.5 6 L11.5 10 L8 11.2 L12.5 12.6 L11.5 13.4 L11.5 22 L15 22 L15 13.4 L17.5 12.6 L13 11.2 L15 10 Z"/></svg></span><span>EBIKES</span></a>
+
+      <nav class="nav__links" aria-label="Primary">
+        <a href="controllers.html">Controllers</a>
+        <a href="accessories.html">Accessories</a>
+        <a href="battery.html">Batteries</a>
+        <a href="#collection">Conversion Kits</a>
+      </nav>
+
+      <div class="nav__cta">
+        <a href="#" class="btn btn--ghost btn--sm" aria-label="Cart"><svg class="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/><path d="M2.5 3.5h2.2l2.1 11.6a1.6 1.6 0 0 0 1.6 1.3h8.4a1.6 1.6 0 0 0 1.6-1.3l1.3-7.1H5.4"/></svg></a>
+      </div>
+
+      <button class="nav__burger" id="nav-burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <nav class="nav__mobile" id="mobile-menu" aria-label="Mobile">
+      <a href="index.html" class="nav__mobile-link">Home</a>
+      <a href="controllers.html" class="nav__mobile-link">Controllers</a>
+      <a href="accessories.html" class="nav__mobile-link">Accessories</a>
+      <a href="battery.html" class="nav__mobile-link">Batteries</a>
+      <a href="#collection" class="nav__mobile-link">Conversion Kits</a>
+      <a href="shop.html" class="nav__mobile-link">Shop all</a>
+      <a href="#" class="nav__mobile-cart btn btn--ghost" aria-label="Cart"><svg class="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/><path d="M2.5 3.5h2.2l2.1 11.6a1.6 1.6 0 0 0 1.6 1.3h8.4a1.6 1.6 0 0 0 1.6-1.3l1.3-7.1H5.4"/></svg></a>
+    </nav>
+  </header>
+
+  <!-- ===== PAGE HEADER (dark band so the nav stays legible at the top) ===== -->
+  <section class="shophero" aria-label="Conversion Kits">
+    <nav class="shophero__crumbs" aria-label="Breadcrumb">
+      <a href="index.html">Home</a> <span aria-hidden="true">/</span> <span>Conversion Kits</span>
+    </nav>
+    <h1 class="shophero__title">Conversion Kits</h1>
+    <p class="shophero__sub">Every F1 Ebikes conversion kit — bolt-on electric power. Free Australia-wide shipping · <span class="ship-eta"><svg class="ship-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 5.5h13v10H1z"/><path d="M14 8.5h3.8l3.2 3.2v3.8H14z"/><circle cx="5.8" cy="18" r="1.7"/><circle cx="17.2" cy="18" r="1.7"/></svg>7–14 business days</span>.</p>
+  </section>
+
+  <!-- ===== FULL COLLECTION (all products) ===== -->
+  <section class="collection collection--page" id="collection" aria-label="Shop all products">
+    <div class="collection__head">
+      <div class="collection__intro">
+        <h2 class="collection__title"><span class="collection__dot" aria-hidden="true"></span>All Products</h2>
+        <p class="collection__sub"><span id="collection-count">5</span> products · Free Australia-wide shipping · <span class="ship-eta"><svg class="ship-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 5.5h13v10H1z"/><path d="M14 8.5h3.8l3.2 3.2v3.8H14z"/><circle cx="5.8" cy="18" r="1.7"/><circle cx="17.2" cy="18" r="1.7"/></svg>7–14 business days</span></p>
+      </div>
+      <div class="collection__sortwrap">
+        <label for="collection-sort" class="collection__sortlabel">Sort</label>
+        <select id="collection-sort" class="collection__sort">
+          <option value="featured">Featured</option>
+          <option value="price-asc">Price: low to high</option>
+          <option value="price-desc">Price: high to low</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="collection__filters" role="tablist" aria-label="Filter products">
+      <button class="cfilter is-active" type="button" data-filter="all" role="tab" aria-selected="true">All</button>
+      <button class="cfilter" type="button" data-filter="kits" role="tab" aria-selected="false">Kits</button>
+    </div>
+
+    <div class="collection__grid" id="collection-grid">
+      <article class="prod" data-cat="kits" data-price="410.00">
+        <div class="prod__media">
+          <a class="prod__link" href="https://f1ebikes.com/products/1500w-ebike-kit-52v-20ah-combo" target="_blank" rel="noopener" aria-label="1500W eBike Kit">
+            <img src="https://f1ebikes.com/cdn/shop/files/IMG-7067.png?v=1781532533&width=600" alt="1500W eBike kit + 52V 20Ah combo" loading="lazy" />
+          </a>
+          <button class="prod__wish" type="button" aria-label="Save to wishlist" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M12 20.5S3.5 15 3.5 9.2A4.2 4.2 0 0 1 12 6a4.2 4.2 0 0 1 8.5 3.2C20.5 15 12 20.5 12 20.5z"/></svg></button>
+          <a class="prod__add" href="https://f1ebikes.com/products/1500w-ebike-kit-52v-20ah-combo" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M6 6h15l-1.6 9H7.5z"/><path d="M6 6 5 3H2"/><circle cx="9.5" cy="20" r="1.3"/><circle cx="17.5" cy="20" r="1.3"/></svg> Add to cart</a>
+        </div>
+        <div class="prod__body">
+          <div class="prod__rating" aria-label="Rated 4.8 from 24 reviews"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.3 6.9.6-5.2 4.6 1.6 6.9L12 17l-6.3 3 1.6-6.9L2 8.9l6.9-.6z"/></svg><span class="prod__rate">4.8</span><span class="prod__reviews">(24)</span></div>
+          <a class="prod__name" href="https://f1ebikes.com/products/1500w-ebike-kit-52v-20ah-combo" target="_blank" rel="noopener">1500W eBike Kit</a>
+          <p class="prod__price"><span class="prod__now">From $410.00</span> <span class="prod__cur">AUD</span></p>
+        </div>
+      </article>
+
+      <article class="prod" data-cat="kits" data-price="450.00">
+        <span class="prod__best">Best Seller</span>
+        <div class="prod__media">
+          <span class="prod__badge prod__badge--sale">Sale</span>
+          <a class="prod__link" href="https://f1ebikes.com/products/2000w-ebike-kit-with-battery" target="_blank" rel="noopener" aria-label="2000W eBike Kit">
+            <img src="https://f1ebikes.com/cdn/shop/files/IMG-7067.png?v=1781532533&width=600" alt="2000W eBike kit + 52V 20Ah combo" loading="lazy" />
+          </a>
+          <button class="prod__wish" type="button" aria-label="Save to wishlist" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M12 20.5S3.5 15 3.5 9.2A4.2 4.2 0 0 1 12 6a4.2 4.2 0 0 1 8.5 3.2C20.5 15 12 20.5 12 20.5z"/></svg></button>
+          <a class="prod__add" href="https://f1ebikes.com/products/2000w-ebike-kit-with-battery" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M6 6h15l-1.6 9H7.5z"/><path d="M6 6 5 3H2"/><circle cx="9.5" cy="20" r="1.3"/><circle cx="17.5" cy="20" r="1.3"/></svg> Add to cart</a>
+        </div>
+        <div class="prod__body">
+          <div class="prod__rating" aria-label="Rated 4.9 from 63 reviews"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.3 6.9.6-5.2 4.6 1.6 6.9L12 17l-6.3 3 1.6-6.9L2 8.9l6.9-.6z"/></svg><span class="prod__rate">4.9</span><span class="prod__reviews">(63)</span></div>
+          <a class="prod__name" href="https://f1ebikes.com/products/2000w-ebike-kit-with-battery" target="_blank" rel="noopener">2000W eBike Kit</a>
+          <p class="prod__price"><span class="prod__now">From $450.00</span> <span class="prod__was">$510.00</span></p>
+        </div>
+      </article>
+
+      <article class="prod" data-cat="kits" data-price="870.00">
+        <div class="prod__media">
+          <a class="prod__link" href="https://f1ebikes.com/products/3000w-ebike-kit-with-battery" target="_blank" rel="noopener" aria-label="3000W eBike Kit">
+            <img src="https://f1ebikes.com/cdn/shop/files/IMG-7067.png?v=1781532533&width=600" alt="3000W eBike kit + 72V 20Ah combo" loading="lazy" />
+          </a>
+          <button class="prod__wish" type="button" aria-label="Save to wishlist" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M12 20.5S3.5 15 3.5 9.2A4.2 4.2 0 0 1 12 6a4.2 4.2 0 0 1 8.5 3.2C20.5 15 12 20.5 12 20.5z"/></svg></button>
+          <a class="prod__add" href="https://f1ebikes.com/products/3000w-ebike-kit-with-battery" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M6 6h15l-1.6 9H7.5z"/><path d="M6 6 5 3H2"/><circle cx="9.5" cy="20" r="1.3"/><circle cx="17.5" cy="20" r="1.3"/></svg> Add to cart</a>
+        </div>
+        <div class="prod__body">
+          <div class="prod__rating" aria-label="Rated 4.7 from 18 reviews"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.3 6.9.6-5.2 4.6 1.6 6.9L12 17l-6.3 3 1.6-6.9L2 8.9l6.9-.6z"/></svg><span class="prod__rate">4.7</span><span class="prod__reviews">(18)</span></div>
+          <a class="prod__name" href="https://f1ebikes.com/products/3000w-ebike-kit-with-battery" target="_blank" rel="noopener">3000W eBike Kit</a>
+          <p class="prod__price"><span class="prod__now">From $870.00</span> <span class="prod__cur">AUD</span></p>
+        </div>
+      </article>
+
+      <article class="prod" data-cat="kits" data-price="860.00">
+        <div class="prod__media">
+          <span class="prod__badge prod__badge--sale">Sale</span>
+          <a class="prod__link" href="https://f1ebikes.com/products/5000w-ebike-kit-with-battery" target="_blank" rel="noopener" aria-label="5000W eBike Kit">
+            <img src="https://f1ebikes.com/cdn/shop/files/IMG-7067.png?v=1781532533&width=600" alt="5000W eBike kit + 72V 30Ah combo" loading="lazy" />
+          </a>
+          <button class="prod__wish" type="button" aria-label="Save to wishlist" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M12 20.5S3.5 15 3.5 9.2A4.2 4.2 0 0 1 12 6a4.2 4.2 0 0 1 8.5 3.2C20.5 15 12 20.5 12 20.5z"/></svg></button>
+          <a class="prod__add" href="https://f1ebikes.com/products/5000w-ebike-kit-with-battery" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M6 6h15l-1.6 9H7.5z"/><path d="M6 6 5 3H2"/><circle cx="9.5" cy="20" r="1.3"/><circle cx="17.5" cy="20" r="1.3"/></svg> Add to cart</a>
+        </div>
+        <div class="prod__body">
+          <div class="prod__rating" aria-label="Rated 4.9 from 31 reviews"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.3 6.9.6-5.2 4.6 1.6 6.9L12 17l-6.3 3 1.6-6.9L2 8.9l6.9-.6z"/></svg><span class="prod__rate">4.9</span><span class="prod__reviews">(31)</span></div>
+          <a class="prod__name" href="https://f1ebikes.com/products/5000w-ebike-kit-with-battery" target="_blank" rel="noopener">5000W eBike Kit</a>
+          <p class="prod__price"><span class="prod__now">From $860.00</span> <span class="prod__was">$910.00</span></p>
+        </div>
+      </article>
+
+      <article class="prod" data-cat="kits" data-price="2540.00">
+        <div class="prod__media">
+          <span class="prod__badge prod__badge--sale">Sale</span>
+          <a class="prod__link" href="https://f1ebikes.com/products/19inch-6000w-combo" target="_blank" rel="noopener" aria-label="19 inch 6000W Combo">
+            <img src="https://f1ebikes.com/cdn/shop/files/FullSizeRender_2d154510-af1c-4c5b-b52d-4889ab6d05a5.jpg?v=1775898735&width=600" alt="19 inch 6000W combo" loading="lazy" />
+          </a>
+          <button class="prod__wish" type="button" aria-label="Save to wishlist" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M12 20.5S3.5 15 3.5 9.2A4.2 4.2 0 0 1 12 6a4.2 4.2 0 0 1 8.5 3.2C20.5 15 12 20.5 12 20.5z"/></svg></button>
+          <a class="prod__add" href="https://f1ebikes.com/products/19inch-6000w-combo" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M6 6h15l-1.6 9H7.5z"/><path d="M6 6 5 3H2"/><circle cx="9.5" cy="20" r="1.3"/><circle cx="17.5" cy="20" r="1.3"/></svg> Add to cart</a>
+        </div>
+        <div class="prod__body">
+          <div class="prod__rating" aria-label="Rated 5.0 from 12 reviews"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.3 6.9.6-5.2 4.6 1.6 6.9L12 17l-6.3 3 1.6-6.9L2 8.9l6.9-.6z"/></svg><span class="prod__rate">5.0</span><span class="prod__reviews">(12)</span></div>
+          <a class="prod__name" href="https://f1ebikes.com/products/19inch-6000w-combo" target="_blank" rel="noopener">19&Prime; 6000W Combo</a>
+          <p class="prod__price"><span class="prod__now">From $2,540.00</span> <span class="prod__was">$2,650.00</span></p>
+        </div>
+      </article>
+
+    </div>
+
+    <p class="collection__empty" id="collection-empty" hidden>No products in this category yet.</p>
+
+    <div class="collection__viewall-wrap">
+      <a class="collection__viewall collection__viewall--btn collection__viewall--back" href="index.html">&larr; Back to home</a>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER (socials) ===== -->
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <a href="index.html" class="site-footer__logo">F1<span>EBIKES</span></a>
+      <div class="site-footer__socials" aria-label="Social media">
+        <a href="https://www.instagram.com/f1ebikes/" target="_blank" rel="noopener" class="social" aria-label="F1 Ebikes on Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/@f1ebikes" target="_blank" rel="noopener" class="social" aria-label="F1 Ebikes on TikTok">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.3 0 .59.05.88.13V9.4a6.84 6.84 0 0 0-1-.07A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+        </a>
+      </div>
+      <p class="site-footer__copy">© 2026 F1 Ebikes · Free Australia-wide shipping</p>
+      <nav class="site-footer__links" aria-label="Legal">
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="terms-of-service.html">Terms of Service</a>
+        <a href="refund-policy.html">Refund Policy</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Nav: fill the bar on scroll + flip to dark text over the light product grid. -->
+  <script>
+    (function () {
+      var nav = document.getElementById("nav");
+      var collection = document.getElementById("collection");
+      if (!nav) return;
+      function update() {
+        nav.classList.toggle("nav--scrolled", window.scrollY > 24);
+        if (collection) {
+          var band = (nav.getBoundingClientRect().height || 72) * 0.6;
+          var r = collection.getBoundingClientRect();
+          nav.classList.toggle("nav--dark", r.top <= band && r.bottom > band);
+        }
+      }
+      update();
+      window.addEventListener("scroll", update, { passive: true });
+      window.addEventListener("resize", update);
+    })();
+  </script>
+
+  <!-- Mobile navigation: toggle the burger sheet, close on link tap / Escape / resize. -->
+  <script>
+    (function () {
+      var nav = document.getElementById("nav");
+      var burger = document.getElementById("nav-burger");
+      var menu = document.getElementById("mobile-menu");
+      if (!nav || !burger || !menu) return;
+      function setOpen(open) {
+        menu.classList.toggle("is-open", open);
+        burger.classList.toggle("is-open", open);
+        nav.classList.toggle("is-menu-open", open);
+        burger.setAttribute("aria-expanded", open ? "true" : "false");
+        burger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+        document.body.style.overflow = open ? "hidden" : "";
+      }
+      burger.addEventListener("click", function () { setOpen(!menu.classList.contains("is-open")); });
+      menu.querySelectorAll("a").forEach(function (a) { a.addEventListener("click", function () { setOpen(false); }); });
+      document.addEventListener("keydown", function (e) { if (e.key === "Escape" || e.keyCode === 27) setOpen(false); });
+      window.addEventListener("resize", function () { if (window.innerWidth > 860) setOpen(false); });
+    })();
+  </script>
+
+  <script src="collection.js"></script>
+  <script src="lenis.min.js"></script>
+  <script src="lenis-init.js"></script>
+</body>
+</html>

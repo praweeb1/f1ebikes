@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>F1 Ebikes — Reviews (prototype)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="Images/F2.png" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ---- Scroll portrait wall (prototype only — isolated to this page) ---- */
+    body.reviews-proto { background: #0a0a0a; color: #fff; }
+
+    .spw { position: relative; width: 100%; background: #0a0a0a; color: #fff; }
+
+    .spw__hint {
+      position: absolute; left: 50%; top: 62vh; transform: translateX(-50%);
+      display: grid; justify-items: center; text-align: center; pointer-events: none; z-index: 10;
+    }
+    .spw__hint span {
+      position: relative; max-width: 14ch; font-size: 0.72rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.12em; line-height: 1.3; color: rgba(255,255,255,0.5);
+    }
+    .spw__hint span::after {
+      content: ""; position: absolute; left: 50%; top: calc(100% + 8px);
+      width: 1px; height: 4rem; background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+    }
+
+    .spw__title {
+      position: sticky; top: 50%; z-index: 20; transform: translateY(-50%);
+      text-align: center; color: #fff; mix-blend-mode: exclusion; pointer-events: none;
+    }
+    .spw__title h2 {
+      margin: 0; font-weight: 800; letter-spacing: -0.04em; line-height: 0.9;
+      font-size: clamp(3.2rem, 13vw, 10rem);
+    }
+    .spw__title p {
+      margin: 0.6rem 0 0; font-size: clamp(0.72rem, 1.4vw, 0.95rem);
+      text-transform: uppercase; letter-spacing: 0.14em; color: rgba(255,255,255,0.65);
+    }
+
+    .spw__grid { position: relative; z-index: 0; margin: 50vh 0; }
+    .spw__row { display: flex; width: 100%; }
+    .spw__cell { flex: 1 1 0; aspect-ratio: 1 / 1; }
+    .spw-item { position: relative; height: 100%; width: 100%; transform: scale(0); }
+    .spw-item img {
+      height: 100%; width: 100%; object-fit: cover; display: block;
+      filter: grayscale(1) contrast(1.15);
+      transition: transform 0.5s ease, filter 0.5s ease;
+    }
+    .spw-item:hover img { transform: scale(0.95); filter: grayscale(0) contrast(1.05); }
+    .spw-item__cap {
+      position: absolute; left: 0; bottom: -0.4rem; width: 100%; transform: translateY(100%);
+      display: flex; justify-content: space-between; gap: 0.5rem;
+      font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.04em; color: rgba(255,255,255,0.45);
+    }
+    .spw-item__cap span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+    /* intro band above the wall */
+    .proto-intro { text-align: center; padding: clamp(7rem, 16vh, 11rem) 7vw 0; }
+    .proto-intro__eyebrow {
+      display: inline-flex; align-items: center; gap: 0.55rem; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.7);
+    }
+    .proto-intro__eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+    .proto-intro__lead { max-width: 540px; margin: 1.1rem auto 0; color: rgba(255,255,255,0.6); font-size: 1.02rem; line-height: 1.6; }
+
+    /* closing CTA */
+    .proto-cta { text-align: center; padding: clamp(4rem, 10vh, 7rem) 7vw clamp(5rem, 12vh, 8rem); }
+    .proto-cta__stars { display: inline-flex; gap: 3px; color: var(--accent); }
+    .proto-cta__stars svg { width: 22px; height: 22px; }
+    .proto-cta h2 { margin: 1rem 0 0.4rem; font-size: clamp(1.8rem, 4.4vw, 2.8rem); font-weight: 800; }
+    .proto-cta p { color: rgba(255,255,255,0.6); margin: 0 0 1.6rem; }
+    .proto-cta__btn {
+      display: inline-flex; align-items: center; gap: 0.5rem; background: var(--accent); color: #0a0a0a;
+      font-weight: 800; padding: 0.85rem 1.6rem; border-radius: 999px; letter-spacing: 0.02em;
+      transition: transform 0.2s var(--ease), filter 0.2s var(--ease);
+    }
+    .proto-cta__btn:hover { transform: translateY(-2px); filter: brightness(1.05); }
+
+    .proto-flag {
+      position: fixed; right: 12px; bottom: 12px; z-index: 9000; font-size: 0.66rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.55);
+      background: rgba(20,20,22,0.85); border: 1px solid rgba(255,255,255,0.14);
+      padding: 5px 10px; border-radius: 8px; pointer-events: none; backdrop-filter: blur(6px);
+    }
+  </style>
+</head>
+<body class="reviews-proto">
+  <!-- ============ NAVBAR ============ -->
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo"><span class="nav__logo-mark">F<svg class="nav__bolt" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15 2 L8.5 4 L11.5 6 L11.5 10 L8 11.2 L12.5 12.6 L11.5 13.4 L11.5 22 L15 22 L15 13.4 L17.5 12.6 L13 11.2 L15 10 Z"/></svg></span><span>EBIKES</span></a>
+
+      <nav class="nav__links" aria-label="Primary">
+        <a href="controllers.html">Controllers</a>
+        <a href="accessories.html">Accessories</a>
+        <a href="battery.html">Batteries</a>
+        <a href="shop.html">Conversion Kits</a>
+      </nav>
+
+      <div class="nav__cta">
+        <a href="#" class="btn btn--ghost btn--sm" aria-label="Cart"><svg class="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/><path d="M2.5 3.5h2.2l2.1 11.6a1.6 1.6 0 0 0 1.6 1.3h8.4a1.6 1.6 0 0 0 1.6-1.3l1.3-7.1H5.4"/></svg></a>
+      </div>
+
+      <button class="nav__burger" id="nav-burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <nav class="nav__mobile" id="mobile-menu" aria-label="Mobile">
+      <a href="index.html" class="nav__mobile-link">Home</a>
+      <a href="controllers.html" class="nav__mobile-link">Controllers</a>
+      <a href="accessories.html" class="nav__mobile-link">Accessories</a>
+      <a href="battery.html" class="nav__mobile-link">Batteries</a>
+      <a href="shop.html" class="nav__mobile-link">Conversion Kits</a>
+      <a href="reviews.html" class="nav__mobile-link">Reviews</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- intro -->
+    <section class="proto-intro">
+      <span class="proto-intro__eyebrow">Reviews</span>
+      <p class="proto-intro__lead">Real builds from real riders. Scroll through the wall — every face runs an F1 kit.</p>
+    </section>
+
+    <!-- ===== Scroll portrait wall ===== -->
+    <section class="spw" id="spw" aria-label="Customer reviews wall">
+      <div class="spw__hint" id="spw-hint"><span>scroll to meet the riders</span></div>
+
+      <div class="spw__title">
+        <h2>Riders.</h2>
+        <p>4.93 &#9733; · 1,284 verified reviews</p>
+      </div>
+
+      <div class="spw__grid" id="spw-grid"><!-- portraits injected by review-wall.js --></div>
+    </section>
+
+    <!-- closing CTA -->
+    <section class="proto-cta">
+      <span class="proto-cta__stars" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.3 6.9.6-5.2 4.6 1.6 6.9L12 17l-6.3 3 1.6-6.9L2 8.9l6.9-.6z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.3 6.9.6-5.2 4.6 1.6 6.9L12 17l-6.3 3 1.6-6.9L2 8.9l6.9-.6z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.3 6.9.6-5.2 4.6 1.6 6.9L12 17l-6.3 3 1.6-6.9L2 8.9l6.9-.6z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.3 6.9.6-5.2 4.6 1.6 6.9L12 17l-6.3 3 1.6-6.9L2 8.9l6.9-.6z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.3 6.9.6-5.2 4.6 1.6 6.9L12 17l-6.3 3 1.6-6.9L2 8.9l6.9-.6z"/></svg>
+      </span>
+      <h2>Join 1,284 happy riders.</h2>
+      <p>Bolt-on electric power, shipped Australia-wide.</p>
+      <a class="proto-cta__btn" href="shop.html">Shop the kits <span aria-hidden="true">&rarr;</span></a>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <a href="index.html" class="site-footer__logo">F1<span>EBIKES</span></a>
+      <div class="site-footer__socials" aria-label="Social media">
+        <a href="https://www.instagram.com/f1ebikes/" target="_blank" rel="noopener" class="social" aria-label="F1 Ebikes on Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/@f1ebikes" target="_blank" rel="noopener" class="social" aria-label="F1 Ebikes on TikTok">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.3 0 .59.05.88.13V9.4a6.84 6.84 0 0 0-1-.07A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+        </a>
+      </div>
+      <p class="site-footer__copy">© 2026 F1 Ebikes · Free Australia-wide shipping</p>
+      <nav class="site-footer__links" aria-label="Legal">
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="terms-of-service.html">Terms of Service</a>
+        <a href="refund-policy.html">Refund Policy</a>
+      </nav>
+    </div>
+  </footer>
+
+  <span class="proto-flag">Prototype</span>
+
+  <!-- GSAP + ScrollTrigger (CDN) then the wall logic -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="review-wall.js"></script>
+
+  <!-- Nav fill on scroll + mobile menu -->
+  <script>
+    (function () {
+      var nav = document.getElementById("nav");
+      if (!nav) return;
+      function update() { nav.classList.toggle("nav--scrolled", window.scrollY > 24); }
+      update();
+      window.addEventListener("scroll", update, { passive: true });
+    })();
+    (function () {
+      var nav = document.getElementById("nav"), burger = document.getElementById("nav-burger"), menu = document.getElementById("mobile-menu");
+      if (!nav || !burger || !menu) return;
+      function setOpen(open) {
+        menu.classList.toggle("is-open", open); burger.classList.toggle("is-open", open);
+        nav.classList.toggle("is-menu-open", open); burger.setAttribute("aria-expanded", open ? "true" : "false");
+        document.body.style.overflow = open ? "hidden" : "";
+      }
+      burger.addEventListener("click", function () { setOpen(!menu.classList.contains("is-open")); });
+      menu.querySelectorAll("a").forEach(function (a) { a.addEventListener("click", function () { setOpen(false); }); });
+      document.addEventListener("keydown", function (e) { if (e.key === "Escape") setOpen(false); });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+# Build tooling / dependencies
+tools/node_modules/
+
+# Local dev artifacts
+serve.log
+tunnel.log
+*.log
+
+# Backups & scratch
+_backups/

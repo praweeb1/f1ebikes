@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>F1 Ebikes — scroll reveal (example)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --accent: #d7ff00;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      /* one shared hero background — the bike sits on this, never on white */
+      --hero-bg: linear-gradient(180deg, #272b31 0%, #424851 55%, #555c65 100%);
+    }
+    body { font-family: "Archivo", system-ui, sans-serif; background: #0a0a0a; color: #fff; overflow-x: hidden; }
+
+    /* a spacer hero so you have something to scroll FROM into the reveal */
+    .intro-spacer {
+      height: 100svh;
+      display: grid; place-items: center;
+      background: radial-gradient(120% 90% at 50% 0%, #16181c, #0a0a0a);
+      text-align: center;
+    }
+    .intro-spacer p { letter-spacing: .25em; text-transform: uppercase; font-size: .8rem; color: rgba(255,255,255,.5); }
+    .intro-spacer h1 { font-size: clamp(2rem,5vw,3.4rem); font-weight: 800; margin-top: .6rem; }
+    .scroll-hint { margin-top: 2rem; font-size: .75rem; letter-spacing: .3em; color: var(--accent); animation: bob 1.6s var(--ease) infinite; }
+    @keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
+
+    /* TRACK = the scroll budget. Taller track = more scroll to complete the orbit. */
+    .reveal-track { position: relative; height: 320vh; background: var(--hero-bg); }
+
+    /* STAGE = pinned full-bleed viewport (position: sticky does the pinning, no JS lib) */
+    .reveal-stage {
+      position: sticky; top: 0;
+      height: 100svh; width: 100vw;
+      overflow: hidden;
+      background: var(--hero-bg);
+    }
+    /* canvas fills the stage; cover-fit is done in the draw() math, not CSS, so we
+       control the framing precisely */
+    .reveal-canvas { display: block; width: 100%; height: 100%; }
+
+    /* soft top fade so the studio melts into the dark page above */
+    .reveal-stage::before {
+      content: ""; position: absolute; inset: 0 0 auto 0; height: 12vh; z-index: 3; pointer-events: none;
+      background: linear-gradient(to bottom, #0a0a0a 0%, rgba(10,10,10,0) 100%);
+    }
+    /* left scrim keeps the copy crisp over the bike */
+    .reveal-scrim {
+      position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background: linear-gradient(90deg, rgba(18,19,22,.72) 0%, rgba(18,19,22,.42) 26%, rgba(18,19,22,0) 52%);
+    }
+    .reveal-copy {
+      position: absolute; left: 8vw; top: 50%; transform: translateY(-50%);
+      z-index: 2; max-width: 19ch; pointer-events: none;
+      transition: opacity .4s var(--ease), transform .4s var(--ease);
+    }
+    .reveal-copy .eyebrow {
+      display: flex; align-items: center; gap: .8rem;
+      font-size: .8rem; font-weight: 700; letter-spacing: .3em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.2rem;
+    }
+    .reveal-copy .eyebrow::before { content:""; width: 2.2rem; height: 2px; background: var(--accent); }
+    .reveal-copy h2 { font-size: clamp(2.6rem,6vw,5.4rem); font-weight: 800; line-height: .96; letter-spacing: -.025em; text-transform: uppercase; text-shadow: 0 2px 40px rgba(0,0,0,.45); }
+    .reveal-copy p { margin-top: 1.2rem; color: rgba(255,255,255,.72); font-size: clamp(1rem,1.3vw,1.2rem); }
+
+    .reveal-counter {
+      position: absolute; right: 2.5rem; bottom: 2rem; z-index: 3;
+      font-size: .8rem; font-weight: 600; letter-spacing: .22em; color: #fff; opacity: .65;
+      font-variant-numeric: tabular-nums; pointer-events: none;
+    }
+    .reveal-label {
+      position: absolute; left: 2.5rem; bottom: 2rem; z-index: 3;
+      font-size: .75rem; font-weight: 600; letter-spacing: .28em; text-transform: uppercase; color: #fff; opacity: .45; pointer-events: none;
+    }
+
+    .after { height: 100svh; display: grid; place-items: center; background: #0a0a0a; }
+    .after p { letter-spacing: .25em; text-transform: uppercase; font-size: .8rem; color: rgba(255,255,255,.4); }
+  </style>
+</head>
+<body>
+  <section class="intro-spacer">
+    <div>
+      <p>F1 — EXR</p>
+      <h1>Scroll to reveal</h1>
+      <div class="scroll-hint">↓ scroll ↓</div>
+    </div>
+  </section>
+
+  <!-- SCROLL-DRIVEN REVEAL (the "scroll component" version) -->
+  <section class="reveal-track" id="track">
+    <div class="reveal-stage">
+      <canvas class="reveal-canvas" id="canvas"></canvas>
+      <div class="reveal-scrim"></div>
+      <div class="reveal-copy" id="copy">
+        <div class="eyebrow">The F1 — EXR</div>
+        <h2>A new era of riding.</h2>
+        <p>Scroll to orbit the bike — it holds on the dark studio, never a white panel.</p>
+      </div>
+      <div class="reveal-label">Engineered to the last detail</div>
+      <div class="reveal-counter" id="counter">01 / 20</div>
+    </div>
+  </section>
+
+  <section class="after">
+    <p>…rest of the page continues here</p>
+  </section>
+
+  <script>
+    (function () {
+      // Use ONLY the dark-background frames (1..20). The source turns white after ~frame 20,
+      // so we deliberately stop the scrub at the 3/4 view and hold — no white ever appears.
+      var FIRST = 1, LAST = 20;
+      var COUNT = LAST - FIRST + 1;
+      var HOLD = 0.18;            // last 18% of the track holds the final frame (no white, no loop)
+      var url = function (n) { return "assets/bike-seq/frame-" + String(n).padStart(3, "0") + ".jpg"; };
+
+      var canvas = document.getElementById("canvas");
+      var ctx = canvas.getContext("2d");
+      var counter = document.getElementById("counter");
+      var copy = document.getElementById("copy");
+      var track = document.getElementById("track");
+
+      // preload
+      var images = [], ready = 0;
+      for (var i = 0; i < COUNT; i++) {
+        var img = new Image();
+        img.onload = img.onerror = function () { if (++ready === COUNT) draw(); };
+        img.src = url(FIRST + i);
+        images[i] = img;
+      }
+
+      var progress = 0;
+
+      function draw() {
+        var dpr = Math.min(window.devicePixelRatio || 1, 2);
+        var rect = canvas.getBoundingClientRect();
+        var W = Math.round(rect.width * dpr), H = Math.round(rect.height * dpr);
+        if (canvas.width !== W || canvas.height !== H) { canvas.width = W; canvas.height = H; }
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.imageSmoothingQuality = "high";
+        var cw = rect.width, ch = rect.height;
+
+        // frame index: complete the orbit over the first (1 - HOLD) of the track, then hold
+        var fp = Math.min(1, progress / (1 - HOLD));
+        var idx = Math.max(0, Math.min(COUNT - 1, Math.round(fp * (COUNT - 1))));
+        var img = images[idx];
+        if (!img || !img.naturalWidth) return;
+
+        // object-fit: COVER — fill the whole stage, no letterbox, no box, no visible edges
+        var scale = Math.max(cw / img.naturalWidth, ch / img.naturalHeight);
+        // tiny dolly: pull back ~6% across the scrub so it breathes (camera height stays locked)
+        scale *= (1.06 - 0.06 * fp);
+        var w = img.naturalWidth * scale, h = img.naturalHeight * scale;
+        var dx = (cw - w) * 0.58;   // bias right so the bike clears the left copy
+        var dy = (ch - h) * 0.5;    // vertically centred — camera height never shifts
+        ctx.drawImage(img, dx, dy, w, h);
+
+        counter.textContent = String(idx + 1).padStart(2, "0") + " / " + String(COUNT).padStart(2, "0");
+        // fade the copy out as the bike turns
+        var fade = Math.max(0, 1 - fp * 1.6);
+        copy.style.opacity = fade;
+        copy.style.transform = "translateY(-50%) translateX(" + (-18 * (1 - fade)) + "px)";
+      }
+
+      function onScroll() {
+        var r = track.getBoundingClientRect();
+        // progress 0 -> 1 as the track scrolls through the pinned stage
+        var total = r.height - window.innerHeight;
+        progress = Math.max(0, Math.min(1, -r.top / total));
+        draw();
+      }
+
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", function () { onScroll(); });
+      onScroll();
+    })();
+  </script>
+</body>
+</html>

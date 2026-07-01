@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>F1 Ebikes — battery loader (prototype)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      background: radial-gradient(120% 90% at 50% 42%, #16181c 0%, #0a0b0d 60%, #070809 100%);
+      font-family: "Archivo", system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .loader {
+      position: fixed; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: clamp(1.1rem, 3.4vh, 1.7rem);
+    }
+
+    /* ---- battery ---- */
+    .batt { position: relative; display: flex; align-items: center; transition: transform 0.5s ease; }
+    .batt.is-done { animation: pop 0.6s ease; }
+    @keyframes pop { 0% { transform: scale(1); } 42% { transform: scale(1.05); } 100% { transform: scale(1); } }
+
+    .batt__body {
+      position: relative;
+      width: clamp(128px, 34vw, 176px);
+      height: clamp(58px, 15vw, 76px);
+      padding: clamp(5px, 1.4vw, 7px);
+      border: 2.5px solid rgba(255, 255, 255, 0.16);
+      border-radius: clamp(13px, 3.4vw, 17px);
+      background: rgba(255, 255, 255, 0.012);
+    }
+    .batt__cap {
+      width: clamp(6px, 1.6vw, 8px); height: 38%; margin-left: 4px;
+      border-radius: 0 4px 4px 0;
+      background: rgba(255, 255, 255, 0.16);
+      transition: background 0.7s ease;
+    }
+    .batt__track {
+      position: relative; width: 100%; height: 100%;
+      border-radius: clamp(8px, 2.2vw, 11px); overflow: hidden;
+    }
+    .batt__fill {
+      position: absolute; inset: 0 auto 0 0; width: 0%;
+      border-radius: inherit; background: #f0463f;
+      box-shadow: 0 0 20px rgba(240, 70, 63, 0.5);
+      transition: width 0.16s linear, background 0.7s ease, box-shadow 0.45s ease;
+    }
+    /* slow charging shimmer — stops once charged */
+    .batt__fill::before {
+      content: ""; position: absolute; top: 0; bottom: 0; width: 38%;
+      background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.30), transparent);
+      filter: blur(2px); animation: shimmer 2.1s ease-in-out infinite;
+    }
+    .is-charged .batt__fill::before { animation: none; opacity: 0; }
+    @keyframes shimmer {
+      0% { transform: translateX(-160%); }
+      55%, 100% { transform: translateX(440%); }
+    }
+
+    /* ---- percentage, centered inside the battery ---- */
+    .batt__pct {
+      position: absolute; inset: 0; z-index: 2; pointer-events: none;
+      display: flex; align-items: center; justify-content: center; gap: 1px;
+      color: #fff; font-variant-numeric: tabular-nums; letter-spacing: -0.01em;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+    }
+    .batt__pct-num { font-size: clamp(1.05rem, 4.6vw, 1.42rem); font-weight: 600; }
+    .batt__pct-sign { font-size: 0.6em; font-weight: 500; opacity: 0.7; align-self: center; margin-top: 0.18em; }
+
+    /* ---- label ---- */
+    .label {
+      display: flex; align-items: center; gap: 7px;
+      font-size: clamp(0.62rem, 2vw, 0.7rem); font-weight: 500;
+      letter-spacing: 0.26em; text-transform: uppercase; color: #6b6b73;
+      transition: color 0.5s ease;
+    }
+    .label__bolt { width: clamp(11px, 2.6vw, 13px); height: auto; color: #f0463f; transition: color 0.7s ease; }
+
+    .replay {
+      position: fixed; right: 16px; bottom: 16px;
+      background: transparent; border: 0.5px solid #2c2c30; color: #a1a1aa;
+      border-radius: 8px; padding: 7px 13px; font: inherit; font-size: 12px; cursor: pointer;
+    }
+    .replay:hover { border-color: #52525b; color: #fafafa; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .batt__fill { transition: background 0.3s ease; }
+      .batt__fill::before { animation: none; display: none; }
+      .batt.is-done { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="loader" role="status" aria-live="polite" aria-label="Loading">
+    <div class="batt" id="batt">
+      <div class="batt__body">
+        <div class="batt__track"><div class="batt__fill" id="fill"></div></div>
+        <div class="batt__pct"><span class="batt__pct-num" id="pct">0</span><span class="batt__pct-sign">%</span></div>
+      </div>
+      <div class="batt__cap" id="cap"></div>
+    </div>
+
+    <div class="label" id="label">
+      <svg class="label__bolt" id="bolt" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M13 2 L4 14 L11 14 L11 22 L20 10 L13 10 Z" />
+      </svg>
+      <span id="label-text">Charging</span>
+    </div>
+  </div>
+
+  <button class="replay" id="replay" type="button">Replay</button>
+
+  <script>
+  (function () {
+    var batt   = document.getElementById("batt");
+    var fill   = document.getElementById("fill");
+    var cap    = document.getElementById("cap");
+    var bolt   = document.getElementById("bolt");
+    var pctEl  = document.getElementById("pct");
+    var labelT = document.getElementById("label-text");
+    var label  = document.getElementById("label");
+    var replay = document.getElementById("replay");
+
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // ---- real load gate: decode the hero frame sequence; 100% only when truly done ----
+    var FRAME_COUNT = 360;
+    var frameURL = function (n) { return "assets/bike-seq-360/frame-" + String(n).padStart(3, "0") + ".jpg"; };
+    var decoded = 0, started = false;
+    function preload() {
+      if (started) return; started = true;
+      for (var i = 0; i < FRAME_COUNT; i++) {
+        var im = new Image();
+        im.onload = im.onerror = function () { decoded++; };
+        im.src = frameURL(i + 1);
+      }
+    }
+
+    function clamp01(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+
+    // red -> orange -> yellow -> green, switching each quarter
+    function stage(p) {
+      if (p < 0.25) return { c: "#f0463f", g: "240,70,63" };
+      if (p < 0.50) return { c: "#f5872f", g: "245,135,47" };
+      if (p < 0.75) return { c: "#f4c233", g: "244,194,51" };
+      return            { c: "#2fcf72", g: "47,207,114" };
+    }
+    var curStage = "", baseShadow = "", pulseT = 0;
+    function applyColor(p) {
+      var s = stage(p);
+      if (s.c === curStage) return;            // only repaint on a real stage change → CSS eases it
+      var first = curStage === "";
+      curStage = s.c;
+      baseShadow = "0 0 20px rgba(" + s.g + ",0.5), 0 0 6px rgba(" + s.g + ",0.4)";
+      fill.style.background = s.c;
+      bolt.style.color = s.c;
+      cap.style.background = "rgba(" + s.g + ",0.85)";
+      if (first) { fill.style.boxShadow = baseShadow; return; }
+      // quick brighten as the stage flips
+      fill.style.boxShadow = "0 0 34px rgba(" + s.g + ",0.95), 0 0 12px rgba(" + s.g + ",0.65)";
+      clearTimeout(pulseT);
+      pulseT = setTimeout(function () { if (!done) fill.style.boxShadow = baseShadow; }, 280);
+    }
+
+    var MIN_MS = 1200;
+    var start = 0, raf = 0, shown = 0, done = false;
+
+    function loop(now) {
+      if (!start) start = now;
+      var elapsed = now - start;
+
+      var real = decoded / FRAME_COUNT;
+      var floor = clamp01(elapsed / 3800) * 0.92;
+      var target = Math.max(real, floor);
+
+      var ready = real >= 0.999 && elapsed >= MIN_MS;
+      if (!ready) target = Math.min(target, 0.99);         // hold below 100 until genuinely loaded
+
+      shown += (target - shown) * 0.09;
+      if (ready) shown += (1 - shown) * 0.14;
+
+      var p = clamp01(shown);
+      fill.style.width = (p * 100).toFixed(1) + "%";
+      applyColor(p);
+      pctEl.textContent = ready ? Math.round(p * 100) : Math.min(99, Math.round(p * 100));
+
+      if (ready && p > 0.999) { finish(); return; }
+      raf = requestAnimationFrame(loop);
+    }
+
+    function finish() {
+      done = true;
+      applyColor(1);
+      fill.style.width = "100%";
+      pctEl.textContent = "100";
+      fill.style.boxShadow = "0 0 28px rgba(47,207,114,0.8), 0 0 10px rgba(47,207,114,0.55)";
+      cap.style.background = "rgba(47,207,114,0.95)";
+      labelT.textContent = "Ready";
+      label.style.color = "#cfeede";
+      batt.classList.add("is-done");
+      document.body.classList.add("is-charged");
+    }
+
+    function run() {
+      cancelAnimationFrame(raf);
+      start = 0; shown = 0; done = false; curStage = "";
+      batt.classList.remove("is-done");
+      document.body.classList.remove("is-charged");
+      fill.style.transition = "none";
+      fill.style.width = "0%"; fill.style.background = "#f0463f";
+      fill.style.boxShadow = "0 0 20px rgba(240,70,63,0.5)";
+      cap.style.background = "rgba(240,70,63,0.85)"; bolt.style.color = "#f0463f";
+      pctEl.textContent = "0"; labelT.textContent = "Charging"; label.style.color = "#6b6b73";
+      void fill.offsetWidth;
+      fill.style.transition = "width 0.16s linear, background 0.7s ease, box-shadow 0.45s ease";
+      if (reduce) { decoded = FRAME_COUNT; }
+      preload();
+      raf = requestAnimationFrame(loop);
+    }
+
+    replay.addEventListener("click", run);
+    run();
+  })();
+  </script>
+</body>
+</html>
