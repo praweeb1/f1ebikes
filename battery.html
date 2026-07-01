@@ -63,7 +63,7 @@
         </div>
 
         <h1 class="product__title">52V–72V Lithium eBike Battery</h1>
-        <p class="product__price"><span id="bat-price">$567</span> <span>AUD</span></p>
+        <p class="product__price"><span id="bat-price">$567.00</span> <span>AUD</span></p>
         <p class="product__lead">
           High-discharge lithium packs with smart BMS protection - built to power every F1 Ebikes
           conversion kit. Pick your case size, then your voltage and capacity.
@@ -92,7 +92,7 @@
         </p>
 
         <a class="product__cta" href="https://f1ebikes.com/products/52v-72v-bike-batterys-copy" target="_blank" rel="noopener">
-          Add to cart - <span id="bat-cta-price">$567</span>
+          Add to cart - <span id="bat-cta-price">$567.00</span>
         </a>
 
         <p class="product__trust">
@@ -134,7 +134,7 @@
         size1: {
           image: "https://f1ebikes.com/cdn/shop/files/4852v20ahdim.png?v=1730759850&width=900",
           options: [
-            { label: "52V 20Ah", price: 567.10 },
+            { label: "52V 20Ah", price: 567.00 },
             { label: "52V 28Ah", price: 689.00 },
             { label: "72V 20Ah", price: 720.00 }
           ]
@@ -156,7 +156,7 @@
       var imageEl  = document.getElementById("bat-image");
       var selSize = "size1", selOpt = 0;
 
-      function fmt(n) { return "$" + Math.round(n).toLocaleString("en-AU", { maximumFractionDigits: 0 }); }
+      function fmt(n) { return "$" + n.toLocaleString("en-AU", { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
 
       function renderPrice() {
         var p = sizes[selSize].options[selOpt].price;

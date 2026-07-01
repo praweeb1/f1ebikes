@@ -2072,7 +2072,7 @@ html.batt-locked, html.batt-locked body { overflow: hidden; height: 100%; }
 .kp__head { margin-bottom: 1.2rem; }
 /* Reference-style header: large title, 3x price, small red off-line, plain CTA */
 .kp__right .product__title { font-size: clamp(1.85rem, 3.8vw, 2.8rem); line-height: 1.05; }
-.kp__right .product__price { margin-top: 0.6rem; font-family: "Cordia New", "Cordia UPC", "Leelawadee UI", Tahoma, sans-serif; font-size: clamp(5.5rem, 14vw, 6rem); line-height: 1; color: #000; }
+.kp__right .product__price { margin-top: 1rem; font-family: "Cordia New", "Cordia UPC", "Leelawadee UI", Tahoma, sans-serif; font-size: clamp(1.85rem, 3.8vw, 2.8rem); line-height: 1.05; color: #000; }
 .kp__right .product__off { margin-top: 0.2rem; color: var(--accent); font-weight: 400; font-size: 0.95rem; letter-spacing: 0.01em; }
 .kp__right .product__cta { font-weight: 500; }
 
