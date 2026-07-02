@@ -868,8 +868,9 @@ a { text-decoration: none; color: inherit; }
   gap: 1.4rem;
   flex-wrap: wrap;
 }
-.site-footer__logo { font-weight: 900; font-size: 1.2rem; letter-spacing: 0.04em; }
-.site-footer__logo span { color: var(--accent); }
+/* Footer logo: same mark as the header (F + red bolt + EBIKES) */
+.site-footer__logo { display: inline-flex; align-items: center; gap: 0.32rem; font-weight: 900; font-size: 1.2rem; letter-spacing: 0.04em; }
+.site-footer__logo > span:last-child { font-weight: 700; }
 .site-footer__socials { display: flex; gap: 0.7rem; }
 .social {
   display: inline-flex;

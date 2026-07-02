@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>F1 Ebikes | 2000W Hub Motor Wheel</title>
+  <title>F1 Ebikes | Hub Motor Wheel</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -42,16 +42,16 @@
     </nav>
   </header>
 
-  <!-- ===== PRODUCT: 2000W Hub Motor Wheel (gallery + sticky buy panel) ===== -->
-  <section class="product" aria-label="2000W Hub Motor Wheel">
+  <!-- ===== PRODUCT: Hub Motor Wheel (gallery + sticky buy panel) ===== -->
+  <section class="product" aria-label="Hub Motor Wheel">
     <div class="kp__wrap">
 
       <!-- gallery -->
       <div class="kp__gallery">
-        <div class="kp__main"><img id="kp-main" src="https://f1ebikes.com/cdn/shop/files/FullSizeRender_6ad01840-39a6-41c0-be20-0d34f7925f1b.jpg?v=1774506426&width=600" alt="2000W Hub Motor Wheel, 2000W hub motor wheel" /></div>
+        <div class="kp__main"><img id="kp-main" src="Images/Hub%20Motor%20Wheel.png" alt="Hub Motor Wheel, hub motor wheel" /></div>
         <div class="kp__thumbs" role="group" aria-label="Product images">
-          <button class="kp__thumb is-active" type="button" aria-label="View 2000W hub motor wheel" aria-current="true">
-            <img src="https://f1ebikes.com/cdn/shop/files/FullSizeRender_6ad01840-39a6-41c0-be20-0d34f7925f1b.jpg?v=1774506426&width=600" alt="" loading="lazy" />
+          <button class="kp__thumb is-active" type="button" aria-label="View hub motor wheel" aria-current="true">
+            <img src="Images/Hub%20Motor%20Wheel.png" alt="" loading="lazy" />
           </button>
           <!-- PLACEHOLDER: additional gallery photos pending from client -->
           <div class="kp__thumb kp__thumb--todo" aria-hidden="true">Photo<br />TBC</div>
@@ -65,17 +65,28 @@
         <div class="kp__head">
           <nav class="product__crumbs" aria-label="Breadcrumb">
             <a href="index.html">Home</a> <span aria-hidden="true">/</span>
-            <a href="accessories.html">Accessories</a> <span aria-hidden="true">/</span> <span>2000W Hub Motor Wheel</span>
+            <a href="accessories.html">Accessories</a> <span aria-hidden="true">/</span> <span>Hub Motor Wheel</span>
           </nav>
           <div class="product__rating" aria-label="Rated 4.8 from 40 reviews">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.3 6.9.6-5.2 4.6 1.6 6.9L12 17l-6.3 3 1.6-6.9L2 8.9l6.9-.6z"/></svg>
             <span><strong>4.8</strong> · 40 reviews</span>
           </div>
-          <h1 class="product__title">2000W Hub Motor Wheel</h1>
+          <h1 class="product__title">Hub Motor Wheel</h1>
         </div>
 
         <aside class="kp__buy">
           <p class="product__price"><span id="kp-price">$480.00</span> <span>AUD</span></p>
+
+          <div class="kp-field">
+            <label for="kp-watt">Motor power</label>
+            <select class="kp-select" id="kp-watt">
+              <option value="" selected>Select</option>
+              <option value="1500W">1500W</option>
+              <option value="2000W">2000W</option>
+              <option value="3000W">3000W</option>
+              <option value="5000W">5000W</option>
+            </select>
+          </div>
 
           <div class="kp-field">
             <label id="kp-qty-label">Quantity</label>
@@ -95,7 +106,7 @@
           <button class="product__cta" id="p-add" type="button">Add to cart</button>
 
           <p class="product__trust">
-            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>1-year warranty</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>12-month warranty</span>
             <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Free AU shipping</span>
           </p>
         </aside>
@@ -142,7 +153,7 @@
   <!-- ===== FOOTER ===== -->
   <footer class="site-footer">
     <div class="site-footer__inner">
-      <a href="index.html" class="site-footer__logo">F1<span>EBIKES</span></a>
+      <a href="index.html" class="site-footer__logo"><span class="nav__logo-mark">F<svg class="nav__bolt" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15 2 L8.5 4 L11.5 6 L11.5 10 L8 11.2 L12.5 12.6 L11.5 13.4 L11.5 22 L15 22 L15 13.4 L17.5 12.6 L13 11.2 L15 10 Z"/></svg></span><span>EBIKES</span></a>
       <div class="site-footer__socials" aria-label="Social media">
         <a href="https://www.instagram.com/f1ebikes/" target="_blank" rel="noopener" class="social" aria-label="F1 Ebikes on Instagram">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg>
@@ -166,17 +177,22 @@
   <script>
     (function () {
       var PRICE = 480;
-      var NAME = "2000W Hub Motor Wheel";
-      var IMG = "https://f1ebikes.com/cdn/shop/files/FullSizeRender_6ad01840-39a6-41c0-be20-0d34f7925f1b.jpg?v=1774506426&width=600";
-      var URL = "wheel-2000w-hub.html";
+      var NAME = "Hub Motor Wheel";
+      var IMG = "Images/Hub%20Motor%20Wheel.png";
+      var URL = "hub-motor-wheel.html";
 
       var qty = 1;
       var qtyEl = document.getElementById("kp-qty-n");
       document.getElementById("kp-qty-dec").addEventListener("click", function () { if (qty > 1) qtyEl.textContent = --qty; });
       document.getElementById("kp-qty-inc").addEventListener("click", function () { if (qty < 10) qtyEl.textContent = ++qty; });
 
+      var optSel = document.getElementById("kp-watt");
+      if (optSel) optSel.addEventListener("change", function () { optSel.style.borderColor = ""; });
+
       document.getElementById("p-add").addEventListener("click", function () {
-        var item = { id: URL, name: NAME, price: PRICE, img: IMG, url: URL, qty: qty };
+        if (optSel && !optSel.value) { optSel.style.borderColor = "#e02b1e"; return; }
+        var cfg = optSel && optSel.value ? " (" + optSel.value + ")" : "";
+        var item = { id: URL + (cfg ? "|" + optSel.value : ""), name: NAME + cfg, price: PRICE, img: IMG, url: URL, qty: qty };
         if (window.F1Cart && window.F1Cart.add) window.F1Cart.add(item);
       });
 
