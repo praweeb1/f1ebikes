@@ -68,7 +68,7 @@
         </div>
 
         <aside class="kp__buy">
-          <p class="product__price"><span>$860.00</span> <span>AUD</span></p>
+          <p class="product__price"><span id="kp-price">$1,000.00</span> <span>AUD</span></p>
           <p class="product__off">$100 Off! Australia-Wide</p>
 
           <div class="kp-field">
@@ -85,8 +85,23 @@
             <label for="kp-display">Display</label>
             <select class="kp-select" id="kp-display">
               <option value="" selected>Select</option>
-              <option value="SW900">SW900</option>
-              <option value="UKC1">UKC1</option>
+              <option value="SW900">SW900 (included)</option>
+              <option value="UKC1">UKC1 (+$100)</option>
+            </select>
+          </div>
+
+          <div class="kp-field">
+            <label for="kp-volt">Battery voltage</label>
+            <select class="kp-select" id="kp-volt">
+              <option value="" selected>Select</option>
+              <option value="72V">72V</option>
+            </select>
+          </div>
+
+          <div class="kp-field">
+            <label for="kp-cap">Battery capacity</label>
+            <select class="kp-select" id="kp-cap" disabled>
+              <option value="" selected>Select</option>
             </select>
           </div>
 
@@ -133,7 +148,7 @@
               <ul class="kp-bullets">
               <li>Rear hub motor laced into your chosen wheel (26, 27.5 or 29 inch)</li>
               <li>Matched sine-wave motor controller</li>
-              <li>Handlebar display (SW900 or UKC1, your choice)</li>
+              <li>Handlebar display (SW900 included, UKC1 +$100 upgrade)</li>
               <li>Half-twist throttle</li>
               <li>Pair of brake levers with motor cut-off</li>
               <li>Pedal-assist (PAS) sensor and magnet disc</li>
@@ -182,7 +197,7 @@
         <div class="kp__block">
           <h2>NOT INCLUDED</h2>
           <ul class="kp-bullets">
-            <li><strong>Battery.</strong> Needs a compatible 72V lithium pack, 30Ah or larger. <a href="battery.html">Shop batteries</a></li>
+            <li><strong>Battery.</strong> Not part of the kit base price. Needs a compatible 72V lithium pack, 30Ah or larger, choose yours in the configurator above or <a href="battery.html">shop batteries</a></li>
             <li><strong>Install tools.</strong> Metric spanners, Allen keys, screwdrivers, tyre levers and cable ties</li>
           </ul>
         </div>
@@ -215,7 +230,9 @@
   <!-- Kit configurator: dropdown options, gallery that swaps photos per display, add to cart. -->
   <script>
     (function () {
-      var PRICE = 860;
+      var BASE = 1000;                       // kit base price, SW900 included
+      var UKC1_UPGRADE = 100;
+      var BATTERIES = {"72V":[{"label":"20Ah","price":750},{"label":"30Ah","price":950},{"label":"40Ah","price":1250}]};
       var NAME = "5000W eBike Kit";
       var HANDLE = "5000w-ebike-kit-with-battery";
       var GALLERY = {"UKC1":[{"src":"Images/Thumbnail/Conversion%20Kit%20with%20UKC1.png","alt":"conversion kit fitted with the UKC1 colour display"},{"src":"Images/Thumbnail/UKC1.png","alt":"UKC1 display unit close-up"}],"SW900":[{"src":"Images/Thumbnail/Conversion%20Kit%20with%20SW900.png","alt":"conversion kit fitted with the SW900 display"},{"src":"Images/Thumbnail/SW900.png","alt":"SW900 display unit close-up"}]};
@@ -254,9 +271,43 @@
       }
       if (dispSel) {
         renderGallery(dispSel.value);
-        dispSel.addEventListener("change", function () { dispSel.style.borderColor = ""; renderGallery(dispSel.value); });
+        dispSel.addEventListener("change", function () { dispSel.style.borderColor = ""; renderGallery(dispSel.value); renderPrice(); });
       }
       if (wheelSel) wheelSel.addEventListener("change", function () { wheelSel.style.borderColor = ""; });
+
+      // Live price: base (SW900 included) + UKC1 upgrade + chosen battery.
+      var voltSel = document.getElementById("kp-volt");
+      var capSel = document.getElementById("kp-cap");
+      function fmt(n) { return "$" + n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+      function batteryPrice() {
+        var v = voltSel ? voltSel.value : "", c = capSel ? capSel.value : "";
+        if (!v || c === "" || !BATTERIES[v]) return 0;
+        return BATTERIES[v][+c].price;
+      }
+      function renderPrice() {
+        var total = BASE + (dispSel && dispSel.value === "UKC1" ? UKC1_UPGRADE : 0) + batteryPrice();
+        var el = document.getElementById("kp-price");
+        if (el) el.textContent = fmt(total);
+      }
+      // battery cascade: voltage first, then only the capacities made in that voltage
+      if (voltSel) voltSel.addEventListener("change", function () {
+        voltSel.style.borderColor = "";
+        capSel.innerHTML = '<option value="" selected>Select</option>';
+        var opts = BATTERIES[voltSel.value];
+        if (opts) {
+          opts.forEach(function (o, i) {
+            var op = document.createElement("option");
+            op.value = String(i); op.textContent = o.label + " (+" + fmt(o.price) + ")";
+            capSel.appendChild(op);
+          });
+          capSel.disabled = false;
+        } else {
+          capSel.disabled = true;
+        }
+        capSel.style.borderColor = "";
+        renderPrice();
+      });
+      if (capSel) capSel.addEventListener("change", function () { capSel.style.borderColor = ""; renderPrice(); });
 
       // quantity stepper (1..10)
       var qty = 1;
@@ -270,15 +321,21 @@
       if (addBtn) addBtn.addEventListener("click", function () {
         var wheel = wheelSel ? wheelSel.value : "";
         var display = dispSel ? dispSel.value : "";
-        if (!wheel || !display) {                     // both dropdowns default to "Select" - require a real choice
+        var volt = voltSel ? voltSel.value : "";
+        var cap = capSel ? capSel.value : "";
+        if (!wheel || !display || !volt || cap === "") {   // every dropdown defaults to "Select" - require a real choice
           if (wheelSel) wheelSel.style.borderColor = wheel ? "" : "#e02b1e";
           if (dispSel) dispSel.style.borderColor = display ? "" : "#e02b1e";
+          if (voltSel) voltSel.style.borderColor = volt ? "" : "#e02b1e";
+          if (capSel) capSel.style.borderColor = cap !== "" ? "" : "#e02b1e";
           return;
         }
+        var battery = BATTERIES[volt][+cap];
+        var total = BASE + (display === "UKC1" ? UKC1_UPGRADE : 0) + battery.price;
         var item = {
-          id: HANDLE + "|" + wheel + "|" + display,
-          name: NAME + " (" + wheel + '\u2033, ' + display + ")",
-          price: PRICE, img: currentSrc, url: location.pathname.split("/").pop(), qty: qty
+          id: HANDLE + "|" + wheel + "|" + display + "|" + volt + battery.label,
+          name: NAME + " (" + wheel + '\u2033, ' + display + ", " + volt + " " + battery.label + ")",
+          price: total, img: currentSrc, url: location.pathname.split("/").pop(), qty: qty
         };
         if (window.F1Cart && window.F1Cart.add) window.F1Cart.add(item);
         else window.location.href = "https://f1ebikes.com/products/" + HANDLE;

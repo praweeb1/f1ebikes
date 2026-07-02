@@ -68,21 +68,20 @@
         </div>
 
         <aside class="kp__buy">
-          <p class="product__price"><span id="bp-price">$567.00</span> <span>AUD</span></p>
+          <p class="product__price"><span id="bp-price">$600.00</span> <span>AUD</span></p>
           <p class="product__off">Free fast charger, free Australia-wide shipping</p>
 
           <div class="kp-field">
-            <label for="kp-size">Size</label>
-            <select class="kp-select" id="kp-size">
+            <label for="kp-volt">Battery voltage</label>
+            <select class="kp-select" id="kp-volt">
               <option value="" selected>Select</option>
-              <option value="size1">Size 1 - Compact</option>
-              <option value="size2">Size 2 - Standard</option>
-              <option value="size3">Size 3 - Extended</option>
+              <option value="52V">52V</option>
+              <option value="72V">72V</option>
             </select>
           </div>
 
           <div class="kp-field">
-            <label for="kp-cap">Voltage &amp; capacity</label>
+            <label for="kp-cap">Battery capacity</label>
             <select class="kp-select" id="kp-cap" disabled>
               <option value="" selected>Select</option>
             </select>
@@ -118,7 +117,7 @@
       <div class="kp__content">
         <div class="kp__block">
             <p>Our 52V to 72V lithium packs are built to power every F1 Ebikes conversion kit, from the 1500W commuter setup to the 5000W performance builds. High-discharge cells and a smart BMS deliver clean, protected current on demand, whether you are cruising or pinning the throttle.</p>
-            <p>Choose your case size, then the voltage and capacity that suits your kit and range. Every pack ships with a matched fast charger, a lockable mounting base and waterproof connectors, so it drops straight onto your build.</p>
+            <p>Choose your voltage, then the capacity that suits your kit and range. Every pack ships with a matched fast charger, a lockable mounting base and waterproof connectors, so it drops straight onto your build.</p>
         </div>
 
         <div class="kp-macc">
@@ -206,25 +205,25 @@
     </div>
   </footer>
 
-  <!-- Battery configurator: static gallery, cascading Size -> Voltage/capacity dropdowns,
+  <!-- Battery configurator: static gallery, cascading Voltage -> Capacity dropdowns,
        price follows the chosen option, add to cart requires both. -->
   <script>
     (function () {
       var NAME = "52V-72V Lithium eBike Battery";
       var HANDLE = "52v-72v-bike-batterys-copy";
-      var SIZES = [{"id":"size1","label":"Size 1","note":"Compact","options":[{"label":"52V 20Ah","price":567},{"label":"52V 28Ah","price":689},{"label":"72V 20Ah","price":720}]},{"id":"size2","label":"Size 2","note":"Standard","options":[{"label":"72V 30Ah","price":890}]},{"id":"size3","label":"Size 3","note":"Extended","options":[{"label":"72V 40Ah","price":1120}]}];
+      var VOLTS = [{"id":"52V","label":"52V","options":[{"label":"20Ah","note":"Compact case","price":600},{"label":"28Ah","note":"Compact case","price":720}]},{"id":"72V","label":"72V","options":[{"label":"20Ah","note":"Compact case","price":750},{"label":"30Ah","note":"Standard case","price":950},{"label":"40Ah","note":"Extended case","price":1250}]}];
       var GALLERY = [{"src":"Images/Battery.png","alt":"52V to 72V lithium eBike battery pack"},{"src":"Images/Battery%20Case.png","alt":"lockable battery mounting case and base plate"}];
 
       var mainImg = document.getElementById("kp-main");
       var thumbs = document.getElementById("kp-thumbs");
-      var sizeSel = document.getElementById("kp-size");
+      var voltSel = document.getElementById("kp-volt");
       var capSel = document.getElementById("kp-cap");
       var priceEl = document.getElementById("bp-price");
       var currentSrc = mainImg ? mainImg.getAttribute("src") : "";
 
       function fmt(n) { return "$" + n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
-      function sizeById(id) { for (var i = 0; i < SIZES.length; i++) if (SIZES[i].id === id) return SIZES[i]; return null; }
-      function allPrices() { return SIZES.reduce(function (a, s) { return a.concat(s.options.map(function (o) { return o.price; })); }, []); }
+      function voltById(id) { for (var i = 0; i < VOLTS.length; i++) if (VOLTS[i].id === id) return VOLTS[i]; return null; }
+      function allPrices() { return VOLTS.reduce(function (a, v) { return a.concat(v.options.map(function (o) { return o.price; })); }, []); }
 
       // gallery: main image + clickable thumbnails
       function setMain(item) {
@@ -254,22 +253,22 @@
 
       // price follows the selection: exact option if chosen, else the lowest in scope
       function renderPrice() {
-        var s = sizeById(sizeSel.value);
+        var v = voltById(voltSel.value);
         var price;
-        if (s && capSel.value !== "") price = s.options[+capSel.value].price;
-        else price = Math.min.apply(null, (s ? s.options.map(function (o) { return o.price; }) : allPrices()));
+        if (v && capSel.value !== "") price = v.options[+capSel.value].price;
+        else price = Math.min.apply(null, (v ? v.options.map(function (o) { return o.price; }) : allPrices()));
         if (priceEl) priceEl.textContent = fmt(price);
       }
 
-      // cascade: picking a size repopulates the voltage/capacity dropdown
-      if (sizeSel) sizeSel.addEventListener("change", function () {
-        sizeSel.style.borderColor = "";
-        var s = sizeById(sizeSel.value);
+      // cascade: picking a voltage repopulates the capacity dropdown (matching capacities only)
+      if (voltSel) voltSel.addEventListener("change", function () {
+        voltSel.style.borderColor = "";
+        var v = voltById(voltSel.value);
         capSel.innerHTML = '<option value="" selected>Select</option>';
-        if (s) {
-          s.options.forEach(function (o, i) {
+        if (v) {
+          v.options.forEach(function (o, i) {
             var op = document.createElement("option");
-            op.value = String(i); op.textContent = o.label;
+            op.value = String(i); op.textContent = o.label + " - " + o.note + " - " + fmt(o.price);
             capSel.appendChild(op);
           });
           capSel.disabled = false;
@@ -291,18 +290,18 @@
 
       var addBtn = document.getElementById("bat-add");
       if (addBtn) addBtn.addEventListener("click", function () {
-        var sizeVal = sizeSel ? sizeSel.value : "";
+        var voltVal = voltSel ? voltSel.value : "";
         var capVal = capSel ? capSel.value : "";
-        if (!sizeVal || capVal === "") {                 // both dropdowns default to "Select" - require a real choice
-          if (sizeSel) sizeSel.style.borderColor = sizeVal ? "" : "#e02b1e";
+        if (!voltVal || capVal === "") {                 // both dropdowns default to "Select" - require a real choice
+          if (voltSel) voltSel.style.borderColor = voltVal ? "" : "#e02b1e";
           if (capSel) capSel.style.borderColor = capVal !== "" ? "" : "#e02b1e";
           return;
         }
-        var s = sizeById(sizeVal);
-        var opt = s.options[+capVal];
+        var v = voltById(voltVal);
+        var opt = v.options[+capVal];
         var item = {
-          id: HANDLE + "|" + sizeVal + "|" + opt.label,
-          name: NAME + " (" + s.label + ", " + opt.label + ")",
+          id: HANDLE + "|" + voltVal + "|" + opt.label,
+          name: NAME + " (" + v.label + " " + opt.label + ")",
           price: opt.price, img: currentSrc, url: "battery.html", qty: qty
         };
         if (window.F1Cart && window.F1Cart.add) window.F1Cart.add(item);
