@@ -47,10 +47,14 @@
   }
 
   // ---- products ----
+  // Note: quantityAvailable is intentionally NOT requested - it needs the
+  // unauthenticated_read_product_inventory scope on the storefront. availableForSale
+  // (boolean) is enough to show "In stock" and gate checkout. If you enable that scope
+  // on the Headless storefront later, add `quantityAvailable` here for "Only N left".
   var PRODUCT_Q =
     "query($handle:String!){ product(handle:$handle){ id title handle " +
     "options{ name values } " +
-    "variants(first:100){ nodes{ id title availableForSale quantityAvailable " +
+    "variants(first:100){ nodes{ id title availableForSale " +
     "price{ amount currencyCode } selectedOptions{ name value } } } } }";
 
   function getProduct(handle) {
