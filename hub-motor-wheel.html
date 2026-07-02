@@ -190,7 +190,19 @@
       if (optSel) optSel.addEventListener("change", function () { optSel.style.borderColor = ""; });
 
       document.getElementById("p-add").addEventListener("click", function () {
+        var btn = this;
         if (optSel && !optSel.value) { optSel.style.borderColor = "#e02b1e"; return; }
+        // Shopify path: if this product resolved to a live variant (data-sf-variant set
+        // by the enhancement script below), add it to a real Shopify cart and go to the
+        // real Shopify checkout. Otherwise fall back to the demo cart drawer.
+        var vid = btn.getAttribute("data-sf-variant");
+        if (vid && window.F1Shopify && window.F1Shopify.configured) {
+          btn.disabled = true;
+          window.F1Shopify.addLines([{ merchandiseId: vid, quantity: qty }])
+            .then(function (cart) { window.location = cart.checkoutUrl; })
+            .catch(function () { btn.disabled = false; });
+          return;
+        }
         var cfg = optSel && optSel.value ? " (" + optSel.value + ")" : "";
         var item = { id: URL + (cfg ? "|" + optSel.value : ""), name: NAME + cfg, price: PRICE, img: IMG, url: URL, qty: qty };
         if (window.F1Cart && window.F1Cart.add) window.F1Cart.add(item);
@@ -230,8 +242,38 @@
   <script src="utils.js"></script>
   <script src="lenis.min.js"></script>
   <script src="lenis-init.js"></script>
-  <!-- Client-side cart (localStorage drawer, demo only). -->
+  <!-- Client-side cart (localStorage drawer, demo fallback). -->
   <script src="cart.js"></script>
+
+  <!-- Shopify Storefront: live price + real checkout when this product exists in Shopify. -->
+  <script src="shopify/shopify-config.js"></script>
+  <script src="shopify/shopify-map.js"></script>
+  <script src="shopify/shopify.js"></script>
+  <script>
+    (function () {
+      if (!(window.F1Shopify && window.F1Shopify.configured)) return;   // token blank -> demo stays
+      var SLUG = "hub-motor-wheel";
+      var OPT_LABEL = "Motor power";
+      var handle = (window.F1_MAP && window.F1_MAP[SLUG]) || "";
+      if (!handle) return;                                              // no mapping -> demo stays
+      var priceEl = document.getElementById("kp-price");
+      var addBtn = document.getElementById("p-add");
+      var optSel = OPT_LABEL ? document.getElementById("kp-watt") : null;
+      window.F1Shopify.getProduct(handle).then(function (product) {
+        function currentVariant() {
+          if (optSel) { if (!optSel.value) return null; var m = {}; m[OPT_LABEL] = optSel.value; return window.F1Shopify.variantForOptions(product, m); }
+          return product.variants.nodes[0];
+        }
+        function apply() {
+          var v = currentVariant();
+          if (v) { addBtn.setAttribute("data-sf-variant", v.id); if (priceEl) priceEl.textContent = window.F1Shopify.money(v.price.amount, v.price.currencyCode); }
+          else { addBtn.removeAttribute("data-sf-variant"); }
+        }
+        apply();
+        if (optSel) optSel.addEventListener("change", apply);
+      }).catch(function () { /* product not in Shopify yet -> demo behaviour unchanged */ });
+    })();
+  </script>
 
 </body>
 </html>
