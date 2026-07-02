@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>F1 Ebikes - eBike Batteries</title>
+  <title>F1 Ebikes | 52V-72V Lithium eBike Battery</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="Images/F2.png" />
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -38,73 +38,145 @@
       <a href="accessories.html" class="nav__mobile-link">Accessories</a>
       <a href="battery.html" class="nav__mobile-link">Batteries</a>
       <a href="shop.html" class="nav__mobile-link">Conversion Kits</a>
-      <a href="shop.html" class="nav__mobile-link">Shop all</a>
       <a href="#" class="nav__mobile-cart btn btn--ghost" aria-label="Cart"><svg class="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/><path d="M2.5 3.5h2.2l2.1 11.6a1.6 1.6 0 0 0 1.6 1.3h8.4a1.6 1.6 0 0 0 1.6-1.3l1.3-7.1H5.4"/></svg></a>
     </nav>
   </header>
 
-  <!-- ===== PRODUCT: battery configurator ===== -->
-  <section class="product" aria-label="eBike battery">
-    <div class="product__wrap">
-      <div class="product__gallery">
-        <img id="bat-image" src="https://f1ebikes.com/cdn/shop/files/4852v20ahdim.png?v=1730759850&width=900"
-             alt="F1 Ebikes 52V–72V lithium eBike battery" />
+  <!-- ===== PRODUCT: 52V-72V Lithium eBike Battery (gallery + sticky buy panel) ===== -->
+  <section class="product" aria-label="52V-72V Lithium eBike Battery">
+    <div class="kp__wrap">
+
+      <!-- gallery -->
+      <div class="kp__gallery">
+        <div class="kp__main"><img id="kp-main" src="Images/Battery.png" alt="52V-72V Lithium eBike Battery, 52V to 72V lithium eBike battery pack" /></div>
+        <div class="kp__thumbs" id="kp-thumbs" role="group" aria-label="Product images"></div>
       </div>
 
-      <div class="product__panel">
-        <nav class="product__crumbs" aria-label="Breadcrumb">
-          <a href="index.html">Home</a> <span aria-hidden="true">/</span>
-          <a href="shop.html">Shop</a> <span aria-hidden="true">/</span> <span>Batteries</span>
-        </nav>
-
-        <div class="product__rating" aria-label="Rated 4.7 from 22 reviews">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.3 6.9.6-5.2 4.6 1.6 6.9L12 17l-6.3 3 1.6-6.9L2 8.9l6.9-.6z"/></svg>
-          <span><strong>4.7</strong> · 22 reviews</span>
+      <!-- right column: header (title + review) above the buy panel. On mobile the header
+           jumps to the top of the page and the buy panel drops below the gallery. -->
+      <div class="kp__right">
+        <div class="kp__head">
+          <nav class="product__crumbs" aria-label="Breadcrumb">
+            <a href="index.html">Home</a> <span aria-hidden="true">/</span>
+            <a href="shop.html">Shop</a> <span aria-hidden="true">/</span> <span>Batteries</span>
+          </nav>
+          <div class="product__rating" aria-label="Rated 4.7 from 22 reviews">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.3 6.9.6-5.2 4.6 1.6 6.9L12 17l-6.3 3 1.6-6.9L2 8.9l6.9-.6z"/></svg>
+            <span><strong>4.7</strong> · 22 reviews</span>
+          </div>
+          <h1 class="product__title">52V-72V Lithium eBike Battery</h1>
         </div>
 
-        <h1 class="product__title">52V–72V Lithium eBike Battery</h1>
-        <p class="product__price"><span id="bat-price">$567.00</span> <span>AUD</span></p>
-        <p class="product__lead">
-          High-discharge lithium packs with smart BMS protection - built to power every F1 Ebikes
-          conversion kit. Pick your case size, then your voltage and capacity.
-        </p>
+        <aside class="kp__buy">
+          <p class="product__price"><span id="bp-price">$567.00</span> <span>AUD</span></p>
+          <p class="product__off">Free fast charger, free Australia-wide shipping</p>
 
-        <h2 class="product__opt-label">Size</h2>
-        <div class="bsizes" role="group" aria-label="Battery size">
-          <button type="button" class="bsize is-active" data-size="size1" aria-pressed="true">
-            <span class="bsize__t">Size 1</span><span class="bsize__d">Compact</span>
-          </button>
-          <button type="button" class="bsize" data-size="size2" aria-pressed="false">
-            <span class="bsize__t">Size 2</span><span class="bsize__d">Standard</span>
-          </button>
-          <button type="button" class="bsize" data-size="size3" aria-pressed="false">
-            <span class="bsize__t">Size 3</span><span class="bsize__d">Extended</span>
-          </button>
-        </div>
+          <div class="kp-field">
+            <label for="kp-size">Size</label>
+            <select class="kp-select" id="kp-size">
+              <option value="" selected>Select</option>
+              <option value="size1">Size 1 - Compact</option>
+              <option value="size2">Size 2 - Standard</option>
+              <option value="size3">Size 3 - Extended</option>
+            </select>
+          </div>
 
-        <h2 class="product__opt-label">Voltage &amp; capacity</h2>
-        <div class="bcaps" id="bat-caps" role="group" aria-label="Voltage and capacity"></div>
+          <div class="kp-field">
+            <label for="kp-cap">Voltage &amp; capacity</label>
+            <select class="kp-select" id="kp-cap" disabled>
+              <option value="" selected>Select</option>
+            </select>
+          </div>
 
-        <p class="product__stock" id="bat-stock"><span class="prod__stock-dot" aria-hidden="true"></span>In stock</p>
-        <p class="product__ship">
-          <svg class="ship-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 5.5h13v10H1z"/><path d="M14 8.5h3.8l3.2 3.2v3.8H14z"/><circle cx="5.8" cy="18" r="1.7"/><circle cx="17.2" cy="18" r="1.7"/></svg>
-          Free Australia-wide shipping · 7–14 business days
-        </p>
+          <p class="product__stock" style="margin-top:1.5rem;"><span class="prod__stock-dot" aria-hidden="true"></span>In stock</p>
+          <p class="product__ship">
+            <svg class="ship-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 5.5h13v10H1z"/><path d="M14 8.5h3.8l3.2 3.2v3.8H14z"/><circle cx="5.8" cy="18" r="1.7"/><circle cx="17.2" cy="18" r="1.7"/></svg>
+            Free Australia-wide shipping · 7 to 14 business days
+          </p>
 
-        <a class="product__cta" href="https://f1ebikes.com/products/52v-72v-bike-batterys-copy" target="_blank" rel="noopener">
-          Add to cart - <span id="bat-cta-price">$567.00</span>
-        </a>
+          <button class="product__cta" id="bat-add" type="button">Add to cart</button>
 
-        <p class="product__trust">
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Smart BMS protection</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>1-year warranty</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Charger included</span>
-        </p>
+          <p class="product__trust">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Smart BMS protection</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>12-month warranty</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Charger included</span>
+          </p>
+        </aside>
       </div>
+
+      <!-- content: description + NOT INCLUDED stay open; the three named sections
+           collapse into tap-to-open dropdowns on mobile only -->
+      <div class="kp__content">
+        <div class="kp__block">
+            <p>Our 52V to 72V lithium packs are built to power every F1 Ebikes conversion kit, from the 1500W commuter setup to the 5000W performance builds. High-discharge cells and a smart BMS deliver clean, protected current on demand, whether you are cruising or pinning the throttle.</p>
+            <p>Choose your case size, then the voltage and capacity that suits your kit and range. Every pack ships with a matched fast charger, a lockable mounting base and waterproof connectors, so it drops straight onto your build.</p>
+        </div>
+
+        <div class="kp-macc">
+          <button class="kp-macc__head" type="button" aria-expanded="false" aria-controls="macc-includes" id="macc-includes-h">
+            <span>What's in the box</span>
+            <svg class="kp-macc__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="kp-macc__panel" id="macc-includes" role="region" aria-labelledby="macc-includes-h">
+            <div class="kp-macc__inner">
+              <ul class="kp-bullets">
+              <li>Lithium battery pack in your chosen voltage and capacity</li>
+              <li>Matched smart fast charger with AU plug</li>
+              <li>Mounting base plate with lock and two keys</li>
+              <li>Built-in smart Battery Management System (BMS)</li>
+              <li>Output leads with waterproof connectors</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="kp-macc">
+          <button class="kp-macc__head" type="button" aria-expanded="false" aria-controls="macc-specs" id="macc-specs-h">
+            <span>Specifications</span>
+            <svg class="kp-macc__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="kp-macc__panel" id="macc-specs" role="region" aria-labelledby="macc-specs-h">
+            <div class="kp-macc__inner">
+              <ul class="kp-bullets">
+              <li>18650 / 21700 high-discharge lithium-ion cells</li>
+              <li>52V and 72V options</li>
+              <li>20Ah to 40Ah capacity, depending on size</li>
+              <li>Smart BMS: over-charge, over-discharge, short-circuit and temperature protection</li>
+              <li>Suited to 30A to 80A sine-wave controllers</li>
+              <li>Matched fast charger included</li>
+              <li>Lockable alloy case with two keys</li>
+              <li>Indicative range 40 to 120 km, depending on capacity and terrain</li>
+              </ul>
+              <p class="kp-note" style="margin-top:1rem;">Range and figures are indicative and vary with capacity, rider weight, terrain, tyre choice and assist level. Only charge with the supplied charger.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="kp-macc">
+          <button class="kp-macc__head" type="button" aria-expanded="false" aria-controls="macc-warranty" id="macc-warranty-h">
+            <span>Warranty</span>
+            <svg class="kp-macc__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="kp-macc__panel" id="macc-warranty" role="region" aria-labelledby="macc-warranty-h">
+            <div class="kp-macc__inner">
+              <p>Every battery is covered by a 12-month warranty on the cells and BMS against manufacturing defects. Damage from water ingress on unsealed connectors, physical impact, incorrect charging or use with an incompatible charger is not covered. Keep your order number and we will sort it out.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="kp__block">
+          <h2>NOT INCLUDED</h2>
+          <ul class="kp-bullets">
+            <li><strong>Conversion kit or motor.</strong> This is the battery only. <a href="shop.html">Shop conversion kits</a></li>
+            <li><strong>Bike.</strong> You supply the bike or frame the pack mounts to</li>
+          </ul>
+        </div>
+      </div>
+
     </div>
   </section>
 
-  <!-- ===== FOOTER (socials) ===== -->
+  <!-- ===== FOOTER ===== -->
   <footer class="site-footer">
     <div class="site-footer__inner">
       <a href="index.html" class="site-footer__logo">F1<span>EBIKES</span></a>
@@ -118,8 +190,6 @@
       </div>
       <p class="site-footer__copy">© 2026 F1 Ebikes · Free Australia-wide shipping</p>
       <nav class="site-footer__links" aria-label="Legal">
-        <a href="contact.html">Contact us</a>
-        <a href="faq.html">FAQ</a>
         <a href="privacy-policy.html">Privacy Policy</a>
         <a href="terms-of-service.html">Terms of Service</a>
         <a href="refund-policy.html">Refund Policy</a>
@@ -127,71 +197,108 @@
     </div>
   </footer>
 
-  <!-- Battery configurator: pick a size, then the voltage/capacity; updates price + image. -->
+  <!-- Battery configurator: static gallery, cascading Size -> Voltage/capacity dropdowns,
+       price follows the chosen option, add to cart requires both. -->
   <script>
     (function () {
-      var sizes = {
-        size1: {
-          image: "https://f1ebikes.com/cdn/shop/files/4852v20ahdim.png?v=1730759850&width=900",
-          options: [
-            { label: "52V 20Ah", price: 567.00 },
-            { label: "52V 28Ah", price: 689.00 },
-            { label: "72V 20Ah", price: 720.00 }
-          ]
-        },
-        size2: {
-          image: "https://f1ebikes.com/cdn/shop/files/4852v20ahdim.png?v=1730759850&width=900",
-          options: [ { label: "72V 30Ah", price: 890.00 } ]
-        },
-        size3: {
-          image: "https://f1ebikes.com/cdn/shop/files/4852v20ahdim.png?v=1730759850&width=900",
-          options: [ { label: "72V 40Ah", price: 1120.00 } ]
-        }
-      };
+      var NAME = "52V-72V Lithium eBike Battery";
+      var HANDLE = "52v-72v-bike-batterys-copy";
+      var SIZES = [{"id":"size1","label":"Size 1","note":"Compact","options":[{"label":"52V 20Ah","price":567},{"label":"52V 28Ah","price":689},{"label":"72V 20Ah","price":720}]},{"id":"size2","label":"Size 2","note":"Standard","options":[{"label":"72V 30Ah","price":890}]},{"id":"size3","label":"Size 3","note":"Extended","options":[{"label":"72V 40Ah","price":1120}]}];
+      var GALLERY = [{"src":"Images/Battery.png","alt":"52V to 72V lithium eBike battery pack"},{"src":"Images/Battery%20Case.png","alt":"lockable battery mounting case and base plate"}];
 
-      var sizeBtns = [].slice.call(document.querySelectorAll(".bsize"));
-      var capWrap  = document.getElementById("bat-caps");
-      var priceEl  = document.getElementById("bat-price");
-      var ctaPrice = document.getElementById("bat-cta-price");
-      var imageEl  = document.getElementById("bat-image");
-      var selSize = "size1", selOpt = 0;
+      var mainImg = document.getElementById("kp-main");
+      var thumbs = document.getElementById("kp-thumbs");
+      var sizeSel = document.getElementById("kp-size");
+      var capSel = document.getElementById("kp-cap");
+      var priceEl = document.getElementById("bp-price");
+      var currentSrc = mainImg ? mainImg.getAttribute("src") : "";
 
-      function fmt(n) { return "$" + n.toLocaleString("en-AU", { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+      function fmt(n) { return "$" + n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+      function sizeById(id) { for (var i = 0; i < SIZES.length; i++) if (SIZES[i].id === id) return SIZES[i]; return null; }
+      function allPrices() { return SIZES.reduce(function (a, s) { return a.concat(s.options.map(function (o) { return o.price; })); }, []); }
 
+      // gallery: main image + clickable thumbnails
+      function setMain(item) {
+        currentSrc = item.src;
+        mainImg.src = item.src;
+        mainImg.alt = NAME + ", " + item.alt;
+        [].forEach.call(thumbs.children, function (t) {
+          var on = t.getAttribute("data-src") === item.src;
+          t.classList.toggle("is-active", on);
+          t.setAttribute("aria-current", on ? "true" : "false");
+        });
+      }
+      if (thumbs && mainImg) {
+        GALLERY.forEach(function (item) {
+          var bt = document.createElement("button");
+          bt.type = "button"; bt.className = "kp__thumb";
+          bt.setAttribute("data-src", item.src);
+          bt.setAttribute("aria-label", "View " + item.alt);
+          var im = document.createElement("img");
+          im.src = item.src; im.alt = ""; im.loading = "lazy";
+          bt.appendChild(im);
+          bt.addEventListener("click", function () { setMain(item); });
+          thumbs.appendChild(bt);
+        });
+        setMain(GALLERY[0]);
+      }
+
+      // price follows the selection: exact option if chosen, else the lowest in scope
       function renderPrice() {
-        var p = sizes[selSize].options[selOpt].price;
-        priceEl.textContent = fmt(p);
-        if (ctaPrice) ctaPrice.textContent = fmt(p);
+        var s = sizeById(sizeSel.value);
+        var price;
+        if (s && capSel.value !== "") price = s.options[+capSel.value].price;
+        else price = Math.min.apply(null, (s ? s.options.map(function (o) { return o.price; }) : allPrices()));
+        if (priceEl) priceEl.textContent = fmt(price);
       }
-      function renderCaps() {
-        capWrap.innerHTML = "";
-        sizes[selSize].options.forEach(function (o, i) {
-          var b = document.createElement("button");
-          b.type = "button";
-          b.className = "bcap" + (i === selOpt ? " is-active" : "");
-          b.setAttribute("aria-pressed", i === selOpt ? "true" : "false");
-          b.textContent = o.label;
-          b.addEventListener("click", function () { selOpt = i; renderCaps(); renderPrice(); });
-          capWrap.appendChild(b);
-        });
-      }
-      sizeBtns.forEach(function (btn) {
-        btn.addEventListener("click", function () {
-          selSize = btn.getAttribute("data-size");
-          selOpt = 0;
-          sizeBtns.forEach(function (b) {
-            var on = b === btn;
-            b.classList.toggle("is-active", on);
-            b.setAttribute("aria-pressed", on ? "true" : "false");
+
+      // cascade: picking a size repopulates the voltage/capacity dropdown
+      if (sizeSel) sizeSel.addEventListener("change", function () {
+        sizeSel.style.borderColor = "";
+        var s = sizeById(sizeSel.value);
+        capSel.innerHTML = '<option value="" selected>Select</option>';
+        if (s) {
+          s.options.forEach(function (o, i) {
+            var op = document.createElement("option");
+            op.value = String(i); op.textContent = o.label;
+            capSel.appendChild(op);
           });
-          if (imageEl && sizes[selSize].image) imageEl.src = sizes[selSize].image;
-          renderCaps();
-          renderPrice();
-        });
+          capSel.disabled = false;
+        } else {
+          capSel.disabled = true;
+        }
+        capSel.style.borderColor = "";
+        renderPrice();
+      });
+      if (capSel) capSel.addEventListener("change", function () { capSel.style.borderColor = ""; renderPrice(); });
+
+      var addBtn = document.getElementById("bat-add");
+      if (addBtn) addBtn.addEventListener("click", function () {
+        var sizeVal = sizeSel ? sizeSel.value : "";
+        var capVal = capSel ? capSel.value : "";
+        if (!sizeVal || capVal === "") {                 // both dropdowns default to "Select" - require a real choice
+          if (sizeSel) sizeSel.style.borderColor = sizeVal ? "" : "#e02b1e";
+          if (capSel) capSel.style.borderColor = capVal !== "" ? "" : "#e02b1e";
+          return;
+        }
+        var s = sizeById(sizeVal);
+        var opt = s.options[+capVal];
+        var item = {
+          id: HANDLE + "|" + sizeVal + "|" + opt.label,
+          name: NAME + " (" + s.label + ", " + opt.label + ")",
+          price: opt.price, img: currentSrc, url: "battery.html"
+        };
+        if (window.F1Cart && window.F1Cart.add) window.F1Cart.add(item);
+        else window.location.href = "https://f1ebikes.com/products/" + HANDLE;
       });
 
-      renderCaps();
-      renderPrice();
+      // Mobile only: the includes / specifications / warranty sections are dropdowns.
+      // CSS keeps them open on desktop regardless of this state.
+      [].forEach.call(document.querySelectorAll(".kp-macc__head"), function (head) {
+        head.addEventListener("click", function () {
+          head.setAttribute("aria-expanded", head.getAttribute("aria-expanded") === "true" ? "false" : "true");
+        });
+      });
     })();
   </script>
 
