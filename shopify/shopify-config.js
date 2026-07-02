@@ -9,8 +9,8 @@
    the site keeps using the existing demo cart untouched.
    ============================================================ */
 window.F1_SHOPIFY = {
-  domain: "",            // e.g. "f1ebikes-dev.myshopify.com"
-  token: "",             // Storefront API PUBLIC access token from the Headless channel
+  domain: "f1ebikes-dev.myshopify.com",   // DEV store (sandbox) - swap to the client's store at cutover
+  token: "bb373f76c7c20e05b6898dd4774c1cc5",  // Storefront API PUBLIC token (browser-safe by design)
   version: "2024-10",
   currency: "AUD"
 };
