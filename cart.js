@@ -162,6 +162,7 @@
       btn.addEventListener("click", function (e) {
         var prod = btn.closest(".prod");
         if (!prod) return;                 // not a product card - leave default behaviour
+        if (btn.hasAttribute("data-configure")) return;  // configurable product: follow the link to its page, don't quick-add
         e.preventDefault();
         addFromCard(prod);
       });
