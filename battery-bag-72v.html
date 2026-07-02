@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>F1 Ebikes | 72V Battery Bag</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="Images/F2.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- ============ NAVBAR ============ -->
+  <header class="nav nav--scrolled nav--dark" id="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo"><span class="nav__logo-mark">F<svg class="nav__bolt" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15 2 L8.5 4 L11.5 6 L11.5 10 L8 11.2 L12.5 12.6 L11.5 13.4 L11.5 22 L15 22 L15 13.4 L17.5 12.6 L13 11.2 L15 10 Z"/></svg></span><span>EBIKES</span></a>
+
+      <nav class="nav__links" aria-label="Primary">
+        <a href="controllers.html">Controllers</a>
+        <a href="accessories.html">Accessories</a>
+        <a href="battery.html">Batteries</a>
+        <a href="shop.html">Conversion Kits</a>
+      </nav>
+
+      <div class="nav__cta">
+        <a href="#" class="btn btn--ghost btn--sm" aria-label="Cart"><svg class="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/><path d="M2.5 3.5h2.2l2.1 11.6a1.6 1.6 0 0 0 1.6 1.3h8.4a1.6 1.6 0 0 0 1.6-1.3l1.3-7.1H5.4"/></svg></a>
+      </div>
+
+      <button class="nav__burger" id="nav-burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <nav class="nav__mobile" id="mobile-menu" aria-label="Mobile">
+      <a href="index.html" class="nav__mobile-link">Home</a>
+      <a href="controllers.html" class="nav__mobile-link">Controllers</a>
+      <a href="accessories.html" class="nav__mobile-link">Accessories</a>
+      <a href="battery.html" class="nav__mobile-link">Batteries</a>
+      <a href="shop.html" class="nav__mobile-link">Conversion Kits</a>
+      <a href="#" class="nav__mobile-cart btn btn--ghost" aria-label="Cart"><svg class="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/><path d="M2.5 3.5h2.2l2.1 11.6a1.6 1.6 0 0 0 1.6 1.3h8.4a1.6 1.6 0 0 0 1.6-1.3l1.3-7.1H5.4"/></svg></a>
+    </nav>
+  </header>
+
+  <!-- ===== PRODUCT: 72V Battery Bag (gallery + sticky buy panel) ===== -->
+  <section class="product" aria-label="72V Battery Bag">
+    <div class="kp__wrap">
+
+      <!-- gallery -->
+      <div class="kp__gallery">
+        <div class="kp__main"><img id="kp-main" src="https://cdn.shopify.com/s/files/1/0905/0026/8318/files/FullSizeRender_35a10bf9-e609-4eda-b584-d9a113898585.jpg?v=1778494728&width=600" alt="72V Battery Bag, 72V battery bag" /></div>
+        <div class="kp__thumbs" role="group" aria-label="Product images">
+          <button class="kp__thumb is-active" type="button" aria-label="View 72V battery bag" aria-current="true">
+            <img src="https://cdn.shopify.com/s/files/1/0905/0026/8318/files/FullSizeRender_35a10bf9-e609-4eda-b584-d9a113898585.jpg?v=1778494728&width=600" alt="" loading="lazy" />
+          </button>
+          <!-- PLACEHOLDER: additional gallery photos pending from client -->
+          <div class="kp__thumb kp__thumb--todo" aria-hidden="true">Photo<br />TBC</div>
+          <div class="kp__thumb kp__thumb--todo" aria-hidden="true">Photo<br />TBC</div>
+        </div>
+      </div>
+
+      <!-- right column: header (title + review) above the buy panel. On mobile the gallery
+           comes first, then this header and the buy panel. -->
+      <div class="kp__right">
+        <div class="kp__head">
+          <nav class="product__crumbs" aria-label="Breadcrumb">
+            <a href="index.html">Home</a> <span aria-hidden="true">/</span>
+            <a href="accessories.html">Accessories</a> <span aria-hidden="true">/</span> <span>72V Battery Bag</span>
+          </nav>
+          <div class="product__rating" aria-label="Rated 4.7 from 9 reviews">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.3 6.9.6-5.2 4.6 1.6 6.9L12 17l-6.3 3 1.6-6.9L2 8.9l6.9-.6z"/></svg>
+            <span><strong>4.7</strong> · 9 reviews</span>
+          </div>
+          <h1 class="product__title">72V Battery Bag</h1>
+        </div>
+
+        <aside class="kp__buy">
+          <p class="product__price"><span id="kp-price">$70.00</span> <span>AUD</span></p>
+
+          <div class="kp-field">
+            <label id="kp-qty-label">Quantity</label>
+            <div class="kp-qty" role="group" aria-labelledby="kp-qty-label">
+              <button class="kp-qty__btn" type="button" id="kp-qty-dec" aria-label="Decrease quantity">&minus;</button>
+              <span class="kp-qty__n" id="kp-qty-n" aria-live="polite">1</span>
+              <button class="kp-qty__btn" type="button" id="kp-qty-inc" aria-label="Increase quantity">+</button>
+            </div>
+          </div>
+
+          <p class="product__stock"><span class="prod__stock-dot" aria-hidden="true"></span>In stock</p>
+          <p class="product__ship">
+            <svg class="ship-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 5.5h13v10H1z"/><path d="M14 8.5h3.8l3.2 3.2v3.8H14z"/><circle cx="5.8" cy="18" r="1.7"/><circle cx="17.2" cy="18" r="1.7"/></svg>
+            Free Australia-wide shipping · 7 to 14 business days
+          </p>
+
+          <button class="product__cta" id="p-add" type="button">Add to cart</button>
+
+          <p class="product__trust">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>[Warranty term TBC]</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Free AU shipping</span>
+          </p>
+        </aside>
+      </div>
+
+      <!-- content: placeholder blocks until the client supplies confirmed copy -->
+      <div class="kp__content">
+        <div class="kp__block">
+          <p class="kp-tbc">[Product description TBC, client to confirm]</p>
+        </div>
+
+        <div class="kp-macc">
+          <button class="kp-macc__head" type="button" aria-expanded="false" aria-controls="macc-includes" id="macc-includes-h">
+            <span>What's included</span>
+            <svg class="kp-macc__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="kp-macc__panel" id="macc-includes" role="region" aria-labelledby="macc-includes-h">
+            <div class="kp-macc__inner">
+              <ul class="kp-bullets">
+                <li class="kp-tbc">[Included items TBC, client to confirm]</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="kp-macc">
+          <button class="kp-macc__head" type="button" aria-expanded="false" aria-controls="macc-specs" id="macc-specs-h">
+            <span>Specifications</span>
+            <svg class="kp-macc__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="kp-macc__panel" id="macc-specs" role="region" aria-labelledby="macc-specs-h">
+            <div class="kp-macc__inner">
+              <ul class="kp-bullets">
+                <li class="kp-tbc">[Specifications TBC, client to confirm]</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <a href="index.html" class="site-footer__logo">F1<span>EBIKES</span></a>
+      <div class="site-footer__socials" aria-label="Social media">
+        <a href="https://www.instagram.com/f1ebikes/" target="_blank" rel="noopener" class="social" aria-label="F1 Ebikes on Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/@f1ebikes" target="_blank" rel="noopener" class="social" aria-label="F1 Ebikes on TikTok">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.3 0 .59.05.88.13V9.4a6.84 6.84 0 0 0-1-.07A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+        </a>
+      </div>
+      <p class="site-footer__copy">© 2026 F1 Ebikes · Free Australia-wide shipping</p>
+      <nav class="site-footer__links" aria-label="Legal">
+        <a href="contact.html">Contact us</a>
+        <a href="faq.html">FAQ</a>
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="terms-of-service.html">Terms of Service</a>
+        <a href="refund-policy.html">Refund Policy</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Product page logic: quantity stepper, demo-cart add, mobile content accordions. -->
+  <script>
+    (function () {
+      var PRICE = 70;
+      var NAME = "72V Battery Bag";
+      var IMG = "https://cdn.shopify.com/s/files/1/0905/0026/8318/files/FullSizeRender_35a10bf9-e609-4eda-b584-d9a113898585.jpg?v=1778494728&width=600";
+      var URL = "battery-bag-72v.html";
+
+      var qty = 1;
+      var qtyEl = document.getElementById("kp-qty-n");
+      document.getElementById("kp-qty-dec").addEventListener("click", function () { if (qty > 1) qtyEl.textContent = --qty; });
+      document.getElementById("kp-qty-inc").addEventListener("click", function () { if (qty < 10) qtyEl.textContent = ++qty; });
+
+      document.getElementById("p-add").addEventListener("click", function () {
+        var item = { id: URL, name: NAME, price: PRICE, img: IMG, url: URL, qty: qty };
+        if (window.F1Cart && window.F1Cart.add) window.F1Cart.add(item);
+      });
+
+      // Mobile only: the includes / specifications sections are dropdowns.
+      [].forEach.call(document.querySelectorAll(".kp-macc__head"), function (head) {
+        head.addEventListener("click", function () {
+          head.setAttribute("aria-expanded", head.getAttribute("aria-expanded") === "true" ? "false" : "true");
+        });
+      });
+    })();
+  </script>
+
+  <!-- Mobile navigation: toggle the burger sheet, close on link tap / Escape / resize. -->
+  <script>
+    (function () {
+      var nav = document.getElementById("nav");
+      var burger = document.getElementById("nav-burger");
+      var menu = document.getElementById("mobile-menu");
+      if (!nav || !burger || !menu) return;
+      function setOpen(open) {
+        menu.classList.toggle("is-open", open);
+        burger.classList.toggle("is-open", open);
+        nav.classList.toggle("is-menu-open", open);
+        burger.setAttribute("aria-expanded", open ? "true" : "false");
+        burger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+        document.body.style.overflow = open ? "hidden" : "";
+      }
+      burger.addEventListener("click", function () { setOpen(!menu.classList.contains("is-open")); });
+      menu.querySelectorAll("a").forEach(function (a) { a.addEventListener("click", function () { setOpen(false); }); });
+      document.addEventListener("keydown", function (e) { if (e.key === "Escape" || e.keyCode === 27) setOpen(false); });
+      window.addEventListener("resize", function () { if (window.innerWidth > 860) setOpen(false); });
+    })();
+  </script>
+
+  <script src="utils.js"></script>
+  <script src="lenis.min.js"></script>
+  <script src="lenis-init.js"></script>
+  <!-- Client-side cart (localStorage drawer, demo only). -->
+  <script src="cart.js"></script>
+
+</body>
+</html>

@@ -2068,6 +2068,17 @@ html.batt-locked, html.batt-locked body { overflow: hidden; height: 100%; }
 .kp__thumb img { width: 100%; height: 100%; object-fit: contain; display: block; }
 .kp__thumb.is-active { border-color: #242323; }
 .kp__thumb:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* placeholder tile for gallery photos the client has not supplied yet */
+.kp__thumb--todo {
+  cursor: default; display: grid; place-items: center; color: #9a9a9e;
+  font-size: 0.58rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  text-align: center; line-height: 1.3;
+  background: repeating-linear-gradient(45deg, #fafafa, #fafafa 6px, #f1f1f0 6px, #f1f1f0 12px);
+}
+/* struck-through previous price beside the panel price (existing sale data only) */
+.kp-was { font-size: 0.95rem; font-weight: 600; color: #a0a0a4; text-decoration: line-through; margin-left: 0.45rem; }
+/* placeholder copy awaiting client confirmation */
+.kp-tbc { color: #8a8a8e !important; font-style: italic; }
 
 /* Header block (crumbs/rating/title) sits atop the buy block inside .kp__right */
 .kp__head { margin-bottom: 1.2rem; }
