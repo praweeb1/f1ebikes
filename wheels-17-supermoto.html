@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>F1 Ebikes | 17&Prime; Supermoto Wheels</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="Images/F2.png" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ============================================================
+       17" Supermoto Wheels - page-scoped styles only (swp- namespace).
+       Nothing here touches shared selectors; safe to delete with the page.
+       ============================================================ */
+    .swp { background: #f4f4f3; color: #242323; padding: clamp(6.5rem, 13vh, 9rem) 7vw clamp(3rem, 7vh, 5rem); }
+    .swp__wrap {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(320px, 420px);
+      gap: clamp(2rem, 4.5vw, 4rem); align-items: start;
+      grid-template-areas: "gallery panel" "details panel";
+    }
+
+    /* ---- gallery (left) ---- */
+    .swp__gallery { grid-area: gallery; min-width: 0; }
+    .swp__main {
+      background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 18px;
+      display: grid; place-items: center; padding: clamp(1.2rem, 3vw, 2.4rem);
+      box-shadow: 0 16px 44px rgba(0, 0, 0, 0.06);
+    }
+    .swp__main img { width: 100%; max-width: 640px; height: auto; object-fit: contain; }
+    .swp__thumbs { display: flex; gap: 0.7rem; margin-top: 0.8rem; }
+    .swp__thumb {
+      width: 84px; height: 84px; padding: 8px; cursor: pointer;
+      background: #ffffff; border: 1.5px solid rgba(0, 0, 0, 0.1); border-radius: 12px;
+      display: grid; place-items: center; transition: border-color 0.2s var(--ease);
+    }
+    .swp__thumb img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    .swp__thumb.is-active { border-color: #242323; }
+    .swp__thumb--todo {
+      cursor: default; color: #9a9a9e; font-size: 0.58rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase; text-align: center; line-height: 1.3;
+      background: repeating-linear-gradient(45deg, #fafafa, #fafafa 6px, #f1f1f0 6px, #f1f1f0 12px);
+    }
+
+    /* ---- purchase panel (right, sticky on desktop) ---- */
+    .swp__panel { grid-area: panel; position: sticky; top: 96px; }
+    .swp__crumbs { font-size: 0.78rem; color: #6a6a6e; margin-bottom: 0.9rem; }
+    .swp__crumbs a { color: #3a3a3c; }
+    .swp__crumbs a:hover { color: var(--accent); }
+    .swp__rating { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; color: #3a3a3c; margin-bottom: 0.8rem; }
+    .swp__rating svg { width: 15px; height: 15px; color: var(--accent); }
+    .swp__rating strong { color: #242323; }
+    /* Title: premium technical - large, heavy, uppercase, tight tracking (reference-inspired scale) */
+    .swp__title {
+      font-size: clamp(1.9rem, 3.4vw, 2.7rem); font-weight: 800; letter-spacing: -0.015em;
+      line-height: 1.02; text-transform: uppercase; margin: 0 0 0.9rem;
+    }
+    .swp__price { display: flex; align-items: baseline; gap: 0.5rem; margin: 0 0 0.35rem; }
+    .swp__price-now { font-size: clamp(1.5rem, 2.4vw, 1.9rem); font-weight: 800; letter-spacing: -0.01em; color: #242323; }
+    .swp__price-cur { font-size: 0.85rem; font-weight: 600; color: #6a6a6e; }
+    /* Sale message line: styled + ready, copy is a placeholder until the client confirms an offer */
+    .swp__offer { font-size: 0.9rem; color: var(--accent); margin: 0 0 1.4rem; }
+    .swp__lead { font-size: 0.95rem; line-height: 1.6; color: #4a4a4e; margin: 0 0 1.6rem; max-width: 44ch; }
+
+    .swp-field { margin-bottom: 1.05rem; }
+    .swp-field label { display: block; font-size: 0.74rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #242323; margin-bottom: 0.4rem; }
+    .swp-select {
+      width: 100%; padding: 0.8rem 2.4rem 0.8rem 0.95rem; font-family: inherit; font-size: 0.92rem; font-weight: 600;
+      color: #242323; background-color: #fff; border: 1.5px solid rgba(0, 0, 0, 0.22); border-radius: 0;
+      -webkit-appearance: none; appearance: none; cursor: pointer;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23242323' stroke-width='2'><path d='M6 9l6 6 6-6'/></svg>");
+      background-repeat: no-repeat; background-position: right 0.8rem center; background-size: 14px;
+    }
+    .swp-select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    /* quantity stepper */
+    .swp-qty { display: inline-flex; align-items: stretch; border: 1.5px solid rgba(0, 0, 0, 0.22); background: #fff; }
+    .swp-qty__btn {
+      width: 44px; display: grid; place-items: center; border: 0; background: none; cursor: pointer;
+      font-size: 1.15rem; font-weight: 600; color: #242323; font-family: inherit;
+      transition: background 0.15s var(--ease);
+    }
+    .swp-qty__btn:hover { background: #f1f1f0; }
+    .swp-qty__btn:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+    .swp-qty__n { min-width: 52px; display: grid; place-items: center; font-weight: 700; font-size: 0.95rem; font-variant-numeric: tabular-nums; border-left: 1.5px solid rgba(0,0,0,0.12); border-right: 1.5px solid rgba(0,0,0,0.12); }
+
+    .swp__stock { display: inline-flex; align-items: center; gap: 0.45rem; margin: 1.35rem 0 0; font-size: 0.85rem; font-weight: 600; color: #1f8a43; }
+    .swp__ship { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.45rem; font-size: 0.85rem; color: #5a5a5e; }
+    .swp__cta {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
+      margin-top: 1.5rem; width: 100%; padding: 1.1rem 2rem; border-radius: 12px;
+      background: var(--btn-red); color: #ffffff; font-weight: 800; font-size: 1rem;
+      border: none; cursor: pointer; font-family: inherit;
+      transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+    }
+    .swp__cta:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(178, 38, 28, 0.32); }
+    .swp__trust { display: flex; flex-wrap: wrap; gap: 0.5rem 1.4rem; margin-top: 1.4rem; font-size: 0.8rem; color: #5a5a5e; }
+    .swp__trust span { display: inline-flex; align-items: center; gap: 0.4rem; }
+    .swp__trust svg { width: 15px; height: 15px; color: var(--accent); flex: none; }
+
+    /* ---- details under the purchase section ---- */
+    .swp__details { grid-area: details; margin-top: clamp(1.6rem, 3vw, 2.6rem); }
+    .swp__block { padding: 1.4rem 0; border-top: 1px solid rgba(0, 0, 0, 0.1); }
+    .swp__block h2 { font-size: 1.02rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; margin: 0 0 0.8rem; }
+    .swp__block p { font-size: 0.95rem; line-height: 1.65; color: #3c3c40; margin: 0 0 0.8rem; }
+    .swp-bullets { margin: 0; padding-left: 1.15rem; }
+    .swp-bullets li { font-size: 0.95rem; line-height: 1.6; color: #3c3c40; margin-bottom: 0.45rem; }
+    .swp-tbc { color: #8a8a8e; font-style: italic; }
+
+    /* ---- mobile: stack gallery, then panel, then details ---- */
+    @media (max-width: 860px) {
+      .swp { padding-top: 6.2rem; }
+      .swp__wrap { grid-template-columns: 1fr; grid-template-areas: "gallery" "panel" "details"; }
+      .swp__panel { position: static; }
+      .swp__title { font-size: clamp(1.7rem, 8vw, 2.1rem); }
+      .swp__thumb { width: 72px; height: 72px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- ============ NAVBAR (shared) ============ -->
+  <header class="nav nav--scrolled nav--dark" id="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo"><span class="nav__logo-mark">F<svg class="nav__bolt" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15 2 L8.5 4 L11.5 6 L11.5 10 L8 11.2 L12.5 12.6 L11.5 13.4 L11.5 22 L15 22 L15 13.4 L17.5 12.6 L13 11.2 L15 10 Z"/></svg></span><span>EBIKES</span></a>
+
+      <nav class="nav__links" aria-label="Primary">
+        <a href="controllers.html">Controllers</a>
+        <a href="accessories.html">Accessories</a>
+        <a href="battery.html">Batteries</a>
+        <a href="shop.html">Conversion Kits</a>
+      </nav>
+
+      <div class="nav__cta">
+        <a href="#" class="btn btn--ghost btn--sm" aria-label="Cart"><svg class="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/><path d="M2.5 3.5h2.2l2.1 11.6a1.6 1.6 0 0 0 1.6 1.3h8.4a1.6 1.6 0 0 0 1.6-1.3l1.3-7.1H5.4"/></svg></a>
+      </div>
+
+      <button class="nav__burger" id="nav-burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <nav class="nav__mobile" id="mobile-menu" aria-label="Mobile">
+      <a href="index.html" class="nav__mobile-link">Home</a>
+      <a href="controllers.html" class="nav__mobile-link">Controllers</a>
+      <a href="accessories.html" class="nav__mobile-link">Accessories</a>
+      <a href="battery.html" class="nav__mobile-link">Batteries</a>
+      <a href="shop.html" class="nav__mobile-link">Conversion Kits</a>
+      <a href="#" class="nav__mobile-cart btn btn--ghost" aria-label="Cart"><svg class="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/><path d="M2.5 3.5h2.2l2.1 11.6a1.6 1.6 0 0 0 1.6 1.3h8.4a1.6 1.6 0 0 0 1.6-1.3l1.3-7.1H5.4"/></svg></a>
+    </nav>
+  </header>
+
+  <!-- ===== PRODUCT: 17" Supermoto Wheels ===== -->
+  <section class="swp" aria-label="17 inch Supermoto Wheels">
+    <div class="swp__wrap">
+
+      <!-- gallery -->
+      <div class="swp__gallery">
+        <div class="swp__main"><img id="swp-main" src="Images/17%20Supermoto%20Wheels.png" alt="17 inch supermoto wheel set for F1 Ebikes high-power hub kits" /></div>
+        <div class="swp__thumbs" role="group" aria-label="Product images">
+          <button class="swp__thumb is-active" type="button" data-src="Images/17%20Supermoto%20Wheels.png" aria-label="View wheel set photo" aria-current="true">
+            <img src="Images/17%20Supermoto%20Wheels.png" alt="" loading="lazy" />
+          </button>
+          <!-- PLACEHOLDER: additional gallery photos pending from client -->
+          <div class="swp__thumb swp__thumb--todo" aria-hidden="true">Photo<br />TBC</div>
+          <div class="swp__thumb swp__thumb--todo" aria-hidden="true">Photo<br />TBC</div>
+        </div>
+      </div>
+
+      <!-- purchase panel -->
+      <aside class="swp__panel">
+        <nav class="swp__crumbs" aria-label="Breadcrumb">
+          <a href="index.html">Home</a> <span aria-hidden="true">/</span>
+          <a href="accessories.html">Accessories</a> <span aria-hidden="true">/</span> <span>17&Prime; Supermoto Wheels</span>
+        </nav>
+
+        <div class="swp__rating" aria-label="Rated 4.9 from 9 reviews">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.3 6.9.6-5.2 4.6 1.6 6.9L12 17l-6.3 3 1.6-6.9L2 8.9l6.9-.6z"/></svg>
+          <span><strong>4.9</strong> · 9 reviews</span>
+        </div>
+
+        <h1 class="swp__title">17&Prime; Supermoto Wheels</h1>
+
+        <p class="swp__price"><span class="swp__price-now">$1,220.00</span> <span class="swp__price-cur">AUD</span></p>
+        <!-- PLACEHOLDER: sale/offer messaging pending client confirmation -->
+        <p class="swp__offer">[Sale message TBC, client to confirm offer]</p>
+
+        <p class="swp__lead">Motorbike-grade 17 inch supermoto wheels built for high-power F1 Ebikes hub conversions. Full description copy to be confirmed by the client.</p>
+
+        <div class="swp-field">
+          <label for="swp-fitment">Fitment</label>
+          <select class="swp-select" id="swp-fitment">
+            <option value="" selected>Select</option>
+            <!-- PLACEHOLDER options: real fitment variants pending from client -->
+            <option value="tbc-1">Fitment option 1 (TBC)</option>
+            <option value="tbc-2">Fitment option 2 (TBC)</option>
+          </select>
+        </div>
+
+        <div class="swp-field">
+          <label for="swp-qty-n" id="swp-qty-label">Quantity</label>
+          <div class="swp-qty" role="group" aria-labelledby="swp-qty-label">
+            <button class="swp-qty__btn" type="button" id="swp-qty-dec" aria-label="Decrease quantity">&minus;</button>
+            <span class="swp-qty__n" id="swp-qty-n" aria-live="polite">1</span>
+            <button class="swp-qty__btn" type="button" id="swp-qty-inc" aria-label="Increase quantity">+</button>
+          </div>
+        </div>
+
+        <p class="swp__stock"><span class="prod__stock-dot" aria-hidden="true"></span>In stock</p>
+        <p class="swp__ship">
+          <svg class="ship-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 5.5h13v10H1z"/><path d="M14 8.5h3.8l3.2 3.2v3.8H14z"/><circle cx="5.8" cy="18" r="1.7"/><circle cx="17.2" cy="18" r="1.7"/></svg>
+          Free Australia-wide shipping · 7 to 14 business days
+        </p>
+
+        <button class="swp__cta" id="swp-add" type="button">Add to cart</button>
+
+        <p class="swp__trust">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>[Warranty term TBC]</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Free AU shipping</span>
+        </p>
+      </aside>
+
+      <!-- key details under the purchase section -->
+      <div class="swp__details">
+        <div class="swp__block">
+          <h2>What's included</h2>
+          <ul class="swp-bullets">
+            <li class="swp-tbc">[Included items list TBC, client to confirm: wheels, tyres, tubes, hardware]</li>
+          </ul>
+        </div>
+        <div class="swp__block">
+          <h2>Specifications</h2>
+          <ul class="swp-bullets">
+            <li>17 inch supermoto wheel size</li>
+            <li class="swp-tbc">[Rim width TBC]</li>
+            <li class="swp-tbc">[Hub and axle compatibility TBC]</li>
+            <li class="swp-tbc">[Tyre spec TBC]</li>
+            <li class="swp-tbc">[Weight per wheel TBC]</li>
+          </ul>
+        </div>
+        <div class="swp__block">
+          <h2>Compatibility</h2>
+          <p class="swp-tbc">[Kit compatibility notes TBC, client to confirm which conversion kits these wheels suit]</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== FOOTER (shared) ===== -->
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <a href="index.html" class="site-footer__logo">F1<span>EBIKES</span></a>
+      <div class="site-footer__socials" aria-label="Social media">
+        <a href="https://www.instagram.com/f1ebikes/" target="_blank" rel="noopener" class="social" aria-label="F1 Ebikes on Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/@f1ebikes" target="_blank" rel="noopener" class="social" aria-label="F1 Ebikes on TikTok">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.3 0 .59.05.88.13V9.4a6.84 6.84 0 0 0-1-.07A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+        </a>
+      </div>
+      <p class="site-footer__copy">© 2026 F1 Ebikes · Free Australia-wide shipping</p>
+      <nav class="site-footer__links" aria-label="Legal">
+        <a href="contact.html">Contact us</a>
+        <a href="faq.html">FAQ</a>
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="terms-of-service.html">Terms of Service</a>
+        <a href="refund-policy.html">Refund Policy</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Page logic: gallery thumb swap, quantity stepper, gated add-to-cart via F1Cart. -->
+  <script>
+    (function () {
+      var PRICE = 1220;
+      var NAME = "17″ Supermoto Wheels";
+
+      // gallery: real thumbs swap the main image (placeholder tiles are inert)
+      var main = document.getElementById("swp-main");
+      var thumbs = document.querySelectorAll(".swp__thumb[data-src]");
+      thumbs.forEach(function (t) {
+        t.addEventListener("click", function () {
+          main.src = t.getAttribute("data-src");
+          thumbs.forEach(function (o) {
+            var on = o === t;
+            o.classList.toggle("is-active", on);
+            o.setAttribute("aria-current", on ? "true" : "false");
+          });
+        });
+      });
+
+      // quantity stepper (1..10)
+      var qty = 1;
+      var qtyEl = document.getElementById("swp-qty-n");
+      document.getElementById("swp-qty-dec").addEventListener("click", function () { if (qty > 1) qtyEl.textContent = --qty; });
+      document.getElementById("swp-qty-inc").addEventListener("click", function () { if (qty < 10) qtyEl.textContent = ++qty; });
+
+      // add to cart: require a fitment choice (mirrors the kit-page gating pattern)
+      var fit = document.getElementById("swp-fitment");
+      fit.addEventListener("change", function () { fit.style.borderColor = ""; });
+      document.getElementById("swp-add").addEventListener("click", function () {
+        if (!fit.value) { fit.style.borderColor = "#e02b1e"; return; }
+        var item = {
+          id: "17-supermoto-wheels|" + fit.value,
+          name: NAME + " (" + fit.options[fit.selectedIndex].text + ")",
+          price: PRICE,
+          img: "Images/17%20Supermoto%20Wheels.png",
+          url: "wheels-17-supermoto.html",
+          qty: qty
+        };
+        if (window.F1Cart && window.F1Cart.add) window.F1Cart.add(item);
+      });
+    })();
+  </script>
+
+  <!-- Mobile navigation: toggle the burger sheet, close on link tap / Escape / resize. -->
+  <script>
+    (function () {
+      var nav = document.getElementById("nav");
+      var burger = document.getElementById("nav-burger");
+      var menu = document.getElementById("mobile-menu");
+      if (!nav || !burger || !menu) return;
+      function setOpen(open) {
+        menu.classList.toggle("is-open", open);
+        burger.classList.toggle("is-open", open);
+        nav.classList.toggle("is-menu-open", open);
+        burger.setAttribute("aria-expanded", open ? "true" : "false");
+        burger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+        document.body.style.overflow = open ? "hidden" : "";
+      }
+      burger.addEventListener("click", function () { setOpen(!menu.classList.contains("is-open")); });
+      menu.querySelectorAll("a").forEach(function (a) { a.addEventListener("click", function () { setOpen(false); }); });
+      document.addEventListener("keydown", function (e) { if (e.key === "Escape" || e.keyCode === 27) setOpen(false); });
+      window.addEventListener("resize", function () { if (window.innerWidth > 860) setOpen(false); });
+    })();
+  </script>
+
+  <script src="utils.js"></script>
+  <script src="lenis.min.js"></script>
+  <script src="lenis-init.js"></script>
+  <!-- Client-side cart (localStorage drawer). -->
+  <script src="cart.js"></script>
+
+</body>
+</html>
