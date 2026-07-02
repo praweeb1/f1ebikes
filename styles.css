@@ -729,7 +729,7 @@ a { text-decoration: none; color: inherit; }
 .product {
   background: #f4f4f3;
   color: #242323;
-  padding: clamp(7rem, 15vh, 10rem) 7vw clamp(3rem, 7vh, 5rem);
+  padding: clamp(6.5rem, 13vh, 9rem) 7vw clamp(3rem, 7vh, 5rem);
 }
 .product__wrap {
   max-width: 1200px;
@@ -2055,49 +2055,59 @@ html.batt-locked, html.batt-locked body { overflow: hidden; height: 100%; }
    Left: gallery (main + thumbnails) with open content sections below.
    Right: sticky buy panel with dropdown options. Light theme (matches .product).
    ============================================================ */
-.kp__wrap { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 400px); gap: clamp(1.5rem, 4vw, 3.5rem); align-items: start; grid-template-areas: "gallery right" "content right"; }
+.kp__wrap { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(320px, 420px); gap: clamp(2rem, 4.5vw, 4rem); align-items: start; grid-template-areas: "gallery right" "content right"; }
 .kp__gallery { grid-area: gallery; min-width: 0; }
 .kp__content { grid-area: content; }
 .kp__right { grid-area: right; position: sticky; top: 96px; }
 
 /* gallery: main image + thumbnail strip */
-.kp__main { background: #fff; border: 1px solid #e6e6e4; border-radius: 16px; padding: 1.5rem; display: flex; align-items: center; justify-content: center; aspect-ratio: 4 / 3; }
+.kp__main { background: #fff; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 18px; padding: clamp(1.2rem, 3vw, 2.4rem); display: flex; align-items: center; justify-content: center; aspect-ratio: 4 / 3; box-shadow: 0 16px 44px rgba(0, 0, 0, 0.06); }
 .kp__main img { width: 100%; height: 100%; object-fit: contain; }
-.kp__thumbs { display: flex; gap: 0.6rem; margin-top: 0.85rem; flex-wrap: wrap; }
-.kp__thumb { width: 74px; height: 74px; border: 1px solid #dcdcda; border-radius: 10px; background: #fff; padding: 5px; cursor: pointer; overflow: hidden; transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease); }
+.kp__thumbs { display: flex; gap: 0.7rem; margin-top: 0.8rem; flex-wrap: wrap; }
+.kp__thumb { width: 84px; height: 84px; border: 1.5px solid rgba(0, 0, 0, 0.1); border-radius: 12px; background: #fff; padding: 8px; cursor: pointer; overflow: hidden; transition: border-color 0.2s var(--ease); }
 .kp__thumb img { width: 100%; height: 100%; object-fit: contain; display: block; }
-.kp__thumb.is-active { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(224, 43, 30, 0.22); }
+.kp__thumb.is-active { border-color: #242323; }
 .kp__thumb:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 /* Header block (crumbs/rating/title) sits atop the buy block inside .kp__right */
 .kp__head { margin-bottom: 1.2rem; }
-/* Reference-style header: large title, 3x price, small red off-line, plain CTA */
-.kp__right .product__title { font-size: clamp(1.85rem, 3.8vw, 2.8rem); line-height: 1.05; }
-/* kit price: same base styling as the battery page (size/weight/colour), but in Cordia New */
-.kp__right .product__price { font-family: "Cordia New", "Cordia UPC", "Leelawadee UI", Tahoma, sans-serif; }
-.kp__right .product__off { margin-top: 0.2rem; color: var(--accent); font-weight: 400; font-size: 0.95rem; letter-spacing: 0.01em; }
-.kp__right .product__cta { font-weight: 500; }
+/* Approved product-page header (matches wheels-17-supermoto reference):
+   heavy uppercase title, bold price + small currency, red offer line, strong CTA */
+.kp__right .product__title { font-size: clamp(1.9rem, 3.4vw, 2.7rem); font-weight: 800; letter-spacing: -0.015em; line-height: 1.02; text-transform: uppercase; margin-bottom: 0.9rem; }
+.kp__right .product__price { margin-top: 0; margin-bottom: 0.35rem; font-size: clamp(1.5rem, 2.4vw, 1.9rem); font-weight: 800; letter-spacing: -0.01em; }
+.kp__right .product__off { margin-top: 0; margin-bottom: 1.4rem; color: var(--accent); font-weight: 400; font-size: 0.9rem; letter-spacing: 0.01em; }
+.kp__right .product__stock { margin-top: 1.35rem; }
+.kp__right .product__cta { font-weight: 800; width: 100%; max-width: none; }
 
-/* dropdown option fields */
-.kp-field { margin-top: 1.4rem; }
-.kp-field label { display: block; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #242323; margin-bottom: 0.5rem; }
-.kp-select { width: 100%; appearance: none; -webkit-appearance: none; background-color: #fff; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%236a6a6e' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.85rem center; background-size: 18px 18px; border: 2px solid #6a6a6e; border-radius: 0; padding: 0.6rem 2.5rem 0.6rem 1rem; font: 600 0.95rem/1.2 "Archivo", sans-serif; color: #242323; cursor: pointer; }
-.kp-select:hover { border-color: #9a9a98; }
-.kp-select:focus-visible { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(224, 43, 30, 0.15); }
+/* dropdown option fields (approved reference styling) */
+.kp-field { margin-top: 1.05rem; }
+.kp-field:first-of-type { margin-top: 0; }
+.kp-field label { display: block; font-size: 0.74rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #242323; margin-bottom: 0.4rem; }
+.kp-select { width: 100%; appearance: none; -webkit-appearance: none; background-color: #fff; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23242323' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.8rem center; background-size: 14px 14px; border: 1.5px solid rgba(0, 0, 0, 0.22); border-radius: 0; padding: 0.8rem 2.4rem 0.8rem 0.95rem; font: 600 0.92rem/1.2 "Archivo", sans-serif; color: #242323; cursor: pointer; }
+.kp-select:hover { border-color: rgba(0, 0, 0, 0.4); }
+.kp-select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.kp-select:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* quantity stepper (approved reference styling) */
+.kp-qty { display: inline-flex; align-items: stretch; border: 1.5px solid rgba(0, 0, 0, 0.22); background: #fff; }
+.kp-qty__btn { width: 44px; display: grid; place-items: center; border: 0; background: none; cursor: pointer; font-size: 1.15rem; font-weight: 600; color: #242323; font-family: inherit; transition: background 0.15s var(--ease); }
+.kp-qty__btn:hover { background: #f1f1f0; }
+.kp-qty__btn:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.kp-qty__n { min-width: 52px; display: grid; place-items: center; font-weight: 700; font-size: 0.95rem; font-variant-numeric: tabular-nums; border-left: 1.5px solid rgba(0, 0, 0, 0.12); border-right: 1.5px solid rgba(0, 0, 0, 0.12); }
 
 /* open content sections (below the gallery) */
 .kp__content { display: grid; gap: clamp(1.8rem, 3.5vw, 2.6rem); }
-.kp__block { border-top: 1px solid #e2e2e0; padding-top: clamp(1.4rem, 3vw, 2rem); }
+.kp__block { border-top: 1px solid rgba(0, 0, 0, 0.1); padding-top: clamp(1.4rem, 3vw, 2rem); }
 .kp__block:first-child { border-top: 0; padding-top: 0; }
-.kp__block h2 { font-size: clamp(1.15rem, 2.4vw, 1.55rem); font-weight: 700; letter-spacing: -0.01em; margin: 0 0 0.9rem; color: #242323; }
-.kp__block > p { color: #242323; line-height: 1.75; margin: 0 0 0.8rem; max-width: 70ch; font-weight: 300; }
+.kp__block h2 { font-size: 1.02rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; margin: 0 0 0.8rem; color: #242323; }
+.kp__block > p { color: #3c3c40; line-height: 1.65; font-size: 0.95rem; margin: 0 0 0.8rem; max-width: 70ch; }
 .kp__block > p:last-child { margin-bottom: 0; }
 .kp-note { font-size: 0.82rem; color: #242323 !important; font-weight: 300; font-style: italic; }
 
 /* simple bullet lists (reference style): black text, thin weight */
-.kp-bullets { list-style: disc; margin: 0; padding-left: 1.3rem; display: grid; gap: 0.4rem; }
-.kp-bullets li { color: #242323; font-weight: 300; font-size: 0.98rem; line-height: 1.6; }
-.kp-bullets li::marker { color: #242323; }
+.kp-bullets { list-style: disc; margin: 0; padding-left: 1.15rem; display: grid; gap: 0.45rem; }
+.kp-bullets li { color: #3c3c40; font-size: 0.95rem; line-height: 1.6; }
+.kp-bullets li::marker { color: #3c3c40; }
 .kp-bullets strong { font-weight: 600; }
 .kp-bullets a { color: #242323; font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
 .kp-bullets a:hover { color: var(--accent); }
@@ -2123,9 +2133,9 @@ html.batt-locked, html.batt-locked body { overflow: hidden; height: 100%; }
 .kp-extra a:hover span { transform: translateX(3px); }
 
 /* Mobile-collapsible content sections: open headings on desktop, dropdowns on mobile */
-.kp-macc { border-top: 1px solid #e2e2e0; padding-top: clamp(1.4rem, 3vw, 2rem); }
+.kp-macc { border-top: 1px solid rgba(0, 0, 0, 0.1); padding-top: clamp(1.4rem, 3vw, 2rem); }
 .kp-macc__head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; width: 100%; background: none; border: 0; padding: 0; margin: 0; font-family: inherit; text-align: left; cursor: default; color: #242323; }
-.kp-macc__head span { font-size: clamp(1.15rem, 2.4vw, 1.55rem); font-weight: 700; letter-spacing: -0.01em; }
+.kp-macc__head span { font-size: 1.02rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; }
 .kp-macc__head:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .kp-macc__chev { display: none; width: 20px; height: 20px; flex: none; color: var(--accent); transition: transform 0.25s var(--ease); }
 .kp-macc__head[aria-expanded="true"] .kp-macc__chev { transform: rotate(180deg); }
@@ -2133,13 +2143,16 @@ html.batt-locked, html.batt-locked body { overflow: hidden; height: 100%; }
 .kp-macc__inner { padding-top: 0.9rem; }
 
 @media (max-width: 860px) {
-  /* single column; title + review jump to the very top, then gallery, buy panel, details */
+  /* single column, approved reference order: gallery first, then header + buy panel, then details */
+  .product { padding-top: 6.2rem; }
   .kp__wrap { display: flex; flex-direction: column; gap: clamp(1.6rem, 5vw, 2.4rem); }
   .kp__right { display: contents; }
-  .kp__head { order: 1; margin-bottom: 0; }
-  .kp__gallery { order: 2; }
-  .kp__buy { order: 3; }
+  .kp__gallery { order: 1; }
+  .kp__head { order: 2; margin-bottom: 0; }
+  .kp__buy { order: 3; margin-top: -0.6rem; }
   .kp__content { order: 4; }
+  .kp__right .product__title { font-size: clamp(1.7rem, 8vw, 2.1rem); }
+  .kp__thumb { width: 72px; height: 72px; }
 
   /* the three named sections collapse into tap-to-open dropdowns on mobile */
   .kp-macc { padding-top: 0; }
