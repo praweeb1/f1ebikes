@@ -1893,10 +1893,6 @@ html.is-lite .videosec__takeover { opacity: 1; align-items: flex-end; justify-co
 
 /* ----- Scroll portrait wall (GSAP ScrollTrigger) - reviews section ----- */
 .spw { position: relative; width: 100%; background: #0a0a0a; color: #fff; }
-/* Homepage only: the sticky "Riders." title bleeds up (translateY(-50%)) above its section.
-   Nudge the wall down so the word only half-overlaps the collection's "VIEW ALL" pill above
-   it (it used to sit dead-centre on the pill and bury it). */
-#reviews.spw { padding-top: 104px; }
 .spw__hint {
   display: grid; justify-items: center; text-align: center; pointer-events: none;
   margin-top: 6.5rem; z-index: 10;
@@ -1930,6 +1926,54 @@ html.is-lite .videosec__takeover { opacity: 1; align-items: flex-end; justify-co
 /* editorial black-and-white variant */
 .spw--bw .spw-item img { filter: grayscale(1) contrast(1.15); }
 .spw--bw .spw-item:hover img { filter: grayscale(0) contrast(1.05); }
+
+/* ============ RIDERS (homepage reviews - rating stats + featured quote) ============ */
+.riders { background: #0a0a0a; color: #fff; padding: clamp(4rem, 9vw, 7.5rem) 7vw; }
+.riders__inner { max-width: 1080px; margin: 0 auto; }
+.riders__eyebrow { display: inline-flex; align-items: center; gap: 0.55rem; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); }
+.riders__dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+.riders__title { margin-top: 0.9rem; font-size: clamp(2.4rem, 6vw, 4.2rem); font-weight: 800; letter-spacing: -0.03em; line-height: 0.95; overflow: hidden; padding-bottom: 0.06em; }
+.riders__title-inner { display: inline-block; }
+.riders__lead { margin-top: 1rem; max-width: 46ch; color: rgba(255, 255, 255, 0.66); font-size: 1.02rem; line-height: 1.6; }
+.riders__lead-em { color: #fff; font-weight: 600; }
+.riders__grid {
+  display: grid; grid-template-columns: 1fr 1fr; align-items: start;
+  gap: clamp(2rem, 5vw, 5rem); margin-top: clamp(2.4rem, 5vw, 4rem);
+}
+.riders__blurb { color: rgba(255, 255, 255, 0.66); line-height: 1.6; max-width: 40ch; }
+.riders__stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; margin-top: 2.2rem; }
+/* big numbers fade white -> near-transparent, clipped to the glyphs */
+.riders__stat-num {
+  font-size: clamp(2.6rem, 5.5vw, 3.6rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1;
+  background: linear-gradient(90deg, #fff 20%, rgba(255, 255, 255, 0.18) 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.riders__stat-label { margin-top: 0.8rem; color: rgba(255, 255, 255, 0.66); font-size: 0.95rem; }
+.riders__quote { margin: 0; border-left: 3px solid var(--accent); padding-left: clamp(1.1rem, 2.5vw, 1.6rem); }
+.riders__quote > p { font-size: clamp(1.05rem, 1.8vw, 1.25rem); line-height: 1.55; color: rgba(255, 255, 255, 0.88); }
+.riders__quote-meta { margin-top: 1.4rem; display: flex; flex-direction: column; gap: 0.3rem; }
+.riders__quote-name { font-style: normal; font-weight: 700; }
+.riders__quote-kit { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); }
+/* ---- awwwards-style scroll-in reveal (driven by riders.js adding .is-in) ---- */
+/* wordmark masks up from behind its own clipped baseline */
+.riders__title-inner { transform: translateY(115%); transition: transform 0.9s var(--ease) 0.05s; will-change: transform; }
+.riders.is-in .riders__title-inner { transform: translateY(0); }
+/* everything else fades + lifts, staggered */
+.riders__reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); will-change: opacity, transform; }
+.riders.is-in .riders__reveal { opacity: 1; transform: none; }
+.riders.is-in .riders__lead { transition-delay: 0.12s; }
+.riders.is-in .riders__blurb { transition-delay: 0.2s; }
+.riders.is-in .riders__stat:nth-child(1) { transition-delay: 0.28s; }
+.riders.is-in .riders__stat:nth-child(2) { transition-delay: 0.36s; }
+.riders.is-in .riders__quote { transition-delay: 0.24s; }
+/* tabular figures keep the count-up from reflowing as digits change width */
+.riders__stat-val { font-variant-numeric: tabular-nums; }
+@media (max-width: 860px) {
+  .riders__grid { grid-template-columns: 1fr; }
+}
+/* reduced motion: render the final state instantly, no reveal, no count-up */
+.riders--static .riders__reveal,
+.riders--static .riders__title-inner { opacity: 1 !important; transform: none !important; transition: none !important; }
 
 /* ============================================================
    BATTERY INTRO LOADER - small centred battery, charges red->green while the hero
@@ -2003,6 +2047,14 @@ html.batt-locked, html.batt-locked body { overflow: hidden; height: 100%; }
 @media (prefers-reduced-motion: reduce) {
   .batt-loader .batt__fill { transition: background 0.3s ease; }
   .batt-loader.is-charged .batt { animation: none; }
+}
+
+/* Mobile: no intro loader (the phone hero is a plain autoplay clip - nothing to
+   wait for). hero-loader.js removes it and skips the scroll lock; this hides it
+   pre-JS so it never flashes, and neutralises the lock as a safety net. */
+@media (max-width: 860px) {
+  .batt-loader { display: none !important; }
+  html.batt-locked, html.batt-locked body { overflow: auto; height: auto; }
 }
 
 /* ============================================================

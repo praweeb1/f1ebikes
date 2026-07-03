@@ -189,16 +189,41 @@
     </div>
   </section>
 
-  <!-- ===== REVIEWS (social proof - verified-buyer testimonials) ===== -->
-  <!-- ===== REVIEWS - scroll portrait wall (GSAP ScrollTrigger; see review-wall.js).
-       Coloured customer-build photos, no captions. Written testimonials follow below. ===== -->
-  <section class="spw" id="reviews" data-captions="false" aria-label="Customer reviews">
-    <div class="spw__title">
-      <h2>Riders.</h2>
-      <p>4.93 &#9733; · 1,284 verified reviews</p>
-      <div class="spw__hint" id="spw-hint"><span>scroll to meet the riders</span></div>
+  <!-- ===== REVIEWS (social proof - animated rating stats + featured rider quote).
+       Reveal + stat count-up driven by riders.js (IntersectionObserver, no deps).
+       The full scroll portrait wall lives on reviews.html. ===== -->
+  <section class="riders" id="reviews" aria-label="Customer reviews">
+    <div class="riders__inner">
+      <div class="riders__head">
+        <span class="riders__eyebrow riders__reveal"><span class="riders__dot" aria-hidden="true"></span>Reviews</span>
+        <h2 class="riders__title"><span class="riders__title-inner">Riders.</span></h2>
+        <p class="riders__lead riders__reveal">More than a number on a spec sheet - <span class="riders__lead-em">every review below is a build on the road.</span></p>
+      </div>
+
+      <div class="riders__grid">
+        <div class="riders__col">
+          <p class="riders__blurb riders__reveal">From first-kit commuters to full 5000W weekend builds, rated by the people riding them every day.</p>
+          <div class="riders__stats">
+            <div class="riders__stat riders__reveal">
+              <div class="riders__stat-num" aria-label="4.93 stars"><span class="riders__stat-val" data-to="4.93" data-dec="2" aria-hidden="true">0.00</span><span class="riders__stat-star" aria-hidden="true">&#9733;</span></div>
+              <p class="riders__stat-label">Average rating</p>
+            </div>
+            <div class="riders__stat riders__reveal">
+              <div class="riders__stat-num" aria-label="1,284"><span class="riders__stat-val" data-to="1284" data-dec="0" aria-hidden="true">0</span></div>
+              <p class="riders__stat-label">Verified reviews</p>
+            </div>
+          </div>
+        </div>
+
+        <blockquote class="riders__quote riders__reveal">
+          <p>&ldquo;Dropped the 5000W kit into my hardtail over a weekend with basic tools. It pulls harder than anything I&rsquo;ve ridden and hasn&rsquo;t missed a beat since.&rdquo;</p>
+          <div class="riders__quote-meta">
+            <cite class="riders__quote-name">Bailey Paterson</cite>
+            <span class="riders__quote-kit">5000W Kit</span>
+          </div>
+        </blockquote>
+      </div>
     </div>
-    <div class="spw__grid"><!-- portraits injected by review-wall.js --></div>
   </section>
 
   <!-- ===== SOCIALS (TikTok clip - plays on every device incl. iPhone) ===== -->
@@ -386,10 +411,9 @@
   <!-- Battery intro loader - reads window.F1_FRAMES decode progress, gates scroll, reveals the hero. -->
   <script src="hero-loader.js"></script>
 
-  <!-- Reviews scroll portrait wall (GSAP ScrollTrigger via CDN). -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="review-wall.js"></script>
+  <!-- Homepage reviews section: scroll-in reveal + stat count-up (IntersectionObserver, no deps). -->
+  <script src="riders.js"></script>
+
   <!-- Client-side cart (localStorage drawer). -->
   <script src="cart.js"></script>
 
