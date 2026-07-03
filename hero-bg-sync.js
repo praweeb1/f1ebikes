@@ -167,6 +167,136 @@
     el.style.width = w + "px";  el.style.height = h + "px";
   }
 
+  // ============================================================
+  // DOCK FX - electric spark border while the panel is mid-flight, plus a
+  // one-shot arrival zap as it locks into the corner. Drawn on its own
+  // overlay canvas with a self-managed rAF that only runs while there's
+  // something to show. Skipped entirely under reduced motion.
+  // ============================================================
+  var fx = (function () {
+    if (F1.reducedMotion()) return { update: function () {} };
+    var cv = document.createElement("canvas");
+    cv.className = "videosec__dockfx";
+    cv.setAttribute("aria-hidden", "true");
+    sticky.appendChild(cv);
+    var fc = cv.getContext("2d");
+    var W = 0, H = 0;
+    function size() { W = cv.width = window.innerWidth; H = cv.height = window.innerHeight; }
+    size();
+    window.addEventListener("resize", size);
+
+    var rect = null, inten = 0, prevPb = 0, armed = true, lastRk = "";
+    var running = false, zapping = false, zapT0 = 0, lastCrackle = 0;
+
+    var CORE = "rgba(255,255,255,0.92)";   // bolt core
+    var GLOW = "rgba(224,43,30,0.9)";      // --accent glow
+
+    // One jagged bolt from (x1,y1) to (x2,y2) with perpendicular jitter `amp`.
+    function bolt(x1, y1, x2, y2, amp, lw) {
+      var segs = 8, len = Math.hypot(x2 - x1, y2 - y1) || 1;
+      var px = -(y2 - y1) / len, py = (x2 - x1) / len;
+      fc.beginPath();
+      fc.moveTo(x1, y1);
+      for (var i = 1; i < segs; i++) {
+        var t = i / segs, j = (Math.random() * 2 - 1) * amp;
+        fc.lineTo(x1 + (x2 - x1) * t + px * j, y1 + (y2 - y1) * t + py * j);
+      }
+      fc.lineTo(x2, y2);
+      fc.lineWidth = lw;
+      fc.strokeStyle = CORE;
+      fc.stroke();
+    }
+    function edges() {
+      var r = rect;
+      return [
+        [r.l, r.t, r.l + r.w, r.t], [r.l + r.w, r.t, r.l + r.w, r.t + r.h],
+        [r.l + r.w, r.t + r.h, r.l, r.t + r.h], [r.l, r.t + r.h, r.l, r.t]
+      ];
+    }
+
+    // Mid-flight sparks: a couple of bolts crackle along random edges,
+    // re-randomised every ~55ms (every rAF frame reads as noise).
+    function drawSparks(now) {
+      if (now - lastCrackle < 55) return true;
+      lastCrackle = now;
+      fc.clearRect(0, 0, W, H);
+      fc.save();
+      fc.lineCap = "round";
+      fc.shadowColor = GLOW;
+      fc.shadowBlur = 16;
+      fc.globalAlpha = 0.9 * inten;
+      var eds = edges();
+      for (var i = 0; i < 2; i++) {
+        var ed = eds[(Math.random() * 4) | 0];
+        bolt(ed[0], ed[1], ed[2], ed[3], 4 + 8 * inten, 1.4);
+      }
+      fc.restore();
+      return true;
+    }
+
+    // Arrival zap: a ~420ms burst of bolts arcing off the edges + an outline flash.
+    function drawZap(now) {
+      var t = (now - zapT0) / 420;
+      if (t >= 1) { zapping = false; return false; }
+      var a = Math.pow(1 - t, 2);
+      fc.clearRect(0, 0, W, H);
+      fc.save();
+      fc.lineCap = "round";
+      fc.shadowColor = GLOW;
+      fc.shadowBlur = 26;
+      fc.globalAlpha = a;
+      var eds = edges();
+      for (var i = 0; i < 7; i++) {
+        var ed = eds[i % 4], u = Math.random();
+        var sx = ed[0] + (ed[2] - ed[0]) * u, sy = ed[1] + (ed[3] - ed[1]) * u;
+        var ang = Math.random() * Math.PI * 2, L = 26 + Math.random() * 44;
+        bolt(sx, sy, sx + Math.cos(ang) * L, sy + Math.sin(ang) * L, 6, 1.6);
+      }
+      fc.globalAlpha = a * 0.8;
+      fc.lineWidth = 2;
+      fc.strokeStyle = CORE;
+      fc.strokeRect(rect.l, rect.t, rect.w, rect.h);
+      fc.restore();
+      return true;
+    }
+
+    function loop(now) {
+      var alive = zapping && rect ? drawZap(now)
+                : rect && inten > 0.015 ? drawSparks(now)
+                : false;
+      if (alive) { requestAnimationFrame(loop); return; }
+      running = false;
+      fc.clearRect(0, 0, W, H);
+    }
+    function ensure() {
+      if (running) return;
+      running = true;
+      requestAnimationFrame(loop);
+    }
+
+    function update(l, t, w, h, pb) {
+      rect = { l: l, t: t, w: w, h: h };
+      var rk = (l | 0) + ":" + (t | 0) + ":" + (w | 0);
+      if (rk !== lastRk) { lastRk = rk; lastCrackle = 0; }   // panel moved: redraw sparks now
+      // Spark intensity: a bell over the flight - silent at rest, gone as it docks.
+      inten = (pb <= 0.04 || pb >= 0.985) ? 0 : Math.sin(Math.PI * clamp01((pb - 0.04) / 0.92));
+      // Arrival zap: fires once as the panel locks in; re-arms if you scrub back out.
+      if (armed && prevPb < 0.96 && pb >= 0.96) {
+        armed = false; zapping = true; zapT0 = performance.now();
+        window.F1_ZAPS = (window.F1_ZAPS || 0) + 1;   // debug/testing counter
+        [canvas, socials].forEach(function (el) {
+          if (!el) return;
+          el.classList.add("pip-zap");
+          setTimeout(function () { el.classList.remove("pip-zap"); }, 380);
+        });
+      }
+      if (pb < 0.8) armed = true;
+      prevPb = pb;
+      if (zapping || inten > 0.015) ensure();
+    }
+    return { update: update };
+  })();
+
   // Shrink the docked bike (canvas, holding the final side frame) into a 9:16 corner overlay,
   // cross-fade the socials clip in, and fade Eb1ke + the headline up behind it.
   var lastPb = -1;
@@ -179,9 +309,17 @@
     var endH = Math.max(210, Math.min(380, vh * 0.36));
     var endW = endH * 9 / 16;
     var w = lerp(vw, endW, e), h = lerp(vh, endH, e);
-    var left = lerp(0, vw - endW - margin, e), top = lerp(0, vh - endH - margin, e);
+    // Curved flight: the horizontal travel LAGS the shrink (ex <= e keeps the
+    // right edge on-screen), so the panel sinks first, then glides right into
+    // the corner - a swoop instead of a straight-line resize.
+    var ex = smoother(clamp01((pb - 0.2) / 0.8));
+    // Settle: swing a few px past the corner around pb~0.9, ease back to exact.
+    var settle = Math.sin(Math.PI * clamp01((pb - 0.8) / 0.2)) * Math.min(10, margin * 0.5);
+    var left = lerp(0, vw - endW - margin, ex) + settle;
+    var top  = lerp(0, vh - endH - margin, e) + settle;
     setRect(canvas, left, top, w, h);
     setRect(socials, left, top, w, h);
+    fx.update(left, top, w, h, pb);
     canvas.classList.toggle("is-pip", pb > 0.02);
 
     if (socials) {

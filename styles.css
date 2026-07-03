@@ -587,6 +587,23 @@ a { text-decoration: none; color: inherit; }
   border: 1px solid rgba(255, 255, 255, 0.18);
   box-shadow: 0 22px 54px rgba(0, 0, 0, 0.5), 0 2px 10px rgba(0, 0, 0, 0.3);
   background: #000;
+  transition: box-shadow 0.25s var(--ease);   /* lets the pip-zap pulse ease in/out */
+}
+/* Electric dock fx (hero-bg-sync.js): spark border + arrival zap drawn on an
+   overlay canvas riding above the travelling PiP. */
+.videosec__dockfx {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+/* A short accent glow pulse on the panel the moment it locks into the corner. */
+.videosec__media.pip-zap,
+.videosec__socials.pip-zap {
+  box-shadow:
+    0 0 0 1px rgba(224, 43, 30, 0.55),
+    0 0 46px rgba(224, 43, 30, 0.5),
+    0 22px 54px rgba(0, 0, 0, 0.5);
 }
 /* Headline that resolves on the Eb1ke takeover video */
 .videosec__takeover {
