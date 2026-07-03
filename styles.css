@@ -610,6 +610,30 @@ a { text-decoration: none; color: inherit; }
   color: #ffffff;
   text-shadow: 0 2px 44px rgba(0, 0, 0, 0.55);
 }
+/* Hero digital decode (typing.js): the next few characters flicker through
+   random glyphs in the accent red before locking into white text. */
+.vt-scr {
+  color: var(--accent);
+  opacity: 0.85;
+  text-shadow: 0 0 18px rgba(224, 43, 30, 0.45);
+}
+/* Blinking caret for the two videosec headlines.
+   Inherits currentColor, so it stays on-theme with each headline. */
+.vt-caret {
+  display: inline-block;
+  width: 0.09em;
+  height: 0.82em;
+  margin-left: 0.06em;
+  vertical-align: -0.05em;
+  background: currentColor;
+  border-radius: 1px;
+  opacity: 0;                 /* invisible until typing begins */
+}
+.vt-caret.is-live { animation: vt-blink 0.9s steps(1, end) infinite; }
+.vt-caret.is-done { opacity: 1; animation: vt-fade 0.5s var(--ease) 0.55s forwards; }
+@keyframes vt-blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+@keyframes vt-fade  { to { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .vt-caret { display: none; } }
 /* "Socials" label that rides just above the docked 9:16 overlay */
 .videosec__pip-label {
   position: absolute;
