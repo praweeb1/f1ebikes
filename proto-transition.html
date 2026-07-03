@@ -3,10 +3,11 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Transition prototypes - F1 Ebikes</title>
+<meta name="theme-color" content="#0a0a0a" />
+<title>Transition prototypes v2 - F1 Ebikes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
 <link rel="icon" type="image/png" href="Images/F2.png" />
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -18,10 +19,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 18px;
-    padding: 28px 16px 40px;
+    gap: 16px;
+    padding: 24px 14px 40px;
   }
-  h1 { font-size: 1.05rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; }
+  h1 { font-size: 1rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; }
   h1 span { color: #e02b1e; }
   .chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; max-width: 980px; }
   .chip {
@@ -30,19 +31,18 @@
     background: #161616;
     border: 1px solid rgba(255,255,255,0.14);
     border-radius: 999px;
-    padding: 8px 14px;
+    padding: 9px 14px;
     cursor: pointer;
     transition: all 0.2s;
   }
   .chip:hover { border-color: rgba(255,255,255,0.4); }
   .chip.on { background: #e02b1e; border-color: #e02b1e; color: #fff; }
-  .desc { font-size: 0.82rem; color: rgba(255,255,255,0.55); max-width: 760px; text-align: center; min-height: 2.4em; }
+  .desc { font-size: 0.82rem; color: rgba(255,255,255,0.55); max-width: 740px; text-align: center; min-height: 2.5em; line-height: 1.45; }
 
   /* ---- the miniature hero stage ---- */
-  .stage-wrap { position: relative; }
   .stage {
     position: relative;
-    width: min(960px, 92vw);
+    width: min(960px, 94vw);
     aspect-ratio: 16 / 9;
     background: #111;
     border-radius: 14px;
@@ -51,23 +51,40 @@
   }
   .stage > * { position: absolute; }
   .backdrop { inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; }
-  .backdim { inset: 0; background: rgba(0,0,0,0.55); opacity: 0; }
-  .bike { inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  .storm, .ghost, .cornerglow, .stormdim { pointer-events: none; }
+  .backdim { inset: 0; background: rgba(0,0,0,0.62); opacity: 0; }
+  .headline {
+    left: 5%; bottom: 7%;
+    font-weight: 800; text-transform: uppercase; line-height: 0.98; letter-spacing: -0.02em;
+    font-size: clamp(1.1rem, 5.2cqw, 3.2rem);
+    font-size: 5.2cqw;
+    text-shadow: 0 2px 30px rgba(0,0,0,0.55);
+    opacity: 0;
+    max-width: 55%;
+  }
+  .bike { inset: 0; width: 100%; height: 100%; object-fit: cover; transform-origin: 50% 50%; }
+  .storm, .ghostc, .pad, .stormdim { pointer-events: none; }
   .storm {
     object-fit: cover;
     mix-blend-mode: screen;
     filter: hue-rotate(178deg) saturate(1.7) brightness(0.58) contrast(2.1);
     opacity: 0;
   }
-  .stormdim, .ghost, .cornerglow {
+  .ghostc {
+    mix-blend-mode: screen;
+    filter: hue-rotate(178deg) saturate(1.7) brightness(0.5) contrast(2) blur(1.5px);
+    opacity: 0;
+  }
+  .stormdim {
     background: radial-gradient(circle at 50% 50%,
       rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.3) 44%, rgba(0,0,0,0) 70%);
     opacity: 0;
   }
-  .ghost, .cornerglow {
-    background: radial-gradient(circle at 50% 50%,
-      rgba(224,43,30,0.5) 0%, rgba(224,43,30,0.18) 40%, rgba(224,43,30,0) 68%);
+  /* variant 5: neon "landing pad" frame waiting at the portrait's spot */
+  .pad {
+    border: 1.5px solid rgba(224,43,30,0.9);
+    border-radius: 12px;
+    box-shadow: 0 0 18px rgba(224,43,30,0.55), inset 0 0 14px rgba(224,43,30,0.3);
+    opacity: 0;
   }
   .pip {
     object-fit: cover;
@@ -75,64 +92,66 @@
     border: 1px solid rgba(255,255,255,0.18);
     box-shadow: 0 16px 40px rgba(0,0,0,0.5);
     opacity: 0;
+    transform-origin: 50% 60%;
   }
-  .flash { inset: 0; background: radial-gradient(circle, #fff 0%, rgba(224,43,30,0.85) 45%, rgba(224,43,30,0.4) 100%); opacity: 0; }
-  .bar {
-    left: 0; bottom: 0; height: 3px; width: 0%;
-    background: #e02b1e; border-radius: 2px;
-  }
-  .controls { display: flex; gap: 10px; align-items: center; }
+  .flash { inset: 0; opacity: 0; }
+  .bar { left: 0; bottom: 0; height: 3px; width: 0%; background: #e02b1e; border-radius: 2px; }
+
+  .controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: center; }
   .btn {
     font: 700 0.8rem "Archivo", sans-serif;
     color: #fff; background: #b2261c; border: 0; border-radius: 8px;
-    padding: 10px 22px; cursor: pointer; text-transform: uppercase; letter-spacing: 0.06em;
+    padding: 10px 20px; cursor: pointer; text-transform: uppercase; letter-spacing: 0.06em;
   }
   .btn:hover { background: #e02b1e; }
-  .hint { font-size: 0.72rem; color: rgba(255,255,255,0.35); }
+  .btn.ghostbtn { background: #1c1c1c; border: 1px solid rgba(255,255,255,0.2); }
+  .btn.ghostbtn.on { background: #fff; color: #0a0a0a; }
+  .hint { font-size: 0.72rem; color: rgba(255,255,255,0.35); width: 100%; text-align: center; }
 </style>
 </head>
 <body>
-  <h1>Transition prototypes <span>/ pick one</span></h1>
+  <h1>Transition prototypes <span>v2 / pick one</span></h1>
   <div class="chips" id="chips"></div>
   <div class="desc" id="desc"></div>
 
-  <div class="stage-wrap">
-    <div class="stage" id="stage">
-      <img class="backdrop" id="backdrop" src="assets/eb1ke-poster.jpg" alt="" />
-      <div class="backdim" id="backdim"></div>
-      <img class="bike" id="bike" src="assets/bike-seq-360/frame-360.jpg" alt="" />
-      <div class="cornerglow" id="cornerglow"></div>
-      <div class="ghost" id="ghost"></div>
-      <div class="stormdim" id="stormdim"></div>
-      <!-- two storm copies injected by JS after the clip blob loads -->
-      <video class="pip" id="pip" muted loop playsinline preload="auto" src="Videos/tiktok-web.mp4"></video>
-      <div class="flash" id="flash"></div>
-      <div class="bar" id="bar"></div>
-    </div>
+  <div class="stage" id="stage">
+    <img class="backdrop" id="backdrop" src="assets/eb1ke-poster.jpg" alt="" />
+    <div class="backdim" id="backdim"></div>
+    <div class="headline" id="headline">A new era of<br />riding starts here.</div>
+    <img class="bike" id="bike" src="assets/bike-seq-360/frame-360.jpg" alt="" />
+    <div class="pad" id="pad"></div>
+    <canvas class="ghostc" id="ghostc"></canvas>
+    <div class="stormdim" id="stormdim"></div>
+    <!-- storm video copies injected by JS after the clip blob loads -->
+    <video class="pip" id="pip" muted loop playsinline preload="auto" src="Videos/tiktok-web.mp4"></video>
+    <div class="flash" id="flash"></div>
+    <div class="bar" id="bar"></div>
   </div>
 
   <div class="controls">
     <button class="btn" id="replay">Replay</button>
-    <span class="hint">auto-replays &middot; same base timeline in every variant, only the chosen tweak differs</span>
+    <button class="btn ghostbtn" id="slow">Slow-mo: off</button>
   </div>
+  <div class="hint">auto-replays &middot; same base timeline in every variant, only the chosen tweak differs &middot; slow-mo helps judge the quick beats (1 &amp; 2)</div>
 
 <script>
 (function () {
   var VARIANTS = [
     { name: "0 · Current", desc: "The transition exactly as it is on the site today (miniature, time-based replay). Baseline for comparison." },
-    { name: "1 · Impact flash + shake", desc: "A single ~110ms red-white flash and a 3px screen shake fire at the exact moment the bike vanishes - the lightning now CAUSES the disappearance." },
-    { name: "2 · Materialize pop", desc: "The 9:16 portrait scales 0.94 → 1.03 → 1 as it appears, synced with the arrival strikes - conjured by the lightning instead of politely fading in." },
-    { name: "3 · Storm field", desc: "The storm runs ~1.45× bigger through the first half and the two bolt copies are offset from each other - reads as a storm system, not one wandering spark." },
-    { name: "4 · Hop afterimages", desc: "Each teleport-hop leaves a fading crimson afterglow at the previous position - the jumps read as electric re-strikes, not stutter." },
-    { name: "5 · Destination glow", desc: "A faint pulsing glow marks the bottom-right corner from early in the travel - the eye knows where the lightning is headed before it lands." },
+    { name: "1 · Impact flash + shake", desc: "The bike OVERLOADS (brightens + swells for a beat), then a white crack -> red bloom flash and a decaying thump-shake fire at the instant it vanishes. The strike now causes the disappearance." },
+    { name: "2 · Materialize pop", desc: "The portrait is conjured: slides up 6px while scaling 0.94 -> 1.03 -> 1, with a red electric edge-glow that dissipates as it settles. Synced with the arrival strikes." },
+    { name: "3 · Storm field", desc: "Three bolt layers: main strike, a counter-rotated twin, and a big faint background layer for depth - plus per-hop drift between them. A storm system, not one wandering spark." },
+    { name: "4 · Hop afterimages", desc: "Each teleport-hop leaves a REAL afterimage - a frozen, blurred snapshot of the actual bolt - burning away at the previous position. Jumps read as electric re-strikes." },
+    { name: "5 · Destination pad", desc: "A flickering neon 9:16 frame waits at the corner from early in the travel - a literal landing pad previewing exactly where the portrait will materialise." },
   ];
   var variant = 0;
 
   var stage = document.getElementById("stage");
   var els = {};
-  ["backdrop","backdim","bike","cornerglow","ghost","stormdim","pip","flash","bar"].forEach(function (id) {
+  ["backdrop","backdim","headline","bike","pad","ghostc","stormdim","pip","flash","bar"].forEach(function (id) {
     els[id] = document.getElementById(id);
   });
+  var gctx = els.ghostc.getContext("2d");
   var storms = [];
 
   // chips
@@ -150,12 +169,12 @@
     desc.textContent = VARIANTS[variant].desc;
   }
 
-  // load the lightning clip as a blob (dev server has no range support), two copies
+  // load the lightning clip as a blob, three copies (3rd used by variant 3 only)
   fetch("Images/Lightnting/0_Lightning_Electric_3840x2160.mp4")
     .then(function (r) { return r.blob(); })
     .then(function (b) {
       var url = URL.createObjectURL(b);
-      for (var i = 0; i < 2; i++) {
+      for (var i = 0; i < 3; i++) {
         var v = document.createElement("video");
         v.className = "storm";
         v.muted = true; v.loop = true;
@@ -164,11 +183,8 @@
         v.src = url;
         stage.insertBefore(v, els.pip);
         v.load();
-        var p = v.play(); if (p && p.catch) p.catch(function () {});
         storms.push(v);
       }
-      storms[1].style.transform = "scaleX(-1)";
-      try { storms[1].currentTime = 1.0; } catch (e) {}
       replay();
     });
 
@@ -180,7 +196,7 @@
     return (s - Math.floor(s)) * 2 - 1;
   }
 
-  var DUR = 3600, raf = 0, t0 = 0, lastHop = -1, ghostAt = 0, replayTimer = 0;
+  var BASE = 3600, speed = 1, raf = 0, t0 = 0, lastHop = -1, ghostAt = 0, replayTimer = 0;
 
   function geom() {
     var W = stage.clientWidth, H = stage.clientHeight;
@@ -198,30 +214,45 @@
 
   function frame(now) {
     if (!t0) t0 = now;
-    var t = clamp01((now - t0) / DUR);
+    var t = clamp01((now - t0) / (BASE / speed));
     var g = geom();
     var pipCx = g.pip.l + g.pip.w / 2, pipCy = g.pip.t + g.pip.h / 2;
     var pipSize = Math.max(g.pip.w, g.pip.h) * 2.2;
 
     els.bar.style.width = (t * 100).toFixed(1) + "%";
+    els.headline.style.fontSize = (g.W * 0.052) + "px";
 
     // ---- bike zaps away ----
     var bikeO = 1 - clamp01((t - 0.1) / 0.09);
     els.bike.style.opacity = bikeO.toFixed(3);
 
-    // variant 1: impact flash + shake at the vanish moment
+    // variant 1: overload -> white crack -> red bloom -> thump shake
     if (variant === 1) {
-      var f = Math.exp(-Math.pow((t - 0.145) / 0.018, 2));
-      els.flash.style.opacity = (f * 0.9).toFixed(3);
-      var sh = t > 0.13 && t < 0.22 ? (1 - (t - 0.13) / 0.09) * 3.2 : 0;
+      var ov = clamp01((t - 0.06) / 0.05) * (bikeO > 0 ? 1 : 0);            // overload while still visible
+      els.bike.style.filter = ov > 0 ? "brightness(" + (1 + ov * 1.6).toFixed(2) + ") saturate(" + (1 - ov * 0.5).toFixed(2) + ")" : "none";
+      els.bike.style.transform = ov > 0 ? "scale(" + (1 + ov * 0.022).toFixed(4) + ")" : "none";
+      var crack = Math.exp(-Math.pow((t - 0.135) / 0.008, 2));              // 1-frame white crack
+      var bloom = Math.exp(-Math.pow((t - 0.155) / 0.024, 2));              // red bloom decay
+      els.flash.style.background = crack > bloom
+        ? "#fff"
+        : "radial-gradient(circle, rgba(255,235,230,0.95) 0%, rgba(224,43,30,0.8) 45%, rgba(224,43,30,0.3) 100%)";
+      els.flash.style.opacity = Math.max(crack, bloom * 0.85).toFixed(3);
+      var sh = t > 0.13 && t < 0.26 ? Math.exp(-(t - 0.13) * 26) * 5 : 0;   // decaying thump
       stage.style.transform = sh > 0.05
-        ? "translate(" + (jit((t * 331) | 0, 5) * sh).toFixed(1) + "px," + (jit((t * 331) | 0, 7) * sh).toFixed(1) + "px)"
+        ? "translate(" + (Math.sin(now / 9) * sh).toFixed(1) + "px," + (Math.cos(now / 7) * sh * 0.7).toFixed(1) + "px)"
         : "none";
-    } else { els.flash.style.opacity = 0; stage.style.transform = "none"; }
+    } else {
+      els.flash.style.opacity = 0;
+      stage.style.transform = "none";
+      els.bike.style.filter = "none";
+      els.bike.style.transform = "none";
+    }
 
-    // ---- backdrop rises ----
-    els.backdrop.style.opacity = clamp01((t - 0.12) / 0.3).toFixed(3);
-    els.backdim.style.opacity = (clamp01((t - 0.12) / 0.3) * 0.9).toFixed(3);
+    // ---- backdrop + headline rise ----
+    var eb = clamp01((t - 0.12) / 0.3);
+    els.backdrop.style.opacity = eb.toFixed(3);
+    els.backdim.style.opacity = eb.toFixed(3);
+    els.headline.style.opacity = eb.toFixed(3);
 
     // ---- storm hops to the corner ----
     var tt = smoother(clamp01((t - 0.14) / 0.6));
@@ -235,42 +266,65 @@
     var on = clamp01((t - 0.08) / 0.08);
     var off = clamp01((t - 0.8) / 0.05);
 
-    // flourish: strikes around the pip at arrival
     var flourish = clamp01((t - 0.8) / 0.18);
     var o;
     if (flourish > 0) {
-      cx = pipCx; cy = pipCy; size = pipSize * (variant === 3 ? 1.1 : 1);
+      cx = pipCx; cy = pipCy; size = pipSize * (variant === 3 ? 1.12 : 1);
       o = flourish < 0.7 ? 1 : 1 - (flourish - 0.7) / 0.3;
     } else {
       o = on * (1 - off);
     }
+
+    // place the storm layers
+    var useThird = variant === 3;
     storms.forEach(function (v, i) {
-      var ox = 0, oy = 0;
-      if (variant === 3 && i === 1) { ox = size * 0.16 * (1 - q); oy = -size * 0.12 * (1 - q); }
-      put(v, cx + ox, cy + oy, size, o.toFixed(3));
+      if (i === 2 && !useThird) { v.style.opacity = 0; return; }
+      var ox = 0, oy = 0, so = o, ss = size;
+      if (i === 1) {
+        v.style.transform = useThird ? "rotate(88deg)" : "scaleX(-1)";
+        if (useThird) { ox = size * (0.14 + 0.05 * jit(n, 3)) * (1 - q); oy = -size * (0.1 + 0.04 * jit(n, 4)) * (1 - q); }
+      }
+      if (i === 2) {           // big faint background layer for depth
+        v.style.transform = "scaleX(-1) rotate(-12deg)";
+        ss = size * 1.9; so = o * 0.35;
+        ox = -size * 0.1 * (1 - q); oy = size * 0.08 * (1 - q);
+      }
+      put(v, cx + ox, cy + oy, ss, so.toFixed(3));
     });
     put(els.stormdim, cx, cy, size * 1.2, (o * 0.5).toFixed(3));
 
-    // variant 4: fading afterglow at the previous hop
+    // variant 4: REAL afterimage - freeze the actual bolt pixels at the previous hop
     if (variant === 4) {
-      if (n !== lastHop && mid && flourish === 0) {
+      if (n !== lastHop && mid && flourish === 0 && storms[0] && storms[0].videoWidth) {
         var pn = Math.max(0, n - 1), pq = pn / STEPS;
         var px = lerp(g.W / 2, pipCx, pq) + jit(pn, 1) * g.W * 0.025;
         var py = lerp(g.H / 2, pipCy, pq) + jit(pn, 2) * g.H * 0.025;
-        put(els.ghost, px, py, size * 0.9, 0.85);
+        var gs = Math.round(size * 0.95);
+        els.ghostc.width = gs; els.ghostc.height = gs;
+        // draw the current bolt frame, centre-cropped to square (mimics object-fit: cover)
+        var vw = storms[0].videoWidth, vh = storms[0].videoHeight, side = Math.min(vw, vh);
+        gctx.drawImage(storms[0], (vw - side) / 2, (vh - side) / 2, side, side, 0, 0, gs, gs);
+        els.ghostc.style.left = (px - gs / 2) + "px";
+        els.ghostc.style.top = (py - gs / 2) + "px";
         ghostAt = now;
         lastHop = n;
       }
-      var ga = clamp01(1 - (now - ghostAt) / 480);
-      els.ghost.style.opacity = (0.85 * ga * (flourish > 0 ? 0 : 1)).toFixed(3);
-    } else { els.ghost.style.opacity = 0; }
+      var ga = clamp01(1 - (now - ghostAt) / (520 / speed));
+      els.ghostc.style.opacity = (ghostAt ? 0.75 * ga * (flourish > 0 ? 0 : 1) : 0).toFixed(3);
+    } else { els.ghostc.style.opacity = 0; }
 
-    // variant 5: destination glow at the corner
+    // variant 5: neon landing-pad frame at the portrait's future spot
     if (variant === 5) {
-      var gl = clamp01((t - 0.2) / 0.12) * (1 - clamp01((t - 0.78) / 0.08));
-      var pulse = 0.75 + 0.25 * Math.sin(now / 180);
-      put(els.cornerglow, pipCx, pipCy, pipSize * 1.25, (gl * 0.85 * pulse).toFixed(3));
-    } else { els.cornerglow.style.opacity = 0; }
+      var pd = clamp01((t - 0.18) / 0.1) * (1 - clamp01((t - 0.79) / 0.06));
+      // flicker: layered sines + occasional dropout, like a neon tube warming up
+      var fl = 0.62 + 0.38 * Math.abs(Math.sin(now / 130) * Math.sin(now / 47));
+      if (jit((now / 90) | 0, 6) > 0.82) fl *= 0.25;
+      els.pad.style.left = g.pip.l + "px";
+      els.pad.style.top = g.pip.t + "px";
+      els.pad.style.width = g.pip.w + "px";
+      els.pad.style.height = g.pip.h + "px";
+      els.pad.style.opacity = (pd * fl).toFixed(3);
+    } else { els.pad.style.opacity = 0; }
 
     // ---- portrait appears ----
     var u = clamp01((t - 0.8) / 0.12);
@@ -281,11 +335,17 @@
     els.pip.style.opacity = u.toFixed(3);
     if (variant === 2 && u > 0) {
       var s = u < 0.62 ? lerp(0.94, 1.03, smoother(u / 0.62)) : lerp(1.03, 1, smoother((u - 0.62) / 0.38));
-      els.pip.style.transform = "scale(" + s.toFixed(4) + ")";
-    } else { els.pip.style.transform = "none"; }
+      var dy = (1 - smoother(u)) * 6;
+      els.pip.style.transform = "translateY(" + dy.toFixed(1) + "px) scale(" + s.toFixed(4) + ")";
+      var ea = (1 - u) * 0.7;   // electric edge glow dissipates as it settles
+      els.pip.style.boxShadow = "0 0 0 1px rgba(224,43,30," + ea.toFixed(2) + "), 0 0 " + (26 * ea).toFixed(0) + "px rgba(224,43,30," + (ea * 0.8).toFixed(2) + "), 0 16px 40px rgba(0,0,0,0.5)";
+    } else {
+      els.pip.style.transform = "none";
+      els.pip.style.boxShadow = "";
+    }
 
     if (t < 1) { raf = requestAnimationFrame(frame); }
-    else { replayTimer = setTimeout(replay, 1400); }   // hold the end state, then loop
+    else { replayTimer = setTimeout(replay, 1500); }
   }
 
   function replay() {
@@ -293,14 +353,28 @@
     clearTimeout(replayTimer);
     t0 = 0; lastHop = -1; ghostAt = 0;
     if (storms[0]) {
-      try { storms[0].currentTime = 0; storms[1].currentTime = 1.0; } catch (e) {}
-      storms.forEach(function (v) { var p = v.play(); if (p && p.catch) p.catch(function () {}); });
+      try {
+        storms[0].currentTime = 0;
+        storms[1].currentTime = 1.0;
+        storms[2].currentTime = 0.55;
+      } catch (e) {}
+      storms.forEach(function (v) {
+        v.playbackRate = speed;
+        var p = v.play(); if (p && p.catch) p.catch(function () {});
+      });
     }
     var pp = els.pip.play(); if (pp && pp.catch) pp.catch(function () {});
     raf = requestAnimationFrame(frame);
   }
 
   document.getElementById("replay").addEventListener("click", replay);
+  var slowBtn = document.getElementById("slow");
+  slowBtn.addEventListener("click", function () {
+    speed = speed === 1 ? 0.35 : 1;
+    slowBtn.textContent = "Slow-mo: " + (speed === 1 ? "off" : "on");
+    slowBtn.classList.toggle("on", speed !== 1);
+    replay();
+  });
   sync();
 })();
 </script>
