@@ -79,6 +79,14 @@
       rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.3) 44%, rgba(0,0,0,0) 70%);
     opacity: 0;
   }
+  /* variant 6: dark rim burning in around the 16:9's border, so the
+     screen-blended bolts read over the white studio while they roam */
+  .rim {
+    inset: 0;
+    box-shadow: inset 0 0 150px 55px rgba(0, 0, 0, 0.94);
+    opacity: 0;
+    pointer-events: none;
+  }
   /* variant 5: neon "landing pad" frame waiting at the portrait's spot */
   .pad {
     border: 1.5px solid rgba(224,43,30,0.9);
@@ -119,6 +127,7 @@
     <div class="backdim" id="backdim"></div>
     <div class="headline" id="headline">A new era of<br />riding starts here.</div>
     <img class="bike" id="bike" src="assets/bike-seq-360/frame-360.jpg" alt="" />
+    <div class="rim" id="rim"></div>
     <div class="pad" id="pad"></div>
     <canvas class="ghostc" id="ghostc"></canvas>
     <div class="stormdim" id="stormdim"></div>
@@ -143,12 +152,13 @@
     { name: "3 · Storm field", desc: "Three bolt layers: main strike, a counter-rotated twin, and a big faint background layer for depth - plus per-hop drift between them. A storm system, not one wandering spark." },
     { name: "4 · Hop afterimages", desc: "Each teleport-hop leaves a REAL afterimage - a frozen, blurred snapshot of the actual bolt - burning away at the previous position. Jumps read as electric re-strikes." },
     { name: "5 · Destination pad", desc: "A flickering neon 9:16 frame waits at the corner from early in the travel - a literal landing pad previewing exactly where the portrait will materialise." },
+    { name: "6 · Quick zap strike", desc: "FAST (~1.9s, half the others): bolts roam around the 16:9's border, a white crack flash - the bike is GONE - and the portrait is already bottom-right, shaking off red lightning as it settles." },
   ];
   var variant = 0;
 
   var stage = document.getElementById("stage");
   var els = {};
-  ["backdrop","backdim","headline","bike","pad","ghostc","stormdim","pip","flash","bar"].forEach(function (id) {
+  ["backdrop","backdim","headline","bike","rim","pad","ghostc","stormdim","pip","flash","bar"].forEach(function (id) {
     els[id] = document.getElementById(id);
   });
   var gctx = els.ghostc.getContext("2d");
@@ -197,6 +207,86 @@
   }
 
   var BASE = 3600, speed = 1, raf = 0, t0 = 0, lastHop = -1, ghostAt = 0, replayTimer = 0;
+  // ?holdat=0.6 freezes the timeline at that point (bolts keep playing) - handy
+  // for studying a single beat.
+  var HOLD = parseFloat(new URLSearchParams(location.search).get("holdat"));
+
+  // Walk the stage border clockwise from the top-left; u in [0,1) -> [x, y].
+  function perim(u, g) {
+    var W = g.W, H = g.H, d = (u - Math.floor(u)) * 2 * (W + H);
+    if (d < W) return [d, 0];
+    d -= W;
+    if (d < H) return [W, d];
+    d -= H;
+    if (d < W) return [W - d, H];
+    d -= W;
+    return [0, H - d];
+  }
+
+  // ---- variant 6: quick zap strike (its own fast timeline) ----
+  function frame6(t, now, g) {
+    var pip = g.pip;
+    var pipCx = pip.l + pip.w / 2, pipCy = pip.t + pip.h / 2;
+    var pipSize = Math.max(pip.w, pip.h) * 2.1;
+    var FLASH_T = 0.44;
+
+    els.ghostc.style.opacity = 0;
+    els.pad.style.opacity = 0;
+
+    // A: bike on screen, bolts roaming its border. The dark rim burns in with
+    // them - screen-blended bolts are invisible over the white studio without it.
+    els.bike.style.opacity = t < FLASH_T ? 1 : 0;
+    els.bike.style.filter = "none";
+    els.bike.style.transform = "none";
+    var roam = t < FLASH_T ? clamp01(t / 0.07) : 0;
+    els.rim.style.opacity = roam.toFixed(3);
+
+    // B: white crack flash - the vanish moment
+    var crack = Math.exp(-Math.pow((t - FLASH_T) / 0.012, 2));
+    els.flash.style.background = "#fff";
+    els.flash.style.opacity = crack.toFixed(3);
+    stage.style.transform = "none";
+
+    // backdrop + headline snap up right behind the flash
+    var eb = clamp01((t - FLASH_T) / 0.1);
+    els.backdrop.style.opacity = eb.toFixed(3);
+    els.backdim.style.opacity = eb.toFixed(3);
+    els.headline.style.opacity = eb.toFixed(3);
+
+    // C: portrait is already bottom-right, shaking off red lightning
+    var u = clamp01((t - 0.47) / 0.05);
+    els.pip.style.left = pip.l + "px";
+    els.pip.style.top = pip.t + "px";
+    els.pip.style.width = pip.w + "px";
+    els.pip.style.height = pip.h + "px";
+    els.pip.style.opacity = u.toFixed(3);
+    els.pip.style.boxShadow = "";
+    var sh = t > 0.47 ? Math.exp(-(t - 0.47) * 9) * 8 : 0;
+    els.pip.style.transform = sh > 0.08
+      ? "translate(" + (Math.sin(now / 8) * sh).toFixed(1) + "px," + (Math.cos(now / 6.3) * sh * 0.8).toFixed(1) + "px)"
+      : "none";
+
+    // storm copies: roam the border first, then all three cluster around the
+    // portrait, flickering off-phase as the shake settles
+    var za = t >= 0.47 ? clamp01((t - 0.47) / 0.03) * clamp01((0.95 - t) / 0.12) : 0;
+    var spots = [[0.55, 0.28], [-0.55, -0.3], [0.05, -0.55]];   // around the pip (x*w, y*h)
+    storms.forEach(function (v, i) {
+      if (roam > 0) {
+        if (i === 1) v.style.transform = "scaleX(-1)";
+        else if (i === 2) v.style.transform = "rotate(90deg)";
+        else v.style.transform = "none";
+        var pt = perim(t * 1.35 + i / 3, g);
+        put(v, pt[0], pt[1], Math.min(g.W, g.H) * 0.46, roam.toFixed(3));
+      } else if (za > 0) {
+        v.style.transform = i === 1 ? "scaleX(-1)" : i === 2 ? "rotate(90deg)" : "none";
+        var fl = 0.65 + 0.35 * Math.sin(now / 38 + i * 2.1);
+        put(v, pipCx + spots[i][0] * pip.w, pipCy + spots[i][1] * pip.h, pipSize, (za * fl).toFixed(3));
+      } else {
+        v.style.opacity = 0;
+      }
+    });
+    put(els.stormdim, pipCx, pipCy, pipSize * 1.5, (za * 0.6).toFixed(3));
+  }
 
   function geom() {
     var W = stage.clientWidth, H = stage.clientHeight;
@@ -214,13 +304,23 @@
 
   function frame(now) {
     if (!t0) t0 = now;
-    var t = clamp01((now - t0) / (BASE / speed));
+    var dur = variant === 6 ? 1900 : BASE;
+    var t = clamp01((now - t0) / (dur / speed));
+    if (!isNaN(HOLD)) t = Math.min(t, HOLD);
     var g = geom();
     var pipCx = g.pip.l + g.pip.w / 2, pipCy = g.pip.t + g.pip.h / 2;
     var pipSize = Math.max(g.pip.w, g.pip.h) * 2.2;
 
     els.bar.style.width = (t * 100).toFixed(1) + "%";
     els.headline.style.fontSize = (g.W * 0.052) + "px";
+
+    if (variant === 6) {
+      frame6(t, now, g);
+      if (t < 1) { raf = requestAnimationFrame(frame); }
+      else { replayTimer = setTimeout(replay, 1500); }
+      return;
+    }
+    els.rim.style.opacity = 0;
 
     // ---- bike zaps away ----
     var bikeO = 1 - clamp01((t - 0.1) / 0.09);
@@ -354,12 +454,13 @@
     t0 = 0; lastHop = -1; ghostAt = 0;
     if (storms[0]) {
       try {
-        storms[0].currentTime = 0;
-        storms[1].currentTime = 1.0;
-        storms[2].currentTime = 0.55;
+        // variant 6 plays the clip at 2x with tighter stagger, so at least two
+        // bolts are alive at any instant of the fast border roam
+        var seeds = variant === 6 ? [0, 0.7, 1.35] : [0, 1.0, 0.55];
+        storms.forEach(function (v, i) { v.currentTime = seeds[i]; });
       } catch (e) {}
       storms.forEach(function (v) {
-        v.playbackRate = speed;
+        v.playbackRate = speed * (variant === 6 ? 2 : 1);
         var p = v.play(); if (p && p.catch) p.catch(function () {});
       });
     }
