@@ -8,3 +8,6 @@ tunnel.log
 
 # Backups & scratch
 _backups/
+
+# IDE
+.vs/

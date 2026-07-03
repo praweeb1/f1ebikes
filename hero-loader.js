@@ -15,6 +15,17 @@
   var labelT = document.getElementById("btl-label");
   var root   = document.documentElement;
 
+  // On mobile / iOS the hero is a plain autoplay clip (is-lite mode) - there are no
+  // scrub frames to decode, so the intro loader only adds startup delay. Skip it
+  // entirely on phones: remove the loader and never lock scroll. Same detection as
+  // hero-bg-sync.js's lite path so the two stay in sync.
+  var isIOS = /iP(hone|ad|od)/i.test(navigator.userAgent) ||
+              (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  if (window.matchMedia("(max-width: 860px)").matches || isIOS) {
+    if (loader.parentNode) loader.parentNode.removeChild(loader);
+    return;   // returns before batt-locked is ever added - scroll is free from the start
+  }
+
   var reduce = F1.reducedMotion();
   var done = false;
 
